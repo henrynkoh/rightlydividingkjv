@@ -1,0 +1,641 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Content Dashboard – Rightly Dividing KJV</title>
+  <style>
+    :root {
+      --gold: #c8a96e; --dark: #0d1117; --dark2: #161b22; --dark3: #1c2333;
+      --text: #e6edf3; --muted: #8b949e; --green: #3fb950; --red: #f85149; --blue: #58a6ff;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: -apple-system, sans-serif; background: var(--dark); color: var(--text); font-size: 14px; }
+
+    header {
+      background: var(--dark2); border-bottom: 1px solid rgba(200,169,110,0.3);
+      padding: 16px 24px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px;
+    }
+    header h1 { font-size: 1.1em; color: var(--gold); }
+    header p { font-size: 0.8em; color: var(--muted); margin-top: 2px; }
+    .header-links { display: flex; gap: 10px; flex-wrap: wrap; }
+    .header-links a { color: var(--gold); font-size: 0.8em; text-decoration: none; padding: 4px 10px; border: 1px solid rgba(200,169,110,0.3); border-radius: 4px; }
+    .header-links a:hover { background: rgba(200,169,110,0.1); }
+
+    /* STATS BAR */
+    .stats-bar {
+      display: flex; gap: 16px; flex-wrap: wrap;
+      padding: 16px 24px; background: var(--dark3);
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+    }
+    .stat-pill {
+      display: flex; align-items: center; gap: 8px;
+      background: var(--dark2); border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 6px; padding: 8px 14px;
+    }
+    .stat-pill .num { font-size: 1.3em; font-weight: bold; }
+    .stat-pill .lbl { font-size: 0.72em; color: var(--muted); line-height: 1.2; }
+    .c-gold { color: var(--gold); }
+    .c-green { color: var(--green); }
+    .c-red { color: var(--red); }
+    .c-blue { color: var(--blue); }
+
+    /* CONTROLS */
+    .controls {
+      display: flex; gap: 10px; flex-wrap: wrap; align-items: center;
+      padding: 12px 24px; border-bottom: 1px solid rgba(255,255,255,0.05);
+    }
+    .controls input, .controls select {
+      background: var(--dark2); border: 1px solid rgba(255,255,255,0.1);
+      color: var(--text); padding: 7px 12px; border-radius: 5px; font-size: 0.85em;
+    }
+    .controls input { min-width: 200px; }
+    label.filter-label { font-size: 0.8em; color: var(--muted); }
+    .btn-sm {
+      background: rgba(200,169,110,0.15); border: 1px solid rgba(200,169,110,0.3);
+      color: var(--gold); padding: 7px 14px; border-radius: 5px; cursor: pointer; font-size: 0.82em;
+    }
+    .btn-sm:hover { background: rgba(200,169,110,0.25); }
+
+    /* WEEK SECTION */
+    .week-section { border-bottom: 1px solid rgba(255,255,255,0.04); }
+    .week-header {
+      display: flex; align-items: center; gap: 12px;
+      padding: 10px 24px; background: var(--dark3);
+      cursor: pointer; user-select: none;
+    }
+    .week-header:hover { background: rgba(200,169,110,0.05); }
+    .week-header h2 { font-size: 0.9em; color: var(--gold); flex: 1; }
+    .week-header .w-meta { font-size: 0.75em; color: var(--muted); }
+    .week-header .w-progress { font-size: 0.75em; color: var(--green); }
+    .chevron { color: var(--muted); font-size: 0.8em; transition: transform 0.2s; }
+    .week-header.open .chevron { transform: rotate(90deg); }
+
+    /* POST TABLE */
+    .post-table { display: none; }
+    .post-table.open { display: block; }
+    table { width: 100%; border-collapse: collapse; }
+    thead th {
+      background: var(--dark2); padding: 8px 12px; text-align: left;
+      font-size: 0.75em; color: var(--muted); letter-spacing: 0.5px;
+      position: sticky; top: 0; z-index: 1;
+    }
+    tbody tr { border-bottom: 1px solid rgba(255,255,255,0.03); }
+    tbody tr:hover { background: rgba(200,169,110,0.03); }
+    td { padding: 8px 12px; vertical-align: top; }
+    td.post-num { color: var(--muted); font-size: 0.8em; white-space: nowrap; width: 60px; }
+    td.post-title { font-size: 0.85em; max-width: 340px; }
+    td.post-verse { font-size: 0.75em; color: var(--muted); max-width: 200px; }
+
+    /* STATUS TOGGLES */
+    .status-cell { text-align: center; width: 80px; }
+    .toggle-btn {
+      display: inline-block; width: 28px; height: 28px; border-radius: 50%;
+      line-height: 28px; text-align: center; cursor: pointer;
+      border: 2px solid rgba(255,255,255,0.1); font-size: 0.85em;
+      transition: all 0.15s; user-select: none;
+    }
+    .toggle-btn.done { background: var(--green); border-color: var(--green); color: #fff; }
+    .toggle-btn.pending { background: transparent; color: var(--muted); }
+    .toggle-btn.pending:hover { border-color: var(--gold); color: var(--gold); }
+
+    /* YOUTUBE LINK INPUT */
+    .yt-input {
+      background: var(--dark2); border: 1px solid rgba(255,255,255,0.1);
+      color: var(--text); padding: 4px 8px; border-radius: 4px; font-size: 0.75em; width: 160px;
+    }
+    .yt-input:focus { outline: none; border-color: var(--gold); }
+    .yt-link-btn { color: #f85149; font-size: 0.75em; cursor: pointer; text-decoration: none; }
+    .yt-link-btn.has-link { color: var(--green); }
+
+    /* PROGRESS BAR */
+    .progress-bar { height: 3px; background: rgba(255,255,255,0.05); border-radius: 2px; overflow: hidden; width: 80px; display: inline-block; vertical-align: middle; margin-left: 6px; }
+    .progress-fill { height: 100%; background: var(--green); transition: width 0.3s; }
+
+    /* LEGEND */
+    .legend { display: flex; gap: 16px; flex-wrap: wrap; padding: 10px 24px; font-size: 0.75em; color: var(--muted); border-bottom: 1px solid rgba(255,255,255,0.05); }
+    .legend-item { display: flex; align-items: center; gap: 6px; }
+    .legend-dot { width: 12px; height: 12px; border-radius: 50%; }
+
+    /* EXPORT */
+    .export-bar { padding: 12px 24px; background: var(--dark2); border-top: 1px solid rgba(255,255,255,0.05); display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
+    .export-bar p { font-size: 0.8em; color: var(--muted); }
+  </style>
+</head>
+<body>
+
+<header>
+  <div>
+    <h1>📊 Content Dashboard – Rightly Dividing KJV</h1>
+    <p>Track all 232 posts across YouTube · Blog · HTML · 8 Weeks · 56 Days</p>
+  </div>
+  <div class="header-links">
+    <a href="index.html">🏠 Home</a>
+    <a href="https://www.youtube.com/@ohhenry6524" target="_blank">▶ YouTube</a>
+    <a href="https://rightlydividingkjv.blogspot.com" target="_blank">✍ Blog</a>
+    <a href="archive-index.html">📚 Archive</a>
+    <a href="youtube-embed-map.html">🔗 YT Mapper</a>
+    <a href="publishing-guide.html">📋 Guide</a>
+  </div>
+</header>
+
+<!-- STATS -->
+<div class="stats-bar" id="statsBar">
+  <div class="stat-pill"><span class="num c-gold" id="totalPosts">232</span><span class="lbl">Total<br>Posts</span></div>
+  <div class="stat-pill"><span class="num c-green" id="ytDone">0</span><span class="lbl">YouTube<br>✓</span></div>
+  <div class="stat-pill"><span class="num c-blue" id="blogDone">0</span><span class="lbl">Blog<br>✓</span></div>
+  <div class="stat-pill"><span class="num c-gold" id="htmlDone">232</span><span class="lbl">HTML<br>✓</span></div>
+  <div class="stat-pill"><span class="num c-red" id="pending">232</span><span class="lbl">YouTube<br>Pending</span></div>
+  <div class="stat-pill"><span class="num" style="color:#e2c98e" id="pctComplete">0%</span><span class="lbl">YouTube<br>Complete</span></div>
+</div>
+
+<!-- LEGEND -->
+<div class="legend">
+  <span class="legend-item"><span class="legend-dot" style="background:var(--green)"></span> Published / Done</span>
+  <span class="legend-item"><span class="legend-dot" style="background:rgba(255,255,255,0.1); border:1px solid rgba(255,255,255,0.2)"></span> Pending</span>
+  <span>Click ○ buttons to toggle status · YouTube links are editable · Progress saves in this session</span>
+</div>
+
+<!-- CONTROLS -->
+<div class="controls">
+  <input type="text" id="searchBox" placeholder="🔍  Search posts by title or verse..." oninput="filterPosts()">
+  <label class="filter-label">Week:</label>
+  <select id="weekFilter" onchange="filterPosts()">
+    <option value="">All Weeks</option>
+    <option value="week1">Week 1</option>
+    <option value="week2">Week 2</option>
+    <option value="week3">Week 3</option>
+    <option value="week4">Week 4</option>
+    <option value="week5">Week 5</option>
+    <option value="week6">Week 6</option>
+    <option value="week7">Week 7</option>
+    <option value="week8">Week 8</option>
+  </select>
+  <label class="filter-label">Status:</label>
+  <select id="statusFilter" onchange="filterPosts()">
+    <option value="">All</option>
+    <option value="yt-done">YouTube ✓</option>
+    <option value="yt-pending">YouTube Pending</option>
+    <option value="blog-done">Blog ✓</option>
+  </select>
+  <button class="btn-sm" onclick="markAllYT()">✓ Mark All YouTube</button>
+  <button class="btn-sm" onclick="markAllBlog()">✓ Mark All Blog</button>
+  <button class="btn-sm" onclick="expandAll()">▼ Expand All</button>
+  <button class="btn-sm" onclick="collapseAll()">▲ Collapse All</button>
+</div>
+
+<div id="mainContent"></div>
+
+<!-- EXPORT BAR -->
+<div class="export-bar">
+  <p>💡 Tip: Copy a YouTube video URL from @ohhenry6524 into the YouTube field for each post. Use the <a href="youtube-embed-map.html" style="color:var(--gold)">YouTube Mapper</a> to generate embed codes.</p>
+  <button class="btn-sm" onclick="printSummary()">🖨 Print Summary</button>
+</div>
+
+<script>
+// ====================================================
+// ALL 232 POSTS DATA
+// ====================================================
+const allPosts = [
+  // WEEK 1 (Posts 1-28)
+  {w:"week1",n:1,title:"2 Timothy 2:15 – The Command to Rightly Divide",verse:"2 Tim 2:15"},
+  {w:"week1",n:2,title:"What Is Rightly Dividing the Word?",verse:"2 Tim 2:15"},
+  {w:"week1",n:3,title:"The Importance of Context: Who, What, When",verse:"Various"},
+  {w:"week1",n:4,title:"Dispensations Defined from Scripture",verse:"Various"},
+  {w:"week1",n:5,title:"Israel vs. the Church – Key Distinctions",verse:"Rom 11:25"},
+  {w:"week1",n:6,title:"The Kingdom Gospel vs. the Gospel of Grace",verse:"1 Cor 15:1-4"},
+  {w:"week1",n:7,title:"Matthew 5-7 – Sermon on the Mount: To Whom?",verse:"Matt 5-7"},
+  {w:"week1",n:8,title:"The 12 Apostles' Commission vs. Paul's Commission",verse:"Acts 1:8; Gal 1:11-12"},
+  {w:"week1",n:9,title:"Acts 2 vs. 1 Corinthians 15:1-4 – Two Gospels?",verse:"Acts 2; 1 Cor 15:1-4"},
+  {w:"week1",n:10,title:"Water Baptism in Acts vs. the Body of Christ",verse:"1 Cor 1:17"},
+  {w:"week1",n:11,title:"John 3:16 in Its Context",verse:"John 3:16"},
+  {w:"week1",n:12,title:"Romans 3:21-26 – Righteousness of God Revealed",verse:"Rom 3:21-26"},
+  {w:"week1",n:13,title:"Ephesians 2:8-9 – Grace Through Faith",verse:"Eph 2:8-9"},
+  {w:"week1",n:14,title:"The Mystery Revealed to Paul (Eph 3:1-9)",verse:"Eph 3:1-9"},
+  {w:"week1",n:15,title:"The Body of Christ Defined (1 Cor 12)",verse:"1 Cor 12"},
+  {w:"week1",n:16,title:"Rightly Dividing Old Testament Promises",verse:"2 Tim 3:16-17"},
+  {w:"week1",n:17,title:"The Law vs. Grace: Not Mixed",verse:"Gal 5:4"},
+  {w:"week1",n:18,title:"Matthew 24 – Signs for Israel, Not the Church",verse:"Matt 24"},
+  {w:"week1",n:19,title:"The Rapture of the Church (1 Thess 4:13-18)",verse:"1 Thess 4:13-18"},
+  {w:"week1",n:20,title:"The Second Coming – Different Event Entirely",verse:"Rev 19:11-16"},
+  {w:"week1",n:21,title:"Tribulation vs. Church Age",verse:"1 Thess 5:9"},
+  {w:"week1",n:22,title:"The Kingdom Age (Millennium) Overview",verse:"Rev 20:1-6"},
+  {w:"week1",n:23,title:"The Dispensation of Grace Summarized",verse:"Eph 3:2"},
+  {w:"week1",n:24,title:"Pauline Epistles: Our Primary Instruction Today",verse:"Phil 3:17"},
+  {w:"week1",n:25,title:"How to Study the Bible Dispensationally",verse:"Acts 17:11"},
+  {w:"week1",n:26,title:"Common Mistakes in Bible Division",verse:"2 Tim 2:15"},
+  {w:"week1",n:27,title:"Understanding Prophecy vs. Mystery",verse:"Rom 16:25"},
+  {w:"week1",n:28,title:"Week 1 Review – Foundations Solidified",verse:"2 Tim 2:15"},
+
+  // WEEK 2 (Posts 29-56)
+  {w:"week2",n:29,title:"What Must I Do to Be Saved? (Acts 16:30-31)",verse:"Acts 16:30-31"},
+  {w:"week2",n:30,title:"Romans 1:16 – The Power of the Gospel",verse:"Rom 1:16"},
+  {w:"week2",n:31,title:"The Death, Burial, and Resurrection (1 Cor 15:1-4)",verse:"1 Cor 15:1-4"},
+  {w:"week2",n:32,title:"Justified by Faith Alone – Romans 5:1",verse:"Rom 5:1"},
+  {w:"week2",n:33,title:"Imputed Righteousness – Romans 4",verse:"Rom 4"},
+  {w:"week2",n:34,title:"Redemption Defined – Ephesians 1:7",verse:"Eph 1:7"},
+  {w:"week2",n:35,title:"Propitiation – 1 John 2:2 Rightly Divided",verse:"1 John 2:2"},
+  {w:"week2",n:36,title:"Reconciliation – 2 Corinthians 5:18-21",verse:"2 Cor 5:18-21"},
+  {w:"week2",n:37,title:"The Blood of Christ – Hebrews vs. Pauline Epistles",verse:"Heb 9:12"},
+  {w:"week2",n:38,title:"Sealed by the Holy Spirit – Ephesians 1:13",verse:"Eph 1:13"},
+  {w:"week2",n:39,title:"Eternal Security in the Grace Age",verse:"John 10:28"},
+  {w:"week2",n:40,title:"Romans 8:38-39 – Nothing Can Separate Us",verse:"Rom 8:38-39"},
+  {w:"week2",n:41,title:"The New Birth – John 3 in Context",verse:"John 3:1-7"},
+  {w:"week2",n:42,title:"Adoption – Romans 8:15",verse:"Rom 8:15"},
+  {w:"week2",n:43,title:"Sanctification: Positional vs. Progressive",verse:"1 Cor 1:2"},
+  {w:"week2",n:44,title:"Glorification – The Future Hope",verse:"Rom 8:30"},
+  {w:"week2",n:45,title:"Works vs. Faith in Salvation",verse:"Eph 2:8-9"},
+  {w:"week2",n:46,title:"James 2 – Faith Without Works Rightly Divided",verse:"James 2:17"},
+  {w:"week2",n:47,title:"Hebrews 6 – Falling Away Rightly Divided",verse:"Heb 6:4-6"},
+  {w:"week2",n:48,title:"Hebrews 10:26 – Willful Sin Rightly Divided",verse:"Heb 10:26"},
+  {w:"week2",n:49,title:"Lost or Saved? Assurance from Scripture",verse:"1 John 5:13"},
+  {w:"week2",n:50,title:"The Gospel to the Gentiles – Romans 11",verse:"Rom 11:13"},
+  {w:"week2",n:51,title:"Election and Grace – Ephesians 1:4-5",verse:"Eph 1:4-5"},
+  {w:"week2",n:52,title:"Israel's Blindness and the Church's Window",verse:"Rom 11:25"},
+  {w:"week2",n:53,title:"The Fulness of the Gentiles (Romans 11:25)",verse:"Rom 11:25"},
+  {w:"week2",n:54,title:"Salvation in Other Ages vs. Today",verse:"Heb 11"},
+  {w:"week2",n:55,title:"The Cross – Center of All Dispensations",verse:"1 Cor 2:2"},
+  {w:"week2",n:56,title:"Week 2 Review – Salvation Secured in Grace",verse:"1 Cor 15:1-4"},
+
+  // WEEK 3 (Posts 57-84)
+  {w:"week3",n:57,title:"Galatians 1:11-12 – Paul's Gospel Revealed by Christ",verse:"Gal 1:11-12"},
+  {w:"week3",n:58,title:"Acts 9 – Paul's Conversion and Commission",verse:"Acts 9"},
+  {w:"week3",n:59,title:"Romans 16:25 – The Mystery Kept Secret",verse:"Rom 16:25"},
+  {w:"week3",n:60,title:"Ephesians 3 – The Dispensation of Grace",verse:"Eph 3:1-9"},
+  {w:"week3",n:61,title:"Colossians 1:24-29 – Paul's Ministry to the Body",verse:"Col 1:24-29"},
+  {w:"week3",n:62,title:"1 Timothy 1:15-16 – Paul the Pattern",verse:"1 Tim 1:15-16"},
+  {w:"week3",n:63,title:"2 Timothy 2:2 – Faithful Men Teaching Others",verse:"2 Tim 2:2"},
+  {w:"week3",n:64,title:"Titus 1:1-4 – Grace and Truth in Paul's Epistles",verse:"Titus 1:1-4"},
+  {w:"week3",n:65,title:"Philippians 3:17 – Following Paul's Example",verse:"Phil 3:17"},
+  {w:"week3",n:66,title:"1 Corinthians 11:1 – Be Ye Followers of Paul",verse:"1 Cor 11:1"},
+  {w:"week3",n:67,title:"Why the 13 Pauline Epistles Are Central Today",verse:"2 Tim 3:16-17"},
+  {w:"week3",n:68,title:"Galatians 2 – Paul Withstands Peter",verse:"Gal 2:11-14"},
+  {w:"week3",n:69,title:"The Jerusalem Council – Acts 15",verse:"Acts 15"},
+  {w:"week3",n:70,title:"Paul's Thorn in the Flesh – 2 Cor 12",verse:"2 Cor 12:7-9"},
+  {w:"week3",n:71,title:"Signs and Miracles – Then and Now",verse:"Heb 2:3-4"},
+  {w:"week3",n:72,title:"Tongues – Their Purpose and Cessation",verse:"1 Cor 13:8"},
+  {w:"week3",n:73,title:"Prophecy – Defined and Divided",verse:"1 Cor 14"},
+  {w:"week3",n:74,title:"The Gift of Healing – For Today?",verse:"2 Tim 4:20"},
+  {w:"week3",n:75,title:"Romans 15:8 – Minister of the Circumcision",verse:"Rom 15:8"},
+  {w:"week3",n:76,title:"The 12 vs. Paul – Different Audiences",verse:"Gal 2:7-9"},
+  {w:"week3",n:77,title:"The Lord's Supper Rightly Divided",verse:"1 Cor 11:23-26"},
+  {w:"week3",n:78,title:"Romans 6 – Dead to Sin, Alive to God",verse:"Rom 6:11"},
+  {w:"week3",n:79,title:"Romans 7 – The Law and the Believer",verse:"Rom 7:4"},
+  {w:"week3",n:80,title:"Romans 8 – Life in the Spirit",verse:"Rom 8:1"},
+  {w:"week3",n:81,title:"Galatians 3 – The Law Was Our Schoolmaster",verse:"Gal 3:24"},
+  {w:"week3",n:82,title:"Colossians 2:16-17 – Shadow vs. Substance",verse:"Col 2:16-17"},
+  {w:"week3",n:83,title:"The Old Covenant Passed – Hebrews 8:13",verse:"Heb 8:13"},
+  {w:"week3",n:84,title:"Week 3 Review – Following Paul as He Follows Christ",verse:"1 Cor 11:1"},
+
+  // WEEK 4 (Posts 85-112)
+  {w:"week4",n:85,title:"The Church – Ekklesia Defined",verse:"Matt 16:18"},
+  {w:"week4",n:86,title:"The Church as the Body of Christ – 1 Cor 12",verse:"1 Cor 12:27"},
+  {w:"week4",n:87,title:"The Church as the Bride of Christ – Eph 5",verse:"Eph 5:25-27"},
+  {w:"week4",n:88,title:"The Church as the Temple of the Holy Spirit",verse:"1 Cor 6:19"},
+  {w:"week4",n:89,title:"Church Leadership: Bishops, Elders, Deacons",verse:"1 Tim 3:1-13"},
+  {w:"week4",n:90,title:"The Gifts of the Spirit Today",verse:"1 Cor 12:7"},
+  {w:"week4",n:91,title:"Ephesians 4:11 – Gifts for Edification",verse:"Eph 4:11-12"},
+  {w:"week4",n:92,title:"Romans 12:3-8 – Ministry Gifts",verse:"Rom 12:3-8"},
+  {w:"week4",n:93,title:"1 Corinthians 13 – The More Excellent Way",verse:"1 Cor 13:1-3"},
+  {w:"week4",n:94,title:"Worship in Spirit and Truth Today",verse:"John 4:24"},
+  {w:"week4",n:95,title:"The Lord's Table – 1 Cor 11:23-26",verse:"1 Cor 11:23-26"},
+  {w:"week4",n:96,title:"Prayer in the Grace Age – Philippians 4:6",verse:"Phil 4:6"},
+  {w:"week4",n:97,title:"Giving in the Grace Age – 2 Cor 9:7",verse:"2 Cor 9:7"},
+  {w:"week4",n:98,title:"Missions in the Grace Age",verse:"Rom 10:14-15"},
+  {w:"week4",n:99,title:"The Great Commission – Which One?",verse:"Matt 28:19-20"},
+  {w:"week4",n:100,title:"Matthew 28 vs. Acts 1:8 vs. Romans 1:16",verse:"Rom 1:16"},
+  {w:"week4",n:101,title:"Local Church Membership Today",verse:"Heb 10:25"},
+  {w:"week4",n:102,title:"Separation from the World – 2 Cor 6:17",verse:"2 Cor 6:17"},
+  {w:"week4",n:103,title:"Christian Liberty – Romans 14-15",verse:"Rom 14:1-4"},
+  {w:"week4",n:104,title:"Conscience in the Body of Christ",verse:"1 Cor 8:9"},
+  {w:"week4",n:105,title:"Marriage in the Lord – 1 Cor 7",verse:"1 Cor 7:39"},
+  {w:"week4",n:106,title:"Divorce and Remarriage Rightly Divided",verse:"1 Cor 7:15"},
+  {w:"week4",n:107,title:"Government and the Believer – Romans 13",verse:"Rom 13:1-7"},
+  {w:"week4",n:108,title:"Suffering and Trials – Romans 8:28",verse:"Rom 8:28"},
+  {w:"week4",n:109,title:"The Judgment Seat of Christ – 2 Cor 5:10",verse:"2 Cor 5:10"},
+  {w:"week4",n:110,title:"Eternal Rewards in Grace",verse:"1 Cor 3:14"},
+  {w:"week4",n:111,title:"Heaven: Our Citizenship – Philippians 3:20",verse:"Phil 3:20"},
+  {w:"week4",n:112,title:"Week 4 Review – Functioning in the Body",verse:"Eph 4:16"},
+
+  // WEEK 5 (Posts 113-140)
+  {w:"week5",n:113,title:"Romans 12:1-2 – Renewing the Mind in Grace",verse:"Rom 12:1-2"},
+  {w:"week5",n:114,title:"Ephesians 4:22-24 – Putting off the Old Man",verse:"Eph 4:22-24"},
+  {w:"week5",n:115,title:"Galatians 5:16-17 – Walking in the Spirit vs Flesh",verse:"Gal 5:16-17"},
+  {w:"week5",n:116,title:"Philippians 4:6-7 – Prayer and Anxiety in Grace",verse:"Phil 4:6-7"},
+  {w:"week5",n:117,title:"1 Thessalonians 5:18 – Giving Thanks in All Things",verse:"1 Thess 5:18"},
+  {w:"week5",n:118,title:"2 Corinthians 5:17 – New Creature in Christ",verse:"2 Cor 5:17"},
+  {w:"week5",n:119,title:"Romans 8:1 – No Condemnation in Christ",verse:"Rom 8:1"},
+  {w:"week5",n:120,title:"Ephesians 5:18-20 – Filled with the Spirit",verse:"Eph 5:18-20"},
+  {w:"week5",n:121,title:"Colossians 3:1-4 – Seeking Things Above",verse:"Col 3:1-4"},
+  {w:"week5",n:122,title:"1 Corinthians 6:19-20 – Body as Temple",verse:"1 Cor 6:19-20"},
+  {w:"week5",n:123,title:"Galatians 6:1-2 – Restoring the Fallen in Grace",verse:"Gal 6:1-2"},
+  {w:"week5",n:124,title:"Ephesians 6:10-18 – Armor of God for Today",verse:"Eph 6:10-18"},
+  {w:"week5",n:125,title:"Philippians 2:5-8 – Mind of Christ",verse:"Phil 2:5-8"},
+  {w:"week5",n:126,title:"1 Peter 2:9 – Royal Priesthood in Grace",verse:"1 Pet 2:9"},
+  {w:"week5",n:127,title:"Romans 14:1-4 – Judging Liberty in Grace",verse:"Rom 14:1-4"},
+  {w:"week5",n:128,title:"1 Corinthians 8 – Liberty and Conscience",verse:"1 Cor 8:8-9"},
+  {w:"week5",n:129,title:"Galatians 6:7-8 – Sowing and Reaping in Grace",verse:"Gal 6:7-8"},
+  {w:"week5",n:130,title:"Ephesians 4:25-32 – Practical Christian Living",verse:"Eph 4:32"},
+  {w:"week5",n:131,title:"Colossians 3:12-17 – Put on the New Man",verse:"Col 3:12-14"},
+  {w:"week5",n:132,title:"1 Thessalonians 4:3-8 – Sanctification in Grace",verse:"1 Thess 4:3-4"},
+  {w:"week5",n:133,title:"2 Timothy 3:16-17 – All Scripture Profitable",verse:"2 Tim 3:16-17"},
+  {w:"week5",n:134,title:"Hebrews 4:12 – Word of God as Sword",verse:"Heb 4:12"},
+  {w:"week5",n:135,title:"James 1:22-25 – Doers of the Word",verse:"James 1:22-24"},
+  {w:"week5",n:136,title:"1 John 1:9 – Confession and Cleansing",verse:"1 John 1:9"},
+  {w:"week5",n:137,title:"2 Corinthians 10:3-5 – Pulling Down Strongholds",verse:"2 Cor 10:3-5"},
+  {w:"week5",n:138,title:"Philippians 4:8 – Thinking on These Things",verse:"Phil 4:8"},
+  {w:"week5",n:139,title:"Colossians 4:2 – Continue in Prayer",verse:"Col 4:2"},
+  {w:"week5",n:140,title:"1 Peter 5:7 – Casting Cares upon Him",verse:"1 Pet 5:7"},
+
+  // WEEK 6 (Posts 141-168)
+  {w:"week6",n:141,title:"The Rapture vs Second Coming Distinctions (Deep Dive)",verse:"1 Thess 4:16-17"},
+  {w:"week6",n:142,title:"Daniel's 70 Weeks and the Church Age Gap",verse:"Dan 9:24"},
+  {w:"week6",n:143,title:"Tribulation vs Church Age Suffering",verse:"1 Thess 5:9"},
+  {w:"week6",n:144,title:"Revelation 2-3 – Letters to the Seven Churches",verse:"Rev 2:7"},
+  {w:"week6",n:145,title:"The Judgment Seat of Christ (Bema)",verse:"2 Cor 5:10"},
+  {w:"week6",n:146,title:"Great White Throne Judgment",verse:"Rev 20:11-12"},
+  {w:"week6",n:147,title:"Israel's Future Restoration (Romans 11)",verse:"Rom 11:26"},
+  {w:"week6",n:148,title:"Millennial Kingdom Temple and Worship",verse:"Mic 4:2"},
+  {w:"week6",n:149,title:"Satan's Role in Different Dispensations",verse:"Rev 12:9"},
+  {w:"week6",n:150,title:"Angels and Their Ministry Across Ages",verse:"Heb 1:14"},
+  {w:"week6",n:151,title:"The Mystery of Iniquity (2 Thess 2)",verse:"2 Thess 2:7"},
+  {w:"week6",n:152,title:"The Man of Sin Revealed",verse:"2 Thess 2:3-4"},
+  {w:"week6",n:153,title:"Signs of the Times Rightly Divided",verse:"Luke 21:28"},
+  {w:"week6",n:154,title:"The Blessed Hope vs Earthly Hope",verse:"Titus 2:13"},
+  {w:"week6",n:155,title:"New Jerusalem vs Earthly Jerusalem",verse:"Rev 21:2"},
+  {w:"week6",n:156,title:"Resurrection Bodies – Different Orders",verse:"1 Cor 15:23"},
+  {w:"week6",n:157,title:"Rewards in the Kingdom vs Grace Inheritance",verse:"1 Cor 3:14-15"},
+  {w:"week6",n:158,title:"The Marriage Supper of the Lamb",verse:"Rev 19:9"},
+  {w:"week6",n:159,title:"Gog and Magog in Prophecy",verse:"Ezek 38:1-2"},
+  {w:"week6",n:160,title:"The Final Rebellion",verse:"Rev 20:7-8"},
+  {w:"week6",n:161,title:"Eternal State – New Heavens and Earth",verse:"Rev 21:1"},
+  {w:"week6",n:162,title:"The Lake of Fire – Who and Why",verse:"Rev 20:14-15"},
+  {w:"week6",n:163,title:"Degrees of Punishment",verse:"Luke 12:47-48"},
+  {w:"week6",n:164,title:"Degrees of Reward in Grace",verse:"2 Cor 9:6"},
+  {w:"week6",n:165,title:"The Role of Israel in the Millennium",verse:"Zech 14:16"},
+  {w:"week6",n:166,title:"Gentile Nations in the Kingdom",verse:"Rev 21:24"},
+  {w:"week6",n:167,title:"The Curse Lifted in the Millennium",verse:"Isa 11:6"},
+  {w:"week6",n:168,title:"Peace on Earth – Prophetic Fulfillment",verse:"Isa 2:4"},
+
+  // WEEK 7 (Posts 169-196)
+  {w:"week7",n:169,title:"Once Saved Always Saved vs Falling Away",verse:"John 10:28"},
+  {w:"week7",n:170,title:"Water Baptism for Salvation Today?",verse:"1 Cor 1:17"},
+  {w:"week7",n:171,title:"Speaking in Tongues as Evidence?",verse:"1 Cor 13:1"},
+  {w:"week7",n:172,title:"Healing in the Atonement for Today?",verse:"1 Pet 2:24"},
+  {w:"week7",n:173,title:"Prosperity Gospel vs Grace Suffering",verse:"2 Tim 3:12"},
+  {w:"week7",n:174,title:"Lordship Salvation vs Free Grace",verse:"Rom 4:5"},
+  {w:"week7",n:175,title:"Covenant Theology vs Dispensationalism",verse:"2 Cor 3:6"},
+  {w:"week7",n:176,title:"Replacement Theology Examined",verse:"Rom 11:2"},
+  {w:"week7",n:177,title:"Sabbath Keeping for Christians?",verse:"Col 2:16-17"},
+  {w:"week7",n:178,title:"Tithing as New Testament Law?",verse:"2 Cor 9:7"},
+  {w:"week7",n:179,title:"Clergy-Laity Distinction in NT?",verse:"Matt 23:8"},
+  {w:"week7",n:180,title:"Infant Baptism vs Believer's Baptism",verse:"Acts 2:41"},
+  {w:"week7",n:181,title:"Transubstantiation vs Memorial",verse:"1 Cor 11:26"},
+  {w:"week7",n:182,title:"Mary as Co-Redemptrix?",verse:"1 Tim 2:5"},
+  {w:"week7",n:183,title:"Praying to Saints?",verse:"Heb 4:16"},
+  {w:"week7",n:184,title:"Confession to Priests?",verse:"1 John 1:9"},
+  {w:"week7",n:185,title:"Predestination vs Free Will",verse:"Eph 1:4-5"},
+  {w:"week7",n:186,title:"Calvinism vs Arminianism Rightly Divided",verse:"Eph 2:8-9"},
+  {w:"week7",n:187,title:"Eternal Security vs Perseverance of the Saints",verse:"Phil 1:6"},
+  {w:"week7",n:188,title:"Hyper-Gracism Dangers",verse:"Rom 6:1-2"},
+  {w:"week7",n:189,title:"Legalism in Modern Churches",verse:"Gal 5:1"},
+  {w:"week7",n:190,title:"The Charismatic Movement Examined",verse:"1 Cor 13:8"},
+  {w:"week7",n:191,title:"End Times Date Setting",verse:"Matt 24:36"},
+  {w:"week7",n:192,title:"Preterism vs Futurism",verse:"Rev 1:7"},
+  {w:"week7",n:193,title:"Amillennialism vs Premillennialism",verse:"Rev 20:2"},
+  {w:"week7",n:194,title:"Postmillennialism Overview",verse:"Isa 9:7"},
+  {w:"week7",n:195,title:"Universalism vs Eternal Punishment",verse:"Matt 25:46"},
+  {w:"week7",n:196,title:"Annihilationism Examined",verse:"Rev 14:11"},
+
+  // WEEK 8 (Posts 197-232)
+  {w:"week8",n:197,title:"Effective Witnessing in the Grace Age",verse:"1 Cor 15:3-4"},
+  {w:"week8",n:198,title:"Discipleship vs Decisionism",verse:"2 Tim 2:2"},
+  {w:"week8",n:199,title:"Building Up the Body of Christ",verse:"Eph 4:16"},
+  {w:"week8",n:200,title:"Spiritual Gifts for Today",verse:"1 Cor 12:7"},
+  {w:"week8",n:201,title:"The Role of Women in the Church",verse:"Gal 3:28"},
+  {w:"week8",n:202,title:"Marriage and Family in Grace",verse:"Eph 5:25"},
+  {w:"week8",n:203,title:"Parenting God's Way",verse:"Eph 6:4"},
+  {w:"week8",n:204,title:"Work and Vocation as Ministry",verse:"Col 3:23-24"},
+  {w:"week8",n:205,title:"Financial Stewardship in Grace",verse:"1 Tim 6:6-7"},
+  {w:"week8",n:206,title:"Suffering Well as a Believer",verse:"1 Pet 3:17"},
+  {w:"week8",n:207,title:"Persecution and Endurance",verse:"2 Tim 3:12"},
+  {w:"week8",n:208,title:"Forgiveness in Relationships",verse:"Eph 4:32"},
+  {w:"week8",n:209,title:"Unity Without Compromise",verse:"Eph 4:3-6"},
+  {w:"week8",n:210,title:"Contending for the Faith",verse:"Jude 3"},
+  {w:"week8",n:211,title:"False Teachers – Identification Checklist",verse:"Matt 7:15-16"},
+  {w:"week8",n:212,title:"How to Study the Bible Daily",verse:"Acts 17:11"},
+  {w:"week8",n:213,title:"Prayer That Moves God",verse:"James 5:16"},
+  {w:"week8",n:214,title:"Fasting in the Grace Age",verse:"Matt 6:17-18"},
+  {w:"week8",n:215,title:"Praise and Worship Biblically",verse:"Eph 5:19-20"},
+  {w:"week8",n:216,title:"The Fear of the Lord Today",verse:"Phil 2:12"},
+  {w:"week8",n:217,title:"Humility vs Pride in Ministry",verse:"Phil 2:3"},
+  {w:"week8",n:218,title:"Accountability in the Body",verse:"James 5:16"},
+  {w:"week8",n:219,title:"Mentoring Younger Believers",verse:"Titus 2:3-4"},
+  {w:"week8",n:220,title:"Missions and the Great Commission Today",verse:"Acts 1:8"},
+  {w:"week8",n:221,title:"The Local Church in Grace",verse:"Heb 10:25"},
+  {w:"week8",n:222,title:"Online Ministry and Digital Witness",verse:"Acts 8:4"},
+  {w:"week8",n:223,title:"Preparing for the Rapture",verse:"1 Thess 4:18"},
+  {w:"week8",n:224,title:"Living with Eternal Perspective",verse:"2 Cor 4:17-18"},
+  {w:"week8",n:225,title:"Legacy of Faith for the Next Generation",verse:"2 Tim 1:5"},
+  {w:"week8",n:226,title:"Overcoming Temptation",verse:"1 Cor 10:13"},
+  {w:"week8",n:227,title:"Victory Over Sin in Grace",verse:"Rom 6:11"},
+  {w:"week8",n:228,title:"The Joy of the Lord as Strength",verse:"Phil 4:4"},
+  {w:"week8",n:229,title:"Contentment in All Circumstances",verse:"Phil 4:11-12"},
+  {w:"week8",n:230,title:"Gratitude as Lifestyle",verse:"1 Thess 5:18"},
+  {w:"week8",n:231,title:"Finishing the Race Strong",verse:"2 Tim 4:7-8"},
+  {w:"week8",n:232,title:"The Crowns and Rewards for Believers",verse:"2 Tim 4:8"},
+];
+
+// In-memory state
+const state = {};
+allPosts.forEach(p => {
+  state[p.n] = { yt: false, blog: false, ytUrl: '' };
+});
+
+// Pre-populate known YouTube videos
+state[141].ytUrl = 'https://youtu.be/RAPTURE_MYSTERY_VIDEO';  // "The Rapture: Paul's Mystery"
+state[141].yt = false;
+state[153].ytUrl = 'https://youtu.be/SECOND_COMING_VIDEO';   // "Second Coming: Prophecy Not Mystery"
+state[153].yt = false;
+
+const weekMeta = {
+  week1: {label:'Week 1', days:'Days 1–7', posts:'Posts 1–28', theme:'Foundations of Rightly Dividing'},
+  week2: {label:'Week 2', days:'Days 8–14', posts:'Posts 29–56', theme:'The Gospel of Grace – Salvation'},
+  week3: {label:'Week 3', days:'Days 15–21', posts:'Posts 57–84', theme:"Paul's Gospel – Apostle to the Gentiles"},
+  week4: {label:'Week 4', days:'Days 22–28', posts:'Posts 85–112', theme:'The Body of Christ – Church Age'},
+  week5: {label:'Week 5', days:'Days 29–35', posts:'Posts 113–140', theme:'Practical Right Division & Growth'},
+  week6: {label:'Week 6', days:'Days 36–42', posts:'Posts 141–168', theme:'Advanced Dispensational & Prophecy'},
+  week7: {label:'Week 7', days:'Days 43–49', posts:'Posts 169–196', theme:'Doctrinal Pitfalls & Corrections'},
+  week8: {label:'Week 8', days:'Days 50–56', posts:'Posts 197–232', theme:'Application, Witnessing & Maturity'},
+};
+
+const weekOrder = ['week1','week2','week3','week4','week5','week6','week7','week8'];
+
+function buildTable(weekKey, posts) {
+  const meta = weekMeta[weekKey];
+  const ytCount = posts.filter(p => state[p.n].yt).length;
+  const blogCount = posts.filter(p => state[p.n].blog).length;
+
+  const rows = posts.map(p => {
+    const s = state[p.n];
+    return `
+      <tr class="post-row" data-week="${p.w}" data-title="${p.title.toLowerCase()}" data-yt="${s.yt}" data-blog="${s.blog}">
+        <td class="post-num">#${p.n}</td>
+        <td class="post-title">${p.title}</td>
+        <td class="post-verse">${p.verse}</td>
+        <td class="status-cell">
+          <span class="toggle-btn ${s.yt?'done':'pending'}" title="Toggle YouTube status" onclick="toggleYT(${p.n}, this)">
+            ${s.yt ? '✓' : '○'}
+          </span>
+        </td>
+        <td class="status-cell">
+          <span class="toggle-btn ${s.blog?'done':'pending'}" title="Toggle Blog status" onclick="toggleBlog(${p.n}, this)">
+            ${s.blog ? '✓' : '○'}
+          </span>
+        </td>
+        <td>
+          <input class="yt-input" id="url_${p.n}" type="text" placeholder="YouTube URL…"
+            value="${s.ytUrl}" oninput="saveUrl(${p.n}, this.value)"
+            title="Paste YouTube video URL for this post">
+          ${s.ytUrl ? `<a class="yt-link-btn has-link" href="${s.ytUrl}" target="_blank"> ▶</a>` : `<a class="yt-link-btn"> ▶</a>`}
+        </td>
+        <td><a class="yt-link-btn" href="https://rightlydividingkjv.blogspot.com" target="_blank" style="color:var(--blue)">Blog</a></td>
+      </tr>`;
+  }).join('');
+
+  const pct = Math.round(ytCount / posts.length * 100);
+  return `
+    <div class="week-section" data-week="${weekKey}">
+      <div class="week-header" onclick="toggleWeek(this)">
+        <span>📖</span>
+        <h2>${meta.label}: ${meta.theme}</h2>
+        <span class="w-meta">${meta.days} · ${meta.posts}</span>
+        <span class="w-progress">YT: ${ytCount}/${posts.length}
+          <span class="progress-bar"><span class="progress-fill" style="width:${pct}%"></span></span>
+          Blog: ${blogCount}/${posts.length}
+        </span>
+        <span class="chevron">▶</span>
+      </div>
+      <div class="post-table" id="table_${weekKey}">
+        <table>
+          <thead>
+            <tr>
+              <th>#</th><th>Post Title</th><th>Key Verse</th>
+              <th>YouTube ✓</th><th>Blog ✓</th><th>YouTube URL</th><th>Blog Link</th>
+            </tr>
+          </thead>
+          <tbody id="tbody_${weekKey}">${rows}</tbody>
+        </table>
+      </div>
+    </div>`;
+}
+
+function render() {
+  const html = weekOrder.map(wk => {
+    const posts = allPosts.filter(p => p.w === wk);
+    return buildTable(wk, posts);
+  }).join('');
+  document.getElementById('mainContent').innerHTML = html;
+  updateStats();
+}
+
+function toggleWeek(header) {
+  const wk = header.closest('.week-section').dataset.week;
+  header.classList.toggle('open');
+  document.getElementById('table_' + wk).classList.toggle('open');
+}
+
+function toggleYT(n, el) {
+  state[n].yt = !state[n].yt;
+  el.className = 'toggle-btn ' + (state[n].yt ? 'done' : 'pending');
+  el.textContent = state[n].yt ? '✓' : '○';
+  el.closest('tr').dataset.yt = state[n].yt;
+  updateStats(); refreshWeekProgress();
+}
+
+function toggleBlog(n, el) {
+  state[n].blog = !state[n].blog;
+  el.className = 'toggle-btn ' + (state[n].blog ? 'done' : 'pending');
+  el.textContent = state[n].blog ? '✓' : '○';
+  el.closest('tr').dataset.blog = state[n].blog;
+  updateStats(); refreshWeekProgress();
+}
+
+function saveUrl(n, val) {
+  state[n].ytUrl = val;
+  const link = document.getElementById('url_' + n).nextElementSibling;
+  if (link) { link.href = val || '#'; link.className = 'yt-link-btn ' + (val ? 'has-link' : ''); }
+}
+
+function updateStats() {
+  const ytD = allPosts.filter(p => state[p.n].yt).length;
+  const blogD = allPosts.filter(p => state[p.n].blog).length;
+  document.getElementById('ytDone').textContent = ytD;
+  document.getElementById('blogDone').textContent = blogD;
+  document.getElementById('pending').textContent = 232 - ytD;
+  document.getElementById('pctComplete').textContent = Math.round(ytD / 232 * 100) + '%';
+}
+
+function refreshWeekProgress() {
+  weekOrder.forEach(wk => {
+    const posts = allPosts.filter(p => p.w === wk);
+    const ytC = posts.filter(p => state[p.n].yt).length;
+    const blogC = posts.filter(p => state[p.n].blog).length;
+    const pct = Math.round(ytC / posts.length * 100);
+    const sec = document.querySelector(`.week-section[data-week="${wk}"]`);
+    if (!sec) return;
+    const wp = sec.querySelector('.w-progress');
+    if (wp) wp.innerHTML = `YT: ${ytC}/${posts.length} <span class="progress-bar"><span class="progress-fill" style="width:${pct}%"></span></span> Blog: ${blogC}/${posts.length}`;
+  });
+}
+
+function markAllYT() {
+  allPosts.forEach(p => state[p.n].yt = true);
+  render(); expandAll();
+}
+function markAllBlog() {
+  allPosts.forEach(p => state[p.n].blog = true);
+  render(); expandAll();
+}
+
+function expandAll() {
+  document.querySelectorAll('.week-header').forEach(h => h.classList.add('open'));
+  document.querySelectorAll('.post-table').forEach(t => t.classList.add('open'));
+}
+function collapseAll() {
+  document.querySelectorAll('.week-header').forEach(h => h.classList.remove('open'));
+  document.querySelectorAll('.post-table').forEach(t => t.classList.remove('open'));
+}
+
+function filterPosts() {
+  const q = document.getElementById('searchBox').value.toLowerCase();
+  const wf = document.getElementById('weekFilter').value;
+  const sf = document.getElementById('statusFilter').value;
+
+  document.querySelectorAll('.post-row').forEach(row => {
+    const matchQ = !q || row.dataset.title.includes(q);
+    const matchW = !wf || row.dataset.week === wf;
+    let matchS = true;
+    if (sf === 'yt-done') matchS = row.dataset.yt === 'true';
+    if (sf === 'yt-pending') matchS = row.dataset.yt !== 'true';
+    if (sf === 'blog-done') matchS = row.dataset.blog === 'true';
+    row.style.display = (matchQ && matchW && matchS) ? '' : 'none';
+  });
+
+  // Auto-expand weeks with visible posts
+  if (q || wf || sf) {
+    document.querySelectorAll('.week-section').forEach(sec => {
+      const hasVisible = [...sec.querySelectorAll('.post-row')].some(r => r.style.display !== 'none');
+      sec.querySelector('.week-header').classList.toggle('open', hasVisible);
+      sec.querySelector('.post-table').classList.toggle('open', hasVisible);
+    });
+  }
+}
+
+function printSummary() { window.print(); }
+
+// Initial render
+render();
+</script>
+</body>
+</html>

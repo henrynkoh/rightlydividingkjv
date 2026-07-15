@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Publishing Guide – Rightly Dividing KJV Content System</title>
+  <style>
+    :root { --gold:#c8a96e; --dark:#0d1117; --dark2:#161b22; --dark3:#1c2333; --text:#e6edf3; --muted:#8b949e; --green:#3fb950; --blue:#58a6ff; --red:#f85149; }
+    * { box-sizing:border-box; margin:0; padding:0; }
+    body { font-family:-apple-system,sans-serif; background:var(--dark); color:var(--text); font-size:14px; line-height:1.6; }
+
+    header { background:var(--dark2); border-bottom:2px solid rgba(200,169,110,0.4); padding:20px 28px; }
+    header h1 { font-size:1.25em; color:var(--gold); }
+    header p { font-size:0.85em; color:var(--muted); margin-top:4px; }
+    .header-links { display:flex; gap:10px; flex-wrap:wrap; margin-top:12px; }
+    .header-links a { color:var(--gold); font-size:0.8em; text-decoration:none; padding:5px 12px; border:1px solid rgba(200,169,110,0.3); border-radius:4px; }
+    .header-links a:hover { background:rgba(200,169,110,0.1); }
+
+    /* OVERVIEW STATS */
+    .overview { display:grid; grid-template-columns:repeat(auto-fit,minmax(140px,1fr)); gap:12px; padding:20px 28px; background:var(--dark3); border-bottom:1px solid rgba(255,255,255,0.05); }
+    .stat-card { background:var(--dark2); border:1px solid rgba(200,169,110,0.2); border-radius:8px; padding:14px; text-align:center; }
+    .stat-card .num { font-size:1.6em; font-weight:bold; color:var(--gold); }
+    .stat-card .label { font-size:0.72em; color:var(--muted); margin-top:4px; }
+
+    /* PLATFORM LEGEND */
+    .platform-legend { display:flex; gap:16px; padding:12px 28px; background:var(--dark2); border-bottom:1px solid rgba(255,255,255,0.05); flex-wrap:wrap; }
+    .pl-item { display:flex; align-items:center; gap:6px; font-size:0.8em; }
+    .pl-dot { width:10px; height:10px; border-radius:50%; }
+
+    /* MAIN CONTENT */
+    .main { max-width:960px; margin:0 auto; padding:28px; }
+
+    /* SECTION */
+    .guide-section { margin-bottom:40px; }
+    .guide-section > h2 { font-size:1em; color:var(--gold); border-left:3px solid var(--gold); padding-left:12px; margin-bottom:16px; }
+
+    /* WORKFLOW PHASES */
+    .workflow { display:flex; flex-direction:column; gap:2px; }
+    .phase { background:var(--dark2); border:1px solid rgba(255,255,255,0.06); border-radius:8px; overflow:hidden; }
+    .phase-header { display:flex; align-items:center; gap:12px; padding:14px 16px; cursor:pointer; user-select:none; }
+    .phase-header:hover { background:rgba(255,255,255,0.02); }
+    .phase-num { width:28px; height:28px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-weight:bold; font-size:0.85em; flex-shrink:0; }
+    .phase-title { flex:1; font-size:0.92em; }
+    .phase-time { font-size:0.75em; color:var(--muted); }
+    .phase-toggle { color:var(--muted); font-size:0.8em; transition:transform 0.2s; }
+    .phase.open .phase-toggle { transform:rotate(90deg); }
+    .phase-body { display:none; padding:0 16px 16px 56px; }
+    .phase.open .phase-body { display:block; }
+
+    /* STEPS */
+    .step-list { list-style:none; }
+    .step-list li { padding:6px 0; font-size:0.85em; border-bottom:1px solid rgba(255,255,255,0.04); display:flex; gap:8px; }
+    .step-list li:last-child { border:none; }
+    .step-list li::before { content:attr(data-n); width:18px; height:18px; background:rgba(200,169,110,0.15); color:var(--gold); border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:0.72em; flex-shrink:0; margin-top:1px; }
+    .step-note { font-size:0.78em; color:var(--muted); margin-top:2px; }
+
+    /* CODE / COMMANDS */
+    .cmd { background:var(--dark3); border:1px solid rgba(255,255,255,0.08); border-radius:5px; padding:10px 14px; font-family:monospace; font-size:0.82em; color:#c9d1d9; margin:8px 0; word-break:break-all; position:relative; }
+    .cmd .copy-btn { position:absolute; top:8px; right:8px; background:rgba(200,169,110,0.15); border:none; color:var(--gold); padding:3px 8px; border-radius:3px; cursor:pointer; font-size:0.75em; }
+    .cmd .copy-btn:hover { background:rgba(200,169,110,0.3); }
+    .cmd .copy-btn.copied { color:var(--green); }
+
+    /* PLATFORM CARDS */
+    .platform-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:14px; }
+    .platform-card { background:var(--dark2); border:1px solid rgba(255,255,255,0.06); border-radius:8px; padding:16px; }
+    .platform-card .pc-icon { font-size:1.5em; margin-bottom:8px; }
+    .platform-card h3 { font-size:0.88em; margin-bottom:6px; }
+    .platform-card p { font-size:0.78em; color:var(--muted); margin-bottom:10px; }
+    .platform-card a { font-size:0.78em; color:var(--gold); text-decoration:none; }
+    .pc-yt { border-top:3px solid #c00; }
+    .pc-blog { border-top:3px solid #f4a400; }
+    .pc-gh { border-top:3px solid #4078c0; }
+    .pc-html { border-top:3px solid var(--green); }
+
+    /* TIPS / WARNINGS */
+    .tip { background:rgba(63,185,80,0.08); border:1px solid rgba(63,185,80,0.25); border-radius:6px; padding:10px 14px; font-size:0.82em; margin:8px 0; }
+    .warn { background:rgba(248,81,73,0.08); border:1px solid rgba(248,81,73,0.25); border-radius:6px; padding:10px 14px; font-size:0.82em; margin:8px 0; }
+    .info { background:rgba(200,169,110,0.08); border:1px solid rgba(200,169,110,0.25); border-radius:6px; padding:10px 14px; font-size:0.82em; margin:8px 0; }
+
+    /* CHECKLIST */
+    .checklist { list-style:none; }
+    .checklist li { padding:5px 0; font-size:0.85em; display:flex; align-items:flex-start; gap:8px; }
+    .checklist li::before { content:"☐"; color:var(--muted); flex-shrink:0; }
+
+    /* TABLE */
+    table { width:100%; border-collapse:collapse; font-size:0.82em; margin:10px 0; }
+    th { background:var(--dark3); color:var(--gold); padding:8px 10px; text-align:left; border-bottom:1px solid rgba(255,255,255,0.08); }
+    td { padding:8px 10px; border-bottom:1px solid rgba(255,255,255,0.04); color:var(--text); }
+    tr:hover td { background:rgba(255,255,255,0.02); }
+
+    /* WEEKLY RHYTHM */
+    .week-rhythm { display:grid; grid-template-columns:repeat(7,1fr); gap:6px; }
+    @media(max-width:600px) { .week-rhythm { grid-template-columns:repeat(4,1fr); } }
+    .day-card { background:var(--dark2); border:1px solid rgba(255,255,255,0.06); border-radius:6px; padding:10px 8px; text-align:center; }
+    .day-card .day-name { font-size:0.7em; color:var(--muted); margin-bottom:4px; }
+    .day-card .day-focus { font-size:0.75em; color:var(--text); }
+    .day-card .day-task { font-size:0.68em; color:var(--gold); margin-top:3px; }
+    .day-card.busy { border-color:rgba(200,169,110,0.3); }
+
+    /* BLOG POST TEMPLATE */
+    .template-tabs { display:flex; gap:6px; margin-bottom:-1px; }
+    .tab-btn { background:var(--dark3); border:1px solid rgba(255,255,255,0.08); border-bottom:none; color:var(--muted); padding:6px 14px; border-radius:5px 5px 0 0; cursor:pointer; font-size:0.8em; }
+    .tab-btn.active { background:var(--dark2); color:var(--text); border-color:rgba(255,255,255,0.1); }
+    .tab-content { background:var(--dark2); border:1px solid rgba(255,255,255,0.08); border-radius:0 5px 5px 5px; padding:14px; }
+    .tab-pane { display:none; }
+    .tab-pane.active { display:block; }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>📋 Publishing Guide – Rightly Dividing KJV (2 Tim 2:15)</h1>
+  <p>Complete workflow for @ohhenry6524 · 8 Weeks · 232 Posts · 4 Platforms</p>
+  <div class="header-links">
+    <a href="index.html">🏠 Home</a>
+    <a href="content-dashboard.html">📊 Dashboard</a>
+    <a href="archive-index.html">📚 Archive</a>
+    <a href="youtube-embed-map.html">🔗 YouTube Mapper</a>
+    <a href="https://www.youtube.com/@ohhenry6524" target="_blank">▶ Channel</a>
+    <a href="https://rightlydividingkjv.blogspot.com" target="_blank">📰 Blog</a>
+    <a href="https://henrynkoh.github.io/rightlydividingkjv/" target="_blank">🌐 GitHub</a>
+  </div>
+</header>
+
+<div class="overview">
+  <div class="stat-card"><div class="num">8</div><div class="label">Weeks</div></div>
+  <div class="stat-card"><div class="num">56</div><div class="label">Days</div></div>
+  <div class="stat-card"><div class="num">232</div><div class="label">Blog Posts</div></div>
+  <div class="stat-card"><div class="num">161+</div><div class="label">YT Videos</div></div>
+  <div class="stat-card"><div class="num">4</div><div class="label">Platforms</div></div>
+  <div class="stat-card"><div class="num">~10min</div><div class="label">Per Post</div></div>
+</div>
+
+<div class="platform-legend">
+  <span style="font-size:0.78em;color:var(--muted)">Platforms:</span>
+  <div class="pl-item"><div class="pl-dot" style="background:#c00"></div> YouTube @ohhenry6524</div>
+  <div class="pl-item"><div class="pl-dot" style="background:#f4a400"></div> Blogger (rightlydividingkjv.blogspot.com)</div>
+  <div class="pl-item"><div class="pl-dot" style="background:#4078c0"></div> GitHub Pages (henrynkoh.github.io/rightlydividingkjv/)</div>
+  <div class="pl-item"><div class="pl-dot" style="background:var(--green)"></div> Standalone HTML Posts (week1–8-posts.html)</div>
+</div>
+
+<div class="main">
+
+  <!-- QUICK START -->
+  <div class="guide-section">
+    <h2>⚡ Quick Reference – Per-Post Workflow (5 Steps)</h2>
+    <div class="tip">Complete each post in ~10 minutes by following this exact order.</div>
+    <div class="workflow">
+
+      <div class="phase open" id="ph1">
+        <div class="phase-header" onclick="togglePhase('ph1')">
+          <div class="phase-num" style="background:rgba(200,0,0,0.3);color:#ff6b6b">1</div>
+          <div class="phase-title">▶ Upload to YouTube</div>
+          <div class="phase-time">~3 min per video</div>
+          <div class="phase-toggle">▶</div>
+        </div>
+        <div class="phase-body">
+          <ul class="step-list">
+            <li data-n="1">Go to <a href="https://studio.youtube.com" target="_blank" style="color:var(--gold)">studio.youtube.com</a> → Create → Upload video</li>
+            <li data-n="2">Select your recorded video file</li>
+            <li data-n="3">Title format: <code style="background:rgba(255,255,255,0.08);padding:2px 5px;border-radius:3px">[Post Title] | KJV Right Division | [Verse]</code></li>
+            <li data-n="4">Description: paste the "About this study" block (see template below)</li>
+            <li data-n="5">Tags: KJV, right division, dispensational, Bible study, 2 Timothy 2:15, [topic keywords]</li>
+            <li data-n="6">Thumbnail: upload a custom gold/dark text thumbnail OR use auto-generated</li>
+            <li data-n="7">Visibility: Public (or Unlisted until blog post is ready)</li>
+            <li data-n="8">Copy the video URL from the browser bar once upload finishes</li>
+          </ul>
+          <div class="cmd">https://www.youtube.com/watch?v=XXXXXXXXXXX<button class="copy-btn" onclick="copyCmd(this,'https://www.youtube.com/watch?v=XXXXXXXXXXX')">Copy</button></div>
+          <div class="info">💡 For YouTube Shorts (under 60 sec), the URL format is <code>youtube.com/shorts/XXXXXXXXXXX</code>. The embed mapper handles both formats automatically.</div>
+        </div>
+      </div>
+
+      <div class="phase" id="ph2">
+        <div class="phase-header" onclick="togglePhase('ph2')">
+          <div class="phase-num" style="background:rgba(88,166,255,0.2);color:var(--blue)">2</div>
+          <div class="phase-title">🔗 Map Video to Post (YouTube Embed Mapper)</div>
+          <div class="phase-time">~1 min</div>
+          <div class="phase-toggle">▶</div>
+        </div>
+        <div class="phase-body">
+          <ul class="step-list">
+            <li data-n="1">Open <a href="youtube-embed-map.html" style="color:var(--gold)">youtube-embed-map.html</a></li>
+            <li data-n="2">Click the matching post number in the left panel (e.g., Post #141)</li>
+            <li data-n="3">Paste the YouTube URL you just copied into the URL field</li>
+            <li data-n="4">Click "Generate Embed Code"</li>
+            <li data-n="5">Click "Copy" on the "Full blog post section" code block</li>
+          </ul>
+          <div class="tip">The "Full blog post section" code is ready to paste directly into Blogger's HTML editor — it includes the iframe with proper attributes and a subscribe link.</div>
+        </div>
+      </div>
+
+      <div class="phase" id="ph3">
+        <div class="phase-header" onclick="togglePhase('ph3')">
+          <div class="phase-num" style="background:rgba(244,164,0,0.2);color:#f4a400">3</div>
+          <div class="phase-title">📝 Publish on Blogger</div>
+          <div class="phase-time">~4 min</div>
+          <div class="phase-toggle">▶</div>
+        </div>
+        <div class="phase-body">
+          <ul class="step-list">
+            <li data-n="1">Go to <a href="https://blogger.com" target="_blank" style="color:var(--gold)">blogger.com</a> → Rightly Dividing KJV → New post</li>
+            <li data-n="2">Title: copy the post title from the HTML file (e.g., "Post #141: The Rapture vs Second Coming Distinctions")</li>
+            <li data-n="3">Click the <strong>HTML editor</strong> tab (⟨⟩ icon) — NOT the compose tab</li>
+            <li data-n="4">Open the matching week HTML file (e.g., week6-posts.html) in your browser</li>
+            <li data-n="5">Find Post #NNN → Select All HTML from the <code>&lt;article&gt;</code> tag to the closing <code>&lt;/article&gt;</code></li>
+            <li data-n="6">Paste into Blogger's HTML editor</li>
+            <li data-n="7">Find <code>[VIDEO EMBED – Replace with YouTube iframe: YOUR_YOUTUBE_LINK_NNN]</code></li>
+            <li data-n="8">Replace that placeholder with the embed code you copied from the YouTube Mapper</li>
+            <li data-n="9">Add Labels: the week name (e.g., "Week 6"), topic category, "KJV", "Right Division"</li>
+            <li data-n="10">Set permalink to match the post title slug</li>
+            <li data-n="11">Preview → Publish</li>
+          </ul>
+          <div class="warn">⚠ Always use the <strong>HTML editor</strong> in Blogger — the compose/visual editor may strip custom CSS classes and div attributes from the post HTML.</div>
+        </div>
+      </div>
+
+      <div class="phase" id="ph4">
+        <div class="phase-header" onclick="togglePhase('ph4')">
+          <div class="phase-num" style="background:rgba(63,185,80,0.2);color:var(--green)">4</div>
+          <div class="phase-title">📊 Mark Complete in Dashboard</div>
+          <div class="phase-time">~30 sec</div>
+          <div class="phase-toggle">▶</div>
+        </div>
+        <div class="phase-body">
+          <ul class="step-list">
+            <li data-n="1">Open <a href="content-dashboard.html" style="color:var(--gold)">content-dashboard.html</a></li>
+            <li data-n="2">Find the post by number (use search or week filter)</li>
+            <li data-n="3">Click the YouTube toggle (○ → ✓) for the YouTube column</li>
+            <li data-n="4">Click the Blog toggle for the Blogger column</li>
+            <li data-n="5">Paste the YouTube URL into the URL field on that row</li>
+            <li data-n="6">Stats bar at top auto-updates percentage complete</li>
+          </ul>
+          <div class="info">📌 The dashboard state resets on page reload (in-memory only). For permanent tracking, copy the completed post list to a text file or spreadsheet at the end of each session.</div>
+        </div>
+      </div>
+
+      <div class="phase" id="ph5">
+        <div class="phase-header" onclick="togglePhase('ph5')">
+          <div class="phase-num" style="background:rgba(64,120,192,0.2);color:#4078c0">5</div>
+          <div class="phase-title">🌐 (Weekly) Update GitHub Pages</div>
+          <div class="phase-time">~5 min per week</div>
+          <div class="phase-toggle">▶</div>
+        </div>
+        <div class="phase-body">
+          <ul class="step-list">
+            <li data-n="1">When a full week's posts are published on Blogger, copy the Blogger post URLs</li>
+            <li data-n="2">Open <code>index.html</code> (the GitHub landing page) in a text editor</li>
+            <li data-n="3">Find the week's blog link placeholders and update them with the real Blogger URLs</li>
+            <li data-n="4">Commit and push to the <code>rightlydividingkjv</code> GitHub repo</li>
+            <li data-n="5">GitHub Pages auto-deploys within 1–2 minutes</li>
+            <li data-n="6">Verify at <a href="https://henrynkoh.github.io/rightlydividingkjv/" target="_blank" style="color:var(--gold)">henrynkoh.github.io/rightlydividingkjv/</a></li>
+          </ul>
+          <div class="cmd">git add index.html && git commit -m "Week N: update Blogger post links" && git push<button class="copy-btn" onclick="copyCmd(this,'git add index.html && git commit -m \"Week N: update Blogger post links\" && git push')">Copy</button></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- WEEKLY RHYTHM -->
+  <div class="guide-section">
+    <h2>📅 Suggested Weekly Publishing Rhythm</h2>
+    <div class="week-rhythm">
+      <div class="day-card busy">
+        <div class="day-name">MON</div>
+        <div class="day-focus">Record</div>
+        <div class="day-task">Posts 1–4</div>
+      </div>
+      <div class="day-card busy">
+        <div class="day-name">TUE</div>
+        <div class="day-focus">Upload YT</div>
+        <div class="day-task">Posts 1–4</div>
+      </div>
+      <div class="day-card busy">
+        <div class="day-name">WED</div>
+        <div class="day-focus">Record</div>
+        <div class="day-task">Posts 5–8</div>
+      </div>
+      <div class="day-card busy">
+        <div class="day-name">THU</div>
+        <div class="day-focus">Upload YT</div>
+        <div class="day-task">Posts 5–8</div>
+      </div>
+      <div class="day-card busy">
+        <div class="day-name">FRI</div>
+        <div class="day-focus">Blog Posts</div>
+        <div class="day-task">All 8 posts</div>
+      </div>
+      <div class="day-card">
+        <div class="day-name">SAT</div>
+        <div class="day-focus">Review</div>
+        <div class="day-task">Dashboard</div>
+      </div>
+      <div class="day-card busy">
+        <div class="day-name">SUN</div>
+        <div class="day-focus">Update GitHub</div>
+        <div class="day-task">Push links</div>
+      </div>
+    </div>
+    <p style="font-size:0.78em;color:var(--muted);margin-top:10px">
+      At this pace: 4 videos/day × 4 recording days = ~28 posts per week = completing all 8 weeks in 8 weeks.
+      Adjust to your schedule — the HTML files are ready to copy-paste any time.
+    </p>
+  </div>
+
+  <!-- PLATFORMS -->
+  <div class="guide-section">
+    <h2>🔧 Platform Quick Reference</h2>
+    <div class="platform-grid">
+      <div class="platform-card pc-yt">
+        <div class="pc-icon">▶</div>
+        <h3>YouTube @ohhenry6524</h3>
+        <p>Short-form KJV teachings, 161+ videos, growing series</p>
+        <a href="https://studio.youtube.com" target="_blank">→ YouTube Studio</a><br>
+        <a href="https://www.youtube.com/@ohhenry6524/videos" target="_blank">→ Channel Videos</a>
+      </div>
+      <div class="platform-card pc-blog">
+        <div class="pc-icon">📰</div>
+        <h3>Blogger Blog</h3>
+        <p>rightlydividingkjv.blogspot.com — full HTML posts with embeds</p>
+        <a href="https://rightlydividingkjv.blogspot.com" target="_blank">→ View Blog</a><br>
+        <a href="https://www.blogger.com/blog/posts/1234567890" target="_blank">→ Blogger Dashboard</a>
+      </div>
+      <div class="platform-card pc-gh">
+        <div class="pc-icon">🌐</div>
+        <h3>GitHub Pages</h3>
+        <p>henrynkoh.github.io/rightlydividingkjv/ — landing page hub</p>
+        <a href="https://henrynkoh.github.io/rightlydividingkjv/" target="_blank">→ Live Site</a><br>
+        <a href="https://github.com/henrynkoh/rightlydividingkjv" target="_blank">→ Repository</a>
+      </div>
+      <div class="platform-card pc-html">
+        <div class="pc-icon">📄</div>
+        <h3>HTML Post Files</h3>
+        <p>Standalone HTML files for offline use and Blogger copy-paste source</p>
+        <a href="week1-posts.html">→ Week 1–4 Posts</a><br>
+        <a href="week5-posts.html">→ Week 5–8 Posts</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- CONTENT FILES OVERVIEW -->
+  <div class="guide-section">
+    <h2>📁 Your Content Files</h2>
+    <table>
+      <tr><th>File</th><th>Purpose</th><th>Posts</th><th>Use When</th></tr>
+      <tr><td><a href="index.html" style="color:var(--gold)">index.html</a></td><td>GitHub Pages landing page</td><td>Links to all 232</td><td>Push to GitHub repo as main landing page</td></tr>
+      <tr><td><a href="week5-posts.html" style="color:var(--gold)">week5-posts.html</a></td><td>Full Week 5 post HTML</td><td>#113–140</td><td>Copy-paste posts to Blogger HTML editor</td></tr>
+      <tr><td><a href="week6-posts.html" style="color:var(--gold)">week6-posts.html</a></td><td>Full Week 6 post HTML</td><td>#141–168</td><td>Copy-paste posts to Blogger HTML editor</td></tr>
+      <tr><td><a href="week7-posts.html" style="color:var(--gold)">week7-posts.html</a></td><td>Full Week 7 post HTML</td><td>#169–196</td><td>Copy-paste posts to Blogger HTML editor</td></tr>
+      <tr><td><a href="week8-posts.html" style="color:var(--gold)">week8-posts.html</a></td><td>Full Week 8 post HTML</td><td>#197–232</td><td>Copy-paste posts to Blogger HTML editor</td></tr>
+      <tr><td><a href="archive-index.html" style="color:var(--gold)">archive-index.html</a></td><td>Complete archive page</td><td>All 232</td><td>Publish as standalone Archive page on Blog/GitHub</td></tr>
+      <tr><td><a href="content-dashboard.html" style="color:var(--gold)">content-dashboard.html</a></td><td>Interactive tracking dashboard</td><td>All 232</td><td>Track YouTube ✓ / Blog ✓ status per post</td></tr>
+      <tr><td><a href="youtube-embed-map.html" style="color:var(--gold)">youtube-embed-map.html</a></td><td>YouTube URL → embed code generator</td><td>All 232</td><td>Generate iframe embed for each blog post</td></tr>
+      <tr><td><a href="publishing-guide.html" style="color:var(--gold)">publishing-guide.html</a></td><td>This guide</td><td>—</td><td>Reference during publishing sessions</td></tr>
+    </table>
+  </div>
+
+  <!-- BLOG POST TEMPLATE -->
+  <div class="guide-section">
+    <h2>📝 Blog Post Templates</h2>
+
+    <div class="template-tabs">
+      <button class="tab-btn active" onclick="switchTab('ytdesc')">YouTube Description</button>
+      <button class="tab-btn" onclick="switchTab('blogtitle')">Blogger Titles</button>
+      <button class="tab-btn" onclick="switchTab('labels')">Labels/Tags</button>
+    </div>
+    <div class="tab-content">
+      <div class="tab-pane active" id="tab-ytdesc">
+        <p style="font-size:0.8em;color:var(--muted);margin-bottom:8px">Copy-paste this as your YouTube description (fill in the blanks):</p>
+        <div class="cmd">📖 [POST TITLE] | KJV Right Division
+"[VERSE TEXT]" — [BOOK CHAPTER:VERSE] KJV
+
+In this study we rightly divide the Word of Truth (2 Tim 2:15) and see exactly what [TOPIC] means for the Body of Christ in the Age of Grace.
+
+🔑 Key Points:
+• [POINT 1]
+• [POINT 2]
+• [POINT 3]
+
+📚 Read the full study: https://rightlydividingkjv.blogspot.com/[SLUG]
+🌐 All 232 posts: https://henrynkoh.github.io/rightlydividingkjv/
+📋 Archive index: https://henrynkoh.github.io/rightlydividingkjv/archive
+
+#KJV #RightDivision #BibleStudy #Dispensational #GraceAge #2Timothy215 #[TOPICTAG]<button class="copy-btn" onclick="copyCmd(this,document.getElementById('tab-ytdesc').querySelector('.cmd').textContent)">Copy</button></div>
+      </div>
+      <div class="tab-pane" id="tab-blogtitle">
+        <p style="font-size:0.8em;color:var(--muted);margin-bottom:8px">Suggested Blogger post title formats:</p>
+        <div class="cmd">Post #[N]: [Title] | KJV Right Division (Week [W], Day [D])<button class="copy-btn" onclick="copyCmd(this,'Post #[N]: [Title] | KJV Right Division (Week [W], Day [D])')">Copy</button></div>
+        <div class="cmd">Rightly Dividing KJV #[N] – [Short Title] ([VERSE])<button class="copy-btn" onclick="copyCmd(this,'Rightly Dividing KJV #[N] – [Short Title] ([VERSE])')">Copy</button></div>
+        <p style="font-size:0.78em;color:var(--muted);margin-top:8px">Example: <em>Post #141: The Rapture vs Second Coming Distinctions | KJV Right Division (Week 6, Day 1)</em></p>
+      </div>
+      <div class="tab-pane" id="tab-labels">
+        <p style="font-size:0.8em;color:var(--muted);margin-bottom:8px">Use these Blogger labels consistently for navigation:</p>
+        <table>
+          <tr><th>Required Labels</th><th>Week Labels</th><th>Topic Labels</th></tr>
+          <tr><td>KJV</td><td>Week 1 – Foundations</td><td>Prophecy</td></tr>
+          <tr><td>Right Division</td><td>Week 2 – Grace Age</td><td>Grace</td></tr>
+          <tr><td>Dispensational</td><td>Week 3 – Israel</td><td>Rapture</td></tr>
+          <tr><td>Bible Study</td><td>Week 4 – Paul's Epistles</td><td>Law vs Grace</td></tr>
+          <tr><td>2 Timothy 2:15</td><td>Week 5 – Practical</td><td>Body of Christ</td></tr>
+          <tr><td>Grace Age</td><td>Week 6 – Advanced</td><td>Israel</td></tr>
+          <tr><td></td><td>Week 7 – Corrections</td><td>Doctrine</td></tr>
+          <tr><td></td><td>Week 8 – Maturity</td><td>Application</td></tr>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- PER-POST CHECKLIST -->
+  <div class="guide-section">
+    <h2>✅ Pre-Publish Checklist (Per Post)</h2>
+    <ul class="checklist">
+      <li>YouTube video uploaded with correct title format</li>
+      <li>YouTube description filled with verse, points, and blog link</li>
+      <li>YouTube tags added (KJV, Right Division, topic keywords)</li>
+      <li>YouTube visibility set (Public or Unlisted)</li>
+      <li>Video URL copied from browser</li>
+      <li>Embed code generated in YouTube Mapper</li>
+      <li>Blogger post created in HTML editor mode</li>
+      <li>Full post HTML pasted from week file</li>
+      <li>Video placeholder replaced with actual embed code</li>
+      <li>Post title matches format</li>
+      <li>Labels applied (at minimum: KJV, Right Division, Week N)</li>
+      <li>Blog post published</li>
+      <li>Dashboard updated (YouTube ✓, Blog ✓)</li>
+      <li>Blog post URL copied for GitHub landing page update</li>
+    </ul>
+  </div>
+
+  <!-- SEO TIPS -->
+  <div class="guide-section">
+    <h2>🔍 SEO & Growth Tips</h2>
+
+    <div class="tip">
+      <strong>YouTube:</strong> The first 125 characters of the description appear in search results.
+      Start with the verse text, not with "In this study…"
+    </div>
+    <div class="tip">
+      <strong>Blogger:</strong> Use the post title as the permalink slug exactly (Blogger does this by default).
+      Keep the slug to 5–8 words max.
+    </div>
+    <div class="tip">
+      <strong>Cross-linking:</strong> Every YouTube description links to the blog post.
+      Every blog post embeds the YouTube video. This cross-traffic compounds over time.
+    </div>
+    <div class="tip">
+      <strong>Consistency:</strong> Publishing 4 posts/day to YouTube Shorts (under 60 sec each) gives 28 posts/week —
+      the fastest path to completing all 232 posts while keeping the series cohesive.
+    </div>
+    <div class="info">
+      <strong>Verse-first strategy:</strong> Title videos with the verse first ("1 Thessalonians 4:16-17 – The Rapture")
+      for better searchability when people look up a specific Bible passage on YouTube.
+    </div>
+  </div>
+
+  <!-- QUICK LINKS -->
+  <div class="guide-section">
+    <h2>🔗 Quick Access Links</h2>
+    <table>
+      <tr><th>Destination</th><th>URL</th></tr>
+      <tr><td>YouTube Channel</td><td><a href="https://www.youtube.com/@ohhenry6524" target="_blank" style="color:var(--gold)">youtube.com/@ohhenry6524</a></td></tr>
+      <tr><td>YouTube Studio</td><td><a href="https://studio.youtube.com" target="_blank" style="color:var(--gold)">studio.youtube.com</a></td></tr>
+      <tr><td>Blogger Blog</td><td><a href="https://rightlydividingkjv.blogspot.com" target="_blank" style="color:var(--gold)">rightlydividingkjv.blogspot.com</a></td></tr>
+      <tr><td>Blogger Dashboard</td><td><a href="https://blogger.com" target="_blank" style="color:var(--gold)">blogger.com</a></td></tr>
+      <tr><td>GitHub Pages Site</td><td><a href="https://henrynkoh.github.io/rightlydividingkjv/" target="_blank" style="color:var(--gold)">henrynkoh.github.io/rightlydividingkjv/</a></td></tr>
+      <tr><td>GitHub Repository</td><td><a href="https://github.com/henrynkoh/rightlydividingkjv" target="_blank" style="color:var(--gold)">github.com/henrynkoh/rightlydividingkjv</a></td></tr>
+    </table>
+  </div>
+
+  <div style="text-align:center;padding:30px 0;color:var(--muted);font-size:0.78em;">
+    "Study to shew thyself approved unto God, a workman that needeth not to be ashamed,<br>
+    rightly dividing the word of truth." — 2 Timothy 2:15 KJV<br><br>
+    <strong style="color:var(--gold)">Rightly Dividing KJV</strong> · @ohhenry6524 · 8 Weeks · 232 Posts
+  </div>
+
+</div><!-- /main -->
+
+<script>
+function togglePhase(id) {
+  const el = document.getElementById(id);
+  el.classList.toggle('open');
+}
+function switchTab(id) {
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.querySelectorAll('.tab-pane').forEach(p => p.classList.remove('active'));
+  event.target.classList.add('active');
+  document.getElementById('tab-' + id).classList.add('active');
+}
+function copyCmd(btn, text) {
+  navigator.clipboard.writeText(text).then(() => {
+    btn.textContent = '✓ Copied!';
+    btn.classList.add('copied');
+    setTimeout(() => { btn.textContent = 'Copy'; btn.classList.remove('copied'); }, 2000);
+  }).catch(() => {
+    const ta = document.createElement('textarea');
+    ta.value = text;
+    document.body.appendChild(ta);
+    ta.select();
+    document.execCommand('copy');
+    document.body.removeChild(ta);
+  });
+}
+</script>
+</body>
+</html>

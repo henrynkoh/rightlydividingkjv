@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>YouTube Embed Mapper – @ohhenry6524 × Rightly Dividing KJV</title>
+  <style>
+    :root { --gold:#c8a96e; --dark:#0d1117; --dark2:#161b22; --dark3:#1c2333; --text:#e6edf3; --muted:#8b949e; --green:#3fb950; --red:#f85149; --blue:#58a6ff; }
+    * { box-sizing:border-box; margin:0; padding:0; }
+    body { font-family:-apple-system,sans-serif; background:var(--dark); color:var(--text); font-size:14px; }
+
+    header { background:var(--dark2); border-bottom:1px solid rgba(200,169,110,0.3); padding:16px 24px; }
+    header h1 { font-size:1.1em; color:var(--gold); }
+    header p { font-size:0.8em; color:var(--muted); margin-top:4px; }
+    .header-links { display:flex; gap:10px; flex-wrap:wrap; margin-top:10px; }
+    .header-links a { color:var(--gold); font-size:0.8em; text-decoration:none; padding:4px 10px; border:1px solid rgba(200,169,110,0.3); border-radius:4px; }
+
+    /* CHANNEL INFO */
+    .channel-bar { display:flex; align-items:center; gap:16px; padding:14px 24px; background:rgba(200,0,0,0.08); border-bottom:1px solid rgba(200,0,0,0.2); flex-wrap:wrap; }
+    .ch-icon { width:40px; height:40px; border-radius:50%; background:linear-gradient(135deg,#c00,#800); display:flex; align-items:center; justify-content:center; font-size:1.2em; flex-shrink:0; }
+    .ch-info h3 { font-size:0.95em; }
+    .ch-info p { font-size:0.78em; color:var(--muted); }
+    .ch-btn { background:#c00; color:white; border:none; padding:8px 16px; border-radius:4px; cursor:pointer; font-size:0.82em; text-decoration:none; display:inline-block; }
+    .ch-btn:hover { background:#e00; }
+
+    /* MAIN TOOL */
+    .tool-area { display:grid; grid-template-columns:1fr 1fr; gap:0; min-height:calc(100vh - 200px); }
+    @media(max-width:800px) { .tool-area { grid-template-columns:1fr; } }
+
+    /* LEFT: POST LIST */
+    .post-panel { border-right:1px solid rgba(255,255,255,0.05); }
+    .panel-header { background:var(--dark3); padding:10px 16px; border-bottom:1px solid rgba(255,255,255,0.05); display:flex; align-items:center; gap:10px; flex-wrap:wrap; }
+    .panel-header h3 { font-size:0.88em; color:var(--gold); flex:1; }
+    .search-box { background:var(--dark2); border:1px solid rgba(255,255,255,0.1); color:var(--text); padding:6px 10px; border-radius:4px; font-size:0.82em; width:180px; }
+    .week-sel { background:var(--dark2); border:1px solid rgba(255,255,255,0.1); color:var(--text); padding:6px 10px; border-radius:4px; font-size:0.82em; }
+
+    .post-list { overflow-y:auto; max-height:calc(100vh - 260px); }
+    .post-item { padding:10px 16px; border-bottom:1px solid rgba(255,255,255,0.04); cursor:pointer; transition:background 0.15s; }
+    .post-item:hover { background:rgba(200,169,110,0.06); }
+    .post-item.selected { background:rgba(200,169,110,0.12); border-left:3px solid var(--gold); }
+    .post-item.has-url { border-left:3px solid var(--green); }
+    .post-item .pi-num { font-size:0.72em; color:var(--muted); }
+    .post-item .pi-title { font-size:0.85em; margin:2px 0; }
+    .post-item .pi-verse { font-size:0.73em; color:var(--muted); }
+    .post-item .pi-status { font-size:0.7em; color:var(--green); }
+
+    /* RIGHT: EMBED PANEL */
+    .embed-panel { padding:20px; overflow-y:auto; max-height:calc(100vh - 200px); }
+    .embed-panel h3 { font-size:0.95em; color:var(--gold); margin-bottom:4px; }
+    .embed-panel .ep-verse { font-size:0.8em; color:var(--muted); margin-bottom:16px; }
+
+    .input-group { margin-bottom:14px; }
+    .input-group label { display:block; font-size:0.78em; color:var(--muted); margin-bottom:4px; }
+    .input-group input { width:100%; background:var(--dark2); border:1px solid rgba(255,255,255,0.1); color:var(--text); padding:8px 12px; border-radius:5px; font-size:0.85em; }
+    .input-group input:focus { outline:none; border-color:var(--gold); }
+
+    .btn-gen { background:var(--gold); color:#0d1117; border:none; padding:9px 18px; border-radius:5px; cursor:pointer; font-size:0.85em; font-weight:bold; width:100%; margin-bottom:12px; }
+    .btn-gen:hover { background:#e2c98e; }
+    .btn-copy { background:rgba(200,169,110,0.15); border:1px solid rgba(200,169,110,0.3); color:var(--gold); padding:6px 14px; border-radius:4px; cursor:pointer; font-size:0.78em; margin-left:8px; }
+    .btn-copy:hover { background:rgba(200,169,110,0.25); }
+    .btn-copy.copied { color:var(--green); border-color:var(--green); }
+
+    .code-block { background:var(--dark3); border:1px solid rgba(255,255,255,0.08); border-radius:6px; padding:12px; font-family:monospace; font-size:0.78em; white-space:pre-wrap; word-break:break-all; color:#c9d1d9; max-height:200px; overflow-y:auto; margin-bottom:10px; }
+
+    .preview-box { background:var(--dark3); border:1px solid rgba(255,255,255,0.08); border-radius:6px; overflow:hidden; margin-bottom:12px; }
+    .preview-box iframe { width:100%; aspect-ratio:16/9; border:none; }
+
+    .empty-state { text-align:center; padding:60px 20px; color:var(--muted); }
+    .empty-state .emoji { font-size:3em; margin-bottom:12px; }
+
+    /* KNOWN VIDEOS */
+    .known-videos { background:rgba(200,0,0,0.06); border:1px solid rgba(200,0,0,0.2); border-radius:6px; padding:12px 14px; margin-bottom:16px; }
+    .known-videos h4 { font-size:0.82em; color:#ff6b6b; margin-bottom:8px; }
+    .known-video-item { display:flex; align-items:center; gap:8px; padding:6px 0; border-bottom:1px solid rgba(255,255,255,0.05); font-size:0.78em; cursor:pointer; }
+    .known-video-item:last-child { border-bottom:none; }
+    .known-video-item:hover { color:var(--gold); }
+    .kv-title { flex:1; }
+    .kv-badge { background:rgba(200,0,0,0.2); color:#ff6b6b; padding:2px 6px; border-radius:3px; font-size:0.72em; white-space:nowrap; }
+
+    /* STATS */
+    .map-stats { display:flex; gap:12px; padding:10px 16px; background:var(--dark3); border-bottom:1px solid rgba(255,255,255,0.05); font-size:0.78em; }
+    .map-stats span { color:var(--muted); }
+    .map-stats strong { color:var(--gold); }
+
+    .divider-line { border:none; border-top:1px solid rgba(255,255,255,0.06); margin:12px 0; }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>🔗 YouTube Embed Mapper – @ohhenry6524 × Rightly Dividing KJV</h1>
+  <p>Paste a YouTube URL → select the matching post → generate the embed code → copy into Blogger HTML mode</p>
+  <div class="header-links">
+    <a href="index.html">🏠 Home</a>
+    <a href="content-dashboard.html">📊 Dashboard</a>
+    <a href="archive-index.html">📚 Archive</a>
+    <a href="publishing-guide.html">📋 Guide</a>
+    <a href="https://www.youtube.com/@ohhenry6524" target="_blank">▶ Channel</a>
+    <a href="https://studio.youtube.com" target="_blank">🎬 YT Studio</a>
+  </div>
+</header>
+
+<!-- CHANNEL BAR -->
+<div class="channel-bar">
+  <div class="ch-icon">▶</div>
+  <div class="ch-info">
+    <h3>@ohhenry6524 – oh henry</h3>
+    <p>161 videos · Rightly Dividing KJV series · Short-form Bible teachings</p>
+  </div>
+  <a class="ch-btn" href="https://www.youtube.com/@ohhenry6524/videos" target="_blank">Browse All Videos</a>
+  <a class="ch-btn" href="https://studio.youtube.com/channel/videos" target="_blank" style="background:#333">YT Studio</a>
+</div>
+
+<!-- MAP STATS -->
+<div class="map-stats">
+  <span>Total Posts: <strong>232</strong></span>
+  <span>Mapped: <strong id="mappedCount">0</strong></span>
+  <span>Remaining: <strong id="remainCount">232</strong></span>
+  <span>Channel: <strong><a href="https://www.youtube.com/@ohhenry6524" target="_blank" style="color:var(--gold);text-decoration:none">@ohhenry6524</a></strong></span>
+</div>
+
+<div class="tool-area">
+
+  <!-- LEFT: POST LIST -->
+  <div class="post-panel">
+    <div class="panel-header">
+      <h3>📖 Select a Post</h3>
+      <input class="search-box" type="text" id="postSearch" placeholder="Search…" oninput="filterPostList()">
+      <select class="week-sel" id="weekSel" onchange="filterPostList()">
+        <option value="">All Weeks</option>
+        <option value="week1">Week 1</option>
+        <option value="week2">Week 2</option>
+        <option value="week3">Week 3</option>
+        <option value="week4">Week 4</option>
+        <option value="week5">Week 5</option>
+        <option value="week6">Week 6</option>
+        <option value="week7">Week 7</option>
+        <option value="week8">Week 8</option>
+      </select>
+    </div>
+    <div class="post-list" id="postList"></div>
+  </div>
+
+  <!-- RIGHT: EMBED PANEL -->
+  <div class="embed-panel" id="embedPanel">
+    <div class="empty-state">
+      <div class="emoji">🎬</div>
+      <p>Select a post from the left to generate its YouTube embed code</p>
+    </div>
+  </div>
+
+</div>
+
+<script>
+// Known @ohhenry6524 videos (from screenshots + channel)
+const knownVideos = [
+  {
+    title: "The Rapture: Paul's Mystery",
+    desc: "1 Thessalonians 4:16-17 · KJV · 2:20",
+    url: "",  // TODO: paste actual URL from youtube.com/@ohhenry6524
+    postSuggestion: 141,
+    id: ""
+  },
+  {
+    title: "Second Coming: Prophecy Not Mystery",
+    desc: "Matthew 24 · KJV Right Division · 2:17",
+    url: "",  // TODO: paste actual URL
+    postSuggestion: 153,
+    id: ""
+  }
+];
+
+const posts = [
+  {w:"week1",n:1,title:"2 Timothy 2:15 – The Command to Rightly Divide",verse:"2 Tim 2:15"},
+  {w:"week1",n:2,title:"What Is Rightly Dividing the Word?",verse:"2 Tim 2:15"},
+  {w:"week1",n:3,title:"The Importance of Context: Who, What, When",verse:"Various"},
+  {w:"week1",n:4,title:"Dispensations Defined from Scripture",verse:"Various"},
+  {w:"week1",n:5,title:"Israel vs. the Church – Key Distinctions",verse:"Rom 11:25"},
+  {w:"week1",n:6,title:"The Kingdom Gospel vs. the Gospel of Grace",verse:"1 Cor 15:1-4"},
+  {w:"week1",n:7,title:"Matthew 5-7 – Sermon on the Mount: To Whom?",verse:"Matt 5-7"},
+  {w:"week1",n:8,title:"The 12 Apostles' Commission vs. Paul's Commission",verse:"Acts 1:8; Gal 1:12"},
+  {w:"week1",n:9,title:"Acts 2 vs. 1 Corinthians 15:1-4 – Two Gospels?",verse:"1 Cor 15:1-4"},
+  {w:"week1",n:10,title:"Water Baptism in Acts vs. the Body of Christ",verse:"1 Cor 1:17"},
+  {w:"week1",n:11,title:"John 3:16 in Its Context",verse:"John 3:16"},
+  {w:"week1",n:12,title:"Romans 3:21-26 – Righteousness of God Revealed",verse:"Rom 3:21-26"},
+  {w:"week1",n:13,title:"Ephesians 2:8-9 – Grace Through Faith",verse:"Eph 2:8-9"},
+  {w:"week1",n:14,title:"The Mystery Revealed to Paul (Eph 3:1-9)",verse:"Eph 3:1-9"},
+  {w:"week1",n:15,title:"The Body of Christ Defined (1 Cor 12)",verse:"1 Cor 12"},
+  {w:"week1",n:16,title:"Rightly Dividing Old Testament Promises",verse:"2 Tim 3:16-17"},
+  {w:"week1",n:17,title:"The Law vs. Grace: Not Mixed",verse:"Gal 5:4"},
+  {w:"week1",n:18,title:"Matthew 24 – Signs for Israel, Not the Church",verse:"Matt 24"},
+  {w:"week1",n:19,title:"The Rapture of the Church (1 Thess 4:13-18)",verse:"1 Thess 4:13-18"},
+  {w:"week1",n:20,title:"The Second Coming – Different Event Entirely",verse:"Rev 19:11-16"},
+  {w:"week1",n:21,title:"Tribulation vs. Church Age",verse:"1 Thess 5:9"},
+  {w:"week1",n:22,title:"The Kingdom Age (Millennium) Overview",verse:"Rev 20:1-6"},
+  {w:"week1",n:23,title:"The Dispensation of Grace Summarized",verse:"Eph 3:2"},
+  {w:"week1",n:24,title:"Pauline Epistles: Our Primary Instruction Today",verse:"Phil 3:17"},
+  {w:"week1",n:25,title:"How to Study the Bible Dispensationally",verse:"Acts 17:11"},
+  {w:"week1",n:26,title:"Common Mistakes in Bible Division",verse:"2 Tim 2:15"},
+  {w:"week1",n:27,title:"Understanding Prophecy vs. Mystery",verse:"Rom 16:25"},
+  {w:"week1",n:28,title:"Week 1 Review – Foundations Solidified",verse:"2 Tim 2:15"},
+  // (Abbreviated — weeks 2-8 follow same pattern; full list in content-dashboard.html)
+  {w:"week5",n:113,title:"Romans 12:1-2 – Renewing the Mind in Grace",verse:"Rom 12:1-2"},
+  {w:"week5",n:119,title:"Romans 8:1 – No Condemnation in Christ",verse:"Rom 8:1"},
+  {w:"week5",n:124,title:"Ephesians 6:10-18 – Armor of God for Today",verse:"Eph 6:10-18"},
+  {w:"week6",n:141,title:"The Rapture vs Second Coming Distinctions (Deep Dive)",verse:"1 Thess 4:16-17"},
+  {w:"week6",n:142,title:"Daniel's 70 Weeks and the Church Age Gap",verse:"Dan 9:24"},
+  {w:"week6",n:143,title:"Tribulation vs Church Age Suffering",verse:"1 Thess 5:9"},
+  {w:"week6",n:144,title:"Revelation 2-3 – Letters to the Seven Churches",verse:"Rev 2:7"},
+  {w:"week6",n:145,title:"The Judgment Seat of Christ (Bema)",verse:"2 Cor 5:10"},
+  {w:"week6",n:146,title:"Great White Throne Judgment",verse:"Rev 20:11-12"},
+  {w:"week6",n:147,title:"Israel's Future Restoration (Romans 11)",verse:"Rom 11:26"},
+  {w:"week6",n:148,title:"Millennial Kingdom Temple and Worship",verse:"Mic 4:2"},
+  {w:"week6",n:149,title:"Satan's Role in Different Dispensations",verse:"Rev 12:9"},
+  {w:"week6",n:150,title:"Angels and Their Ministry Across Ages",verse:"Heb 1:14"},
+  {w:"week6",n:151,title:"The Mystery of Iniquity (2 Thess 2)",verse:"2 Thess 2:7"},
+  {w:"week6",n:152,title:"The Man of Sin Revealed",verse:"2 Thess 2:3-4"},
+  {w:"week6",n:153,title:"Signs of the Times Rightly Divided",verse:"Luke 21:28"},
+  {w:"week6",n:154,title:"The Blessed Hope vs Earthly Hope",verse:"Titus 2:13"},
+  {w:"week6",n:155,title:"New Jerusalem vs Earthly Jerusalem",verse:"Rev 21:2"},
+  {w:"week6",n:156,title:"Resurrection Bodies – Different Orders",verse:"1 Cor 15:23"},
+  {w:"week6",n:157,title:"Rewards in the Kingdom vs Grace Inheritance",verse:"1 Cor 3:14-15"},
+  {w:"week6",n:158,title:"The Marriage Supper of the Lamb",verse:"Rev 19:9"},
+  {w:"week6",n:159,title:"Gog and Magog in Prophecy",verse:"Ezek 38:1-2"},
+  {w:"week6",n:160,title:"The Final Rebellion",verse:"Rev 20:7-8"},
+  {w:"week6",n:161,title:"Eternal State – New Heavens and Earth",verse:"Rev 21:1"},
+  {w:"week6",n:162,title:"The Lake of Fire – Who and Why",verse:"Rev 20:14-15"},
+  {w:"week6",n:163,title:"Degrees of Punishment",verse:"Luke 12:47-48"},
+  {w:"week6",n:164,title:"Degrees of Reward in Grace",verse:"2 Cor 9:6"},
+  {w:"week6",n:165,title:"The Role of Israel in the Millennium",verse:"Zech 14:16"},
+  {w:"week6",n:166,title:"Gentile Nations in the Kingdom",verse:"Rev 21:24"},
+  {w:"week6",n:167,title:"The Curse Lifted in the Millennium",verse:"Isa 11:6"},
+  {w:"week6",n:168,title:"Peace on Earth – Prophetic Fulfillment",verse:"Isa 2:4"},
+  {w:"week7",n:169,title:"Once Saved Always Saved vs Falling Away",verse:"John 10:28"},
+  {w:"week8",n:197,title:"Effective Witnessing in the Grace Age",verse:"1 Cor 15:3-4"},
+  {w:"week8",n:231,title:"Finishing the Race Strong",verse:"2 Tim 4:7-8"},
+  {w:"week8",n:232,title:"The Crowns and Rewards for Believers",verse:"2 Tim 4:8"},
+];
+
+// URL mappings (in-memory)
+const urlMap = {};
+
+let selectedPost = null;
+
+function extractVideoId(url) {
+  if (!url) return null;
+  const patterns = [
+    /youtu\.be\/([^?&\s]+)/,
+    /youtube\.com\/watch\?v=([^&\s]+)/,
+    /youtube\.com\/shorts\/([^?&\s]+)/,
+    /youtube\.com\/embed\/([^?&\s]+)/,
+  ];
+  for (const p of patterns) {
+    const m = url.match(p);
+    if (m) return m[1];
+  }
+  return null;
+}
+
+function renderPostList() {
+  const q = document.getElementById('postSearch').value.toLowerCase();
+  const wf = document.getElementById('weekSel').value;
+  const filtered = posts.filter(p => {
+    const matchQ = !q || p.title.toLowerCase().includes(q) || p.verse.toLowerCase().includes(q);
+    const matchW = !wf || p.w === wf;
+    return matchQ && matchW;
+  });
+  const html = filtered.map(p => {
+    const hasUrl = !!urlMap[p.n];
+    const isSel = selectedPost && selectedPost.n === p.n;
+    return `<div class="post-item ${isSel?'selected':''} ${hasUrl?'has-url':''}" onclick="selectPost(${p.n})">
+      <div class="pi-num">#${p.n} · ${p.w.replace('week','Week ')}</div>
+      <div class="pi-title">${p.title}</div>
+      <div class="pi-verse">${p.verse}</div>
+      ${hasUrl ? '<div class="pi-status">✓ YouTube linked</div>' : ''}
+    </div>`;
+  }).join('');
+  document.getElementById('postList').innerHTML = html || '<div style="padding:20px;color:var(--muted);text-align:center">No posts found</div>';
+  updateMapStats();
+}
+
+function filterPostList() { renderPostList(); }
+
+function selectPost(n) {
+  selectedPost = posts.find(p => p.n === n);
+  renderPostList();
+  renderEmbedPanel();
+}
+
+function renderEmbedPanel() {
+  if (!selectedPost) return;
+  const p = selectedPost;
+  const existingUrl = urlMap[p.n] || '';
+  const videoId = extractVideoId(existingUrl);
+
+  document.getElementById('embedPanel').innerHTML = `
+    <h3>Post #${p.n}: ${p.title}</h3>
+    <div class="ep-verse">${p.verse} · ${p.w.replace('week','Week ')}</div>
+
+    <!-- KNOWN VIDEOS -->
+    <div class="known-videos">
+      <h4>▶ Known Videos from @ohhenry6524 (click to use)</h4>
+      ${knownVideos.map((v,i) => `
+        <div class="known-video-item" onclick="useKnownVideo(${i})">
+          <span class="kv-title">${v.title}</span>
+          <span class="kv-badge">${v.desc}</span>
+          <span style="color:var(--gold)">→ Use</span>
+        </div>`).join('')}
+      <p style="font-size:0.72em;color:var(--muted);margin-top:6px">
+        💡 Go to <a href="https://www.youtube.com/@ohhenry6524/videos" target="_blank" style="color:var(--gold)">youtube.com/@ohhenry6524/videos</a>,
+        right-click any video → Copy link → paste below
+      </p>
+    </div>
+
+    <!-- URL INPUT -->
+    <div class="input-group">
+      <label>YouTube Video URL (from @ohhenry6524)</label>
+      <input type="text" id="ytUrlInput" value="${existingUrl}"
+        placeholder="https://youtu.be/XXXXXXXXXXX  or  https://youtube.com/watch?v=..."
+        oninput="onUrlInput(this.value)">
+    </div>
+
+    <button class="btn-gen" onclick="generateEmbed()">⚙ Generate Embed Code</button>
+
+    <div id="outputArea" style="display:${videoId?'block':'none'}">
+
+      <!-- PREVIEW -->
+      ${videoId ? `
+      <p style="font-size:0.8em;color:var(--muted);margin-bottom:8px">Preview:</p>
+      <div class="preview-box">
+        <iframe src="https://www.youtube.com/embed/${videoId}"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowfullscreen></iframe>
+      </div>` : ''}
+
+      <hr class="divider-line">
+
+      <!-- EMBED CODE -->
+      <p style="font-size:0.8em;color:var(--muted);margin-bottom:6px">
+        Embed code (paste into Blogger HTML editor):
+        <button class="btn-copy" id="copyEmbedBtn" onclick="copyCode('embedCode','copyEmbedBtn')">Copy</button>
+      </p>
+      <div class="code-block" id="embedCode">${videoId ? generateEmbedCode(videoId, p) : ''}</div>
+
+      <hr class="divider-line">
+
+      <!-- FULL BLOG POST SECTION -->
+      <p style="font-size:0.8em;color:var(--muted);margin-bottom:6px">
+        Full blog post video section (drop-in replacement for placeholder):
+        <button class="btn-copy" id="copyFullBtn" onclick="copyCode('fullCode','copyFullBtn')">Copy</button>
+      </p>
+      <div class="code-block" id="fullCode">${videoId ? generateFullSection(videoId, p) : ''}</div>
+
+      <hr class="divider-line">
+
+      <!-- BLOGGER SEARCH HINT -->
+      <p style="font-size:0.78em;color:var(--muted);padding:10px;background:var(--dark3);border-radius:5px;margin-top:8px">
+        📋 <strong>In Blogger:</strong> Open Post #${p.n} → HTML mode → Find
+        <code style="background:rgba(255,255,255,0.08);padding:2px 5px;border-radius:3px">[VIDEO EMBED – Replace with YouTube iframe: YOUR_YOUTUBE_LINK_${p.n}]</code>
+        → Replace entire line with the "Full blog post section" code above.
+      </p>
+    </div>
+  `;
+}
+
+function onUrlInput(val) {
+  if (!selectedPost) return;
+  urlMap[selectedPost.n] = val;
+}
+
+function useKnownVideo(i) {
+  const v = knownVideos[i];
+  if (!v.url) {
+    alert('This video URL needs to be filled in. Go to youtube.com/@ohhenry6524/videos, find "' + v.title + '", right-click → Copy link, then paste it here.');
+    return;
+  }
+  document.getElementById('ytUrlInput').value = v.url;
+  urlMap[selectedPost.n] = v.url;
+  generateEmbed();
+}
+
+function generateEmbedCode(videoId, p) {
+  return `<iframe width="560" height="315" src="https://www.youtube.com/embed/${videoId}" title="${p.title} | KJV Right Division" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>`;
+}
+
+function generateFullSection(videoId, p) {
+  return `<!-- VIDEO: Post #${p.n} – ${p.title} (${p.verse}) -->
+<div style="max-width:560px;margin:20px auto;">
+  <iframe width="560" height="315"
+    src="https://www.youtube.com/embed/${videoId}"
+    title="${p.title} | KJV Right Division | @ohhenry6524"
+    frameborder="0"
+    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+    allowfullscreen
+    style="width:100%;max-width:560px;border-radius:6px;">
+  </iframe>
+  <p style="text-align:center;font-size:0.8em;color:#666;margin-top:6px;">
+    📺 Watch on <a href="https://www.youtube.com/@ohhenry6524" target="_blank">@ohhenry6524</a> ·
+    Subscribe for daily KJV right division studies
+  </p>
+</div>`;
+}
+
+function generateEmbed() {
+  const url = document.getElementById('ytUrlInput').value.trim();
+  if (!url) { alert('Please paste a YouTube URL first.'); return; }
+  const videoId = extractVideoId(url);
+  if (!videoId) { alert('Could not extract video ID from that URL. Make sure it is a valid YouTube link.'); return; }
+  urlMap[selectedPost.n] = url;
+  document.getElementById('embedCode').textContent = generateEmbedCode(videoId, selectedPost);
+  document.getElementById('fullCode').textContent = generateFullSection(videoId, selectedPost);
+  document.getElementById('outputArea').style.display = 'block';
+  renderPostList();
+  updateMapStats();
+  // Insert preview
+  const previewArea = document.getElementById('outputArea');
+  const existingIframe = previewArea.querySelector('iframe');
+  if (!existingIframe) {
+    const preview = document.createElement('div');
+    preview.className = 'preview-box';
+    preview.innerHTML = `<iframe src="https://www.youtube.com/embed/${videoId}" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
+    previewArea.insertBefore(preview, previewArea.firstChild);
+  } else {
+    existingIframe.src = `https://www.youtube.com/embed/${videoId}`;
+  }
+}
+
+function copyCode(elementId, btnId) {
+  const text = document.getElementById(elementId).textContent;
+  navigator.clipboard.writeText(text).then(() => {
+    const btn = document.getElementById(btnId);
+    btn.textContent = '✓ Copied!';
+    btn.classList.add('copied');
+    setTimeout(() => { btn.textContent = 'Copy'; btn.classList.remove('copied'); }, 2000);
+  }).catch(() => {
+    // Fallback
+    const ta = document.createElement('textarea');
+    ta.value = text;
+    document.body.appendChild(ta);
+    ta.select();
+    document.execCommand('copy');
+    document.body.removeChild(ta);
+  });
+}
+
+function updateMapStats() {
+  const mapped = Object.keys(urlMap).filter(k => urlMap[k]).length;
+  document.getElementById('mappedCount').textContent = mapped;
+  document.getElementById('remainCount').textContent = 232 - mapped;
+}
+
+// Init
+renderPostList();
+</script>
+</body>
+</html>
