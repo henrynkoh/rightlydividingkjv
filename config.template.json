@@ -1,0 +1,45 @@
+{
+  "_INSTRUCTIONS": {
+    "step1": "Copy this file to config.json (same folder)",
+    "step2": "Fill in each value below — do NOT commit config.json to git",
+    "step3": "Run: python pipeline.py --setup   to verify everything works"
+  },
+
+  "youtube": {
+    "channel_handle": "@ohhenry6524",
+    "client_secrets_file": "client_secrets.json",
+    "_note": "Download client_secrets.json from Google Cloud Console > APIs & Services > Credentials > OAuth 2.0 Client IDs > Download JSON"
+  },
+
+  "blogger": {
+    "blog_id": "REPLACE_WITH_YOUR_BLOGGER_BLOG_ID",
+    "blog_url": "https://rightlydividingkjv.blogspot.com",
+    "client_secrets_file": "client_secrets.json",
+    "_note": "Blog ID: go to blogger.com > Settings > scroll to 'Blog ID'"
+  },
+
+  "github": {
+    "repo_path": "REPLACE_WITH_LOCAL_PATH_TO_REPO",
+    "repo_url": "https://github.com/henrynkoh/rightlydividingkjv",
+    "pages_url": "https://henrynkoh.github.io/rightlydividingkjv/",
+    "branch": "main",
+    "_note": "repo_path: local folder where you cloned github.com/henrynkoh/rightlydividingkjv. Example: /Users/henryoh/repos/rightlydividingkjv"
+  },
+
+  "videos": {
+    "source_folder": "REPLACE_WITH_FOLDER_CONTAINING_MP4_FILES",
+    "_note": "Folder where your recorded .mp4 files are stored. Files should be named: post-NNN.mp4 (e.g., post-141.mp4)"
+  },
+
+  "publishing": {
+    "default_visibility": "public",
+    "default_category": "KJV Right Division",
+    "thumbnail_folder": "thumbnails",
+    "_note": "Thumbnail images: thumbnails/post-NNN.jpg (optional). If missing, YouTube uses auto-generated thumbnail."
+  },
+
+  "tracking": {
+    "json_file": "tracking.json",
+    "_note": "Auto-created by pipeline.py to persist YouTube IDs and Blogger URLs per post"
+  }
+}
