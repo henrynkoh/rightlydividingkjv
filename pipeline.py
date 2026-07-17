@@ -16,6 +16,9 @@ Usage:
   python pipeline.py --post 141 --video my_video.mp4    # custom video file
   python pipeline.py --posts 141 142 143                # multiple posts in sequence
   python pipeline.py --week 6                           # all posts in week 6
+  python pipeline.py --week 6 --blog-only               # publish to Blogger NOW, no video needed
+  python pipeline.py --all --blog-only                  # publish ALL 232 posts to Blogger now
+  python pipeline.py --post 141 --yt-id dQw4w9WgXcQ    # attach existing YouTube video ID
   python pipeline.py --setup                            # verify credentials only
   python pipeline.py --status                           # show completion status
 """
@@ -212,36 +215,40 @@ def extract_post_html(post, posts_meta):
         err(f"Make sure {html_file.name} is in the same folder as pipeline.py")
         return None
 
-    try:
-        from bs4 import BeautifulSoup
-    except ImportError:
-        err("beautifulsoup4 not installed. Run: pip install -r requirements.txt")
-        sys.exit(1)
-
     with open(html_file, encoding="utf-8") as f:
-        soup = BeautifulSoup(f.read(), "lxml")
+        raw = f.read()
 
-    # Try multiple selector strategies
-    article = (
-        soup.find("article", id=f"post-{post['n']}") or
-        soup.find(id=f"post-{post['n']}") or
-        soup.find(attrs={"data-post": str(post['n'])})
-    )
+    n = post["n"]
 
-    if not article:
-        # Fallback: search by post number comment or heading
-        for tag in soup.find_all(["article", "div", "section"]):
-            if tag.get("id", "").endswith(str(post["n"])):
-                article = tag
-                break
+    # Strategy 1: <article id="post-N"> tag
+    m = re.search(rf'<article[^>]*id=["\']post-{n}["\'][^>]*>(.*?)</article>',
+                  raw, re.DOTALL | re.IGNORECASE)
+    if m:
+        ok(f"Extracted post #{n} via <article> tag")
+        return f'<article id="post-{n}">{m.group(1)}</article>'
 
-    if not article:
-        err(f"Could not find post #{post['n']} in {html_file.name}")
-        inf("Tip: Check that the week HTML file has <article id=\"post-{n}\"> tags")
-        return None
+    # Strategy 2: split on <hr> boundaries, find block with "Post {n}"
+    # The week files use <hr> as separator between posts
+    blocks = re.split(r'<hr\s*/?>', raw, flags=re.IGNORECASE)
+    for block in blocks:
+        # Match "Post 113" or "Post #113" at the start of an h2
+        if re.search(rf'Post\s+#?{n}\b', block, re.IGNORECASE):
+            # Wrap cleanly
+            content = block.strip()
+            if content:
+                ok(f"Extracted post #{n} via <hr> boundary ({len(content)} chars)")
+                return f'<div class="blog-post" id="post-{n}">\n{content}\n</div>'
 
-    ok(f"Extracted post #{post['n']} HTML ({len(str(article))} chars)")
-    return str(article)
+    # Strategy 3: between consecutive h2 headings
+    h2_pattern = rf'(<h2[^>]*>Post\s+#?{n}\b.*?</h2>)(.*?)(?=<h2[^>]*>Post\s+#?{n+1}\b|$)'
+    m = re.search(h2_pattern, raw, re.DOTALL | re.IGNORECASE)
+    if m:
+        content = m.group(1) + m.group(2)
+        ok(f"Extracted post #{n} via h2 boundary")
+        return f'<div class="blog-post" id="post-{n}">\n{content.strip()}\n</div>'
+
+    err(f"Could not find post #{n} in {html_file.name}")
+    return None
 
 # ─── STEP 3: INJECT YOUTUBE EMBED ────────────────────────────────────────────
 def inject_embed(html_content, video_id, post):
@@ -413,7 +420,8 @@ def find_video(post_n, cfg, explicit_path=None):
     return None
 
 # ─── MAIN PIPELINE ───────────────────────────────────────────────────────────
-def run_pipeline(post_n, cfg, posts, posts_meta, tracking, video_path=None, dry_run=False):
+def run_pipeline(post_n, cfg, posts, posts_meta, tracking, video_path=None,
+                 dry_run=False, blog_only=False, yt_id=None):
     """Run the full pipeline for one post. Returns True on success."""
     print(f"\n{'═'*60}")
     print(f"  POST #{post_n}: {posts[post_n]['title']}")
@@ -428,38 +436,48 @@ def run_pipeline(post_n, cfg, posts, posts_meta, tracking, video_path=None, dry_
         return True
 
     if dry_run:
-        inf("[DRY RUN] Would process Post #{post_n} — no actual uploads")
+        inf(f"[DRY RUN] Would process Post #{post_n} — no actual uploads")
         return True
 
-    # Find video
-    vpath = find_video(post_n, cfg, video_path)
-    if not vpath:
-        return False
-
     try:
-        # Step 1: YouTube
-        video_id, video_url = upload_to_youtube(post, vpath, cfg)
+        video_id   = yt_id or None
+        video_url  = f"https://www.youtube.com/watch?v={video_id}" if video_id else ""
+
+        if not blog_only and not yt_id:
+            # Step 1: YouTube upload
+            vpath = find_video(post_n, cfg, video_path)
+            if not vpath:
+                return False
+            video_id, video_url = upload_to_youtube(post, vpath, cfg)
+        elif blog_only and not yt_id:
+            inf(f"Blog-only mode: skipping YouTube upload for Post #{post_n}")
 
         # Step 2: Extract HTML
         html = extract_post_html(post, posts_meta)
         if not html:
             return False
 
-        # Step 3: Inject embed
-        html = inject_embed(html, video_id, post)
+        # Step 3: Inject embed (only if we have a video ID)
+        if video_id:
+            html = inject_embed(html, video_id, post)
+        else:
+            # Remove placeholder comment cleanly
+            html = re.sub(r'\[VIDEO EMBED[^\]]*\]',
+                          '<!-- Video coming soon – subscribe @ohhenry6524 -->',
+                          html)
 
         # Step 4: Blogger
         blogger_url = publish_to_blogger(post, html, cfg)
 
         # Step 5: Tracking
-        save_post_tracking(post_n, video_id, video_url, blogger_url, tracking)
+        save_post_tracking(post_n, video_id or "", video_url, blogger_url, tracking)
 
         # Step 6: GitHub
         update_github(post, blogger_url, cfg)
 
         print(f"\n{'─'*60}")
         ok(f"POST #{post_n} COMPLETE")
-        ok(f"  YouTube: {video_url}")
+        if video_url: ok(f"  YouTube: {video_url}")
         ok(f"  Blog:    {blogger_url}")
         print(f"{'─'*60}\n")
         return True
@@ -576,12 +594,14 @@ Examples:
     parser.add_argument("--posts",   type=int, nargs="+", help="Multiple post numbers")
     parser.add_argument("--week",    type=int, help="All posts in a week (1–8)")
     parser.add_argument("--all",     action="store_true", help="All unpublished posts")
-    parser.add_argument("--video",   type=str, help="Video file path (for --post)")
-    parser.add_argument("--setup",   action="store_true", help="Verify setup only")
-    parser.add_argument("--status",  action="store_true", help="Show completion status")
-    parser.add_argument("--force",   action="store_true", help="Re-publish even if done")
-    parser.add_argument("--dry-run", action="store_true", help="Simulate without uploading")
-    parser.add_argument("--delay",   type=int, default=10, help="Seconds between posts (default 10)")
+    parser.add_argument("--video",     type=str, help="Video file path (for --post)")
+    parser.add_argument("--yt-id",    type=str, help="Existing YouTube video ID to embed (skips upload)")
+    parser.add_argument("--blog-only",action="store_true", help="Publish to Blogger now, no video needed")
+    parser.add_argument("--setup",    action="store_true", help="Verify setup only")
+    parser.add_argument("--status",   action="store_true", help="Show completion status")
+    parser.add_argument("--force",    action="store_true", help="Re-publish even if done")
+    parser.add_argument("--dry-run",  action="store_true", help="Simulate without uploading")
+    parser.add_argument("--delay",    type=int, default=30, help="Seconds between posts (default 30)")
 
     args = parser.parse_args()
 
@@ -636,7 +656,9 @@ Examples:
 
         video = args.video if (args.post and args.video) else None
         result = run_pipeline(n, cfg, posts, posts_meta, tracking, video,
-                              dry_run=args.dry_run)
+                              dry_run=args.dry_run,
+                              blog_only=args.blog_only,
+                              yt_id=args.yt_id)
 
         if result:
             success += 1
