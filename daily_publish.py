@@ -55,18 +55,43 @@ def total_posts():
     return len(d["posts"])
 
 
+def html_exists_for_post(post, weeks_meta):
+    """Return True only if the source HTML file for this post exists on disk."""
+    week_key = post.get("week")
+    # String week key (week1–week8): look up in weeks_meta dict
+    if isinstance(week_key, str) and week_key in weeks_meta:
+        html_file = SCRIPT_DIR / weeks_meta[week_key].get("html_file", "")
+        return html_file.exists()
+    # Integer week key (week 9–12): post carries its own html_file field
+    html_name = post.get("html_file")
+    if html_name:
+        return (SCRIPT_DIR / html_name).exists()
+    return False
+
+
 def remaining_posts():
     t = load_tracking()
     done = {int(k) for k, v in t.items() if v.get("blog_done")}
     with open(POSTS_JSON) as f:
         d = json.load(f)
-    all_ns = [p["n"] for p in d["posts"]]
-    return [n for n in all_ns if n not in done]
+    weeks_meta = d.get("weeks", {})
+    return [
+        p["n"] for p in d["posts"]
+        if p["n"] not in done and html_exists_for_post(p, weeks_meta)
+    ]
+
+
+def is_post_done(post_n):
+    """Check tracking.json to see if a specific post is actually marked blog_done."""
+    t = load_tracking()
+    return t.get(str(post_n), {}).get("blog_done", False)
 
 
 def run_batch(post_numbers, delay=35):
     """
     Run pipeline.py for each post in list.
+    Always uses --blog-only mode (Blogger first; YouTube handled separately).
+    Success is determined by checking tracking.json after each run.
     Returns (published_count, quota_hit, failed_list).
     """
     published = 0
@@ -74,36 +99,31 @@ def run_batch(post_numbers, delay=35):
     quota_hit = False
 
     for i, n in enumerate(post_numbers):
-        # Check video exists
-        video_path = SCRIPT_DIR / "videos" / f"post-{n}.mp4"
-        if not video_path.exists():
-            log(f"  Post #{n}: video missing — trying blog-only mode", YEL)
-            mode = ["--blog-only"]
-        else:
-            mode = []   # full upload: video + blog
-
-        cmd = [sys.executable, str(SCRIPT_DIR / "pipeline.py"), "--post", str(n)] + mode
-        log(f"  → Post #{n} {'(blog-only)' if mode else '(video + blog)'}")
+        # Always blog-only: avoid YouTube quota (6 uploads/day limit)
+        # YouTube links can be added later via --yt-id flag
+        cmd = [sys.executable, str(SCRIPT_DIR / "pipeline.py"),
+               "--post", str(n), "--blog-only"]
+        log(f"  → Post #{n} (blog-only)")
 
         result = subprocess.run(cmd, capture_output=True, text=True, cwd=str(SCRIPT_DIR))
         output = result.stdout + result.stderr
 
+        # Quota check first
         if "429" in output or "rateLimitExceeded" in output or "quota" in output.lower():
             log(f"  ✗ Post #{n}: Blogger quota hit — stopping for today", RED)
             quota_hit = True
             break
 
-        if result.returncode == 0 and ("✓" in output or "Published" in output or "blog_done" in output):
+        # Ground truth: check tracking.json (not subprocess output, which can be misleading)
+        if is_post_done(n):
             log(f"  ✓ Post #{n}: published", GREEN)
             published += 1
-        elif "already published" in output or "already done" in output:
-            log(f"  ✓ Post #{n}: already done — skipping")
-            published += 1
         else:
-            log(f"  ✗ Post #{n}: failed — {output[-200:].strip()}", RED)
+            snippet = output[-300:].strip().replace("\n", " ")
+            log(f"  ✗ Post #{n}: failed — {snippet}", RED)
             failed.append(n)
 
-        # Delay to avoid quota
+        # Delay to respect Blogger rate limits
         if i < len(post_numbers) - 1 and not quota_hit:
             time.sleep(delay)
 

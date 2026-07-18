@@ -132,13 +132,17 @@ def upload_to_youtube(post, video_path, cfg):
 
     title = f"{post['title']} | KJV Right Division | {post['verse']}"[:100]
 
+    # week label works for both "week8" (string) and 9 (integer)
+    wk = post["week"]
+    week_label = f"Week {str(wk).replace('week', '')}"
+
     description = f"""📖 {post['title']}
 "{post['verse']}" KJV
 
 In this study we rightly divide the Word of Truth (2 Tim 2:15) and see exactly what this passage means for the Body of Christ in the Age of Grace.
 
 📚 Full study: {cfg['blogger']['blog_url']}
-🌐 All 232 posts: {cfg['github']['pages_url']}
+🌐 All 344 posts: {cfg['github']['pages_url']}
 📋 Archive: {cfg['github']['pages_url']}archive-index.html
 
 #KJV #RightDivision #BibleStudy #Dispensational #GraceAge #2Timothy215"""
@@ -146,7 +150,7 @@ In this study we rightly divide the Word of Truth (2 Tim 2:15) and see exactly w
     tags = [
         "KJV", "Right Division", "Dispensational", "Bible Study",
         "2 Timothy 2:15", "Grace Age", "Body of Christ",
-        post["week"].replace("week", "Week "),
+        week_label,
         post["verse"].split(" ")[0] if " " in post["verse"] else post["verse"]
     ]
 
@@ -208,7 +212,15 @@ def extract_post_html(post, posts_meta):
     hdr(f"STEP 2: Extract HTML – Post #{post['n']}")
 
     week_key = post["week"]
-    html_file = SCRIPT_DIR / posts_meta["weeks"][week_key]["html_file"]
+    # Integer week key (9-12): post carries its own html_file field
+    if isinstance(week_key, int):
+        html_name = post.get("html_file")
+        if not html_name:
+            err(f"Post #{post['n']} has integer week key but no html_file field")
+            return None
+        html_file = SCRIPT_DIR / html_name
+    else:
+        html_file = SCRIPT_DIR / posts_meta["weeks"][week_key]["html_file"]
 
     if not html_file.exists():
         err(f"Week file not found: {html_file}")
@@ -301,7 +313,8 @@ def publish_to_blogger(post, html_content, cfg):
 
     blogger = build("blogger", "v3", credentials=creds)
 
-    week_num = post["week"].replace("week", "")
+    wk = post["week"]
+    week_num = str(wk).replace("week", "")  # handles both "week8" and integer 9
     title = f"Post #{post['n']}: {post['title']} | KJV Right Division (Week {week_num})"
 
     labels = [
