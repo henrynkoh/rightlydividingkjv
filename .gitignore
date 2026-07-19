@@ -1,0 +1,27 @@
+# Secrets & local config — never commit
+config.json
+client_secrets.json
+client_secret.json
+token.json
+token.pickle
+token_blog.pickle
+.env
+.env.*
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# OS / editor
+.DS_Store
+*.swp
+.idea/
+.vscode/
+
+# Local media / output (optional large files)
+output/*.mp4
+output/*.wav
+thumbnails/*.jpg
+thumbnails/*.png
