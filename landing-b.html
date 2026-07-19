@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rightly Dividing KJV – Alternate Landing (B)</title>
+  <meta name="description" content="Alternate light landing for Rightly Dividing KJV — compare with the main hub.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;600;700;800&family=Syne:wght@700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #f4f7fb;
+      --ink: #102033;
+      --muted: #5a6b7d;
+      --white: #ffffff;
+      --teal: #0d9488;
+      --teal-deep: #0f766e;
+      --sun: #fbbf24;
+      --coral: #f43f5e;
+      --navy: #1e3a5f;
+      --sky: #bae6fd;
+      --mint: #ccfbf1;
+      --line: rgba(16, 32, 51, 0.08);
+      --shadow: 0 20px 50px rgba(16, 32, 51, 0.08);
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: "Figtree", sans-serif;
+      background: var(--bg);
+      color: var(--ink);
+      line-height: 1.55;
+    }
+    h1, h2, h3, .display { font-family: "Syne", sans-serif; font-weight: 800; letter-spacing: -0.03em; }
+    a { color: inherit; }
+
+    /* Top ribbon nav — not a left sidebar */
+    .topbar {
+      position: sticky; top: 0; z-index: 40;
+      display: flex; align-items: center; justify-content: space-between; gap: 16px;
+      padding: 14px 28px;
+      background: rgba(244, 247, 251, 0.88);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--line);
+    }
+    .logo {
+      display: flex; align-items: center; gap: 10px; text-decoration: none;
+      font-family: "Syne", sans-serif; font-weight: 800; font-size: 1.05rem;
+    }
+    .logo i {
+      width: 34px; height: 34px; border-radius: 10px;
+      background: linear-gradient(135deg, var(--teal), #14b8a6);
+      color: #fff; display: grid; place-items: center; font-style: normal; font-size: .85rem;
+      box-shadow: 0 8px 20px rgba(13, 148, 136, 0.35);
+    }
+    .top-nav { display: flex; flex-wrap: wrap; gap: 6px; }
+    .top-nav a {
+      text-decoration: none; font-size: .82rem; font-weight: 700;
+      padding: 8px 12px; border-radius: 999px; color: var(--muted);
+      transition: .2s;
+    }
+    .top-nav a:hover, .top-nav a.active {
+      background: var(--ink); color: #fff;
+    }
+    .compare-chip {
+      text-decoration: none; font-size: .78rem; font-weight: 800;
+      padding: 8px 12px; border-radius: 999px;
+      background: var(--sun); color: var(--ink);
+    }
+
+    /* Full-bleed hero band */
+    .hero-band {
+      position: relative;
+      min-height: 92vh;
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 0;
+      overflow: hidden;
+      background:
+        linear-gradient(120deg, #ecfeff 0%, #f0f9ff 40%, #fff7ed 100%);
+    }
+    .hero-band::before {
+      content: "";
+      position: absolute; inset: 0;
+      background:
+        radial-gradient(circle at 20% 30%, rgba(251, 191, 36, 0.35), transparent 35%),
+        radial-gradient(circle at 80% 20%, rgba(13, 148, 136, 0.25), transparent 40%),
+        radial-gradient(circle at 70% 80%, rgba(244, 63, 94, 0.15), transparent 35%);
+      pointer-events: none;
+    }
+    .hero-left {
+      position: relative; z-index: 1;
+      padding: clamp(40px, 8vw, 88px) clamp(24px, 5vw, 64px);
+      display: flex; flex-direction: column; justify-content: center;
+    }
+    .eyebrow {
+      display: inline-flex; align-self: flex-start;
+      font-size: .75rem; font-weight: 800; letter-spacing: .12em; text-transform: uppercase;
+      background: var(--ink); color: var(--sun);
+      padding: 8px 12px; border-radius: 8px; margin-bottom: 18px;
+    }
+    .display {
+      font-size: clamp(2.6rem, 7vw, 4.6rem);
+      line-height: 0.95;
+      margin-bottom: 18px;
+      max-width: 10ch;
+    }
+    .display span {
+      display: inline-block;
+      background: linear-gradient(90deg, var(--teal-deep), #0369a1);
+      -webkit-background-clip: text; background-clip: text; color: transparent;
+    }
+    .lede { font-size: 1.15rem; color: var(--muted); max-width: 36ch; margin-bottom: 28px; }
+    .cta { display: flex; flex-wrap: wrap; gap: 10px; }
+    .btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 14px 20px; border-radius: 14px;
+      font-weight: 800; font-size: .95rem; text-decoration: none;
+      transition: transform .2s, box-shadow .2s;
+    }
+    .btn:hover { transform: translateY(-3px); }
+    .btn-teal {
+      background: var(--teal); color: #fff;
+      box-shadow: 0 12px 28px rgba(13, 148, 136, 0.35);
+    }
+    .btn-ink { background: var(--ink); color: #fff; }
+    .btn-line {
+      background: transparent; border: 2px solid var(--ink); color: var(--ink);
+    }
+
+    .hero-right {
+      position: relative; z-index: 1;
+      display: grid; place-items: center;
+      padding: 40px 28px;
+    }
+    .poster {
+      width: min(420px, 90%);
+      aspect-ratio: 4/5;
+      border-radius: 28px;
+      background:
+        linear-gradient(160deg, rgba(255,255,255,.5), transparent 40%),
+        linear-gradient(200deg, var(--navy), #0f766e 55%, #134e4a);
+      color: #fff;
+      padding: 28px;
+      box-shadow: var(--shadow), 0 0 0 8px rgba(255,255,255,.55);
+      display: flex; flex-direction: column; justify-content: space-between;
+      animation: tiltIn .9s ease both;
+    }
+    @keyframes tiltIn {
+      from { opacity: 0; transform: rotate(4deg) translateY(24px); }
+      to { opacity: 1; transform: rotate(-2deg) translateY(0); }
+    }
+    .poster .ref { font-size: .8rem; font-weight: 800; letter-spacing: .14em; color: var(--sun); }
+    .poster q {
+      font-family: "Syne", sans-serif; font-size: 1.55rem; line-height: 1.15;
+      quotes: none; font-weight: 800;
+    }
+    .poster .meta { font-size: .85rem; opacity: .8; }
+
+    /* Marquee strip */
+    .marquee {
+      overflow: hidden; border-block: 2px solid var(--ink);
+      background: var(--sun);
+      padding: 12px 0;
+    }
+    .marquee-track {
+      display: flex; gap: 40px; width: max-content;
+      animation: scrollX 22s linear infinite;
+      font-family: "Syne", sans-serif; font-weight: 800; font-size: .95rem;
+      text-transform: uppercase; letter-spacing: .06em;
+    }
+    @keyframes scrollX {
+      from { transform: translateX(0); }
+      to { transform: translateX(-50%); }
+    }
+
+    .wrap { max-width: 1180px; margin: 0 auto; padding: 56px 24px; }
+    .sec-title { font-size: clamp(1.8rem, 3.5vw, 2.6rem); margin-bottom: 8px; }
+    .sec-sub { color: var(--muted); margin-bottom: 28px; max-width: 50ch; }
+
+    /* Bento */
+    .bento {
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap: 14px;
+    }
+    .card {
+      background: var(--white);
+      border: 1px solid var(--line);
+      border-radius: 22px;
+      padding: 22px;
+      box-shadow: var(--shadow);
+      text-decoration: none;
+      transition: transform .2s, box-shadow .2s;
+      display: flex; flex-direction: column; gap: 8px;
+      min-height: 160px;
+    }
+    .card:hover { transform: translateY(-4px); box-shadow: 0 24px 50px rgba(16,32,51,.12); }
+    .card.big { grid-column: span 7; background: linear-gradient(135deg, var(--mint), #fff); }
+    .card.mid { grid-column: span 5; background: linear-gradient(160deg, var(--sky), #fff); }
+    .card.sm { grid-column: span 4; }
+    .card .tag {
+      align-self: flex-start;
+      font-size: .7rem; font-weight: 800; letter-spacing: .08em; text-transform: uppercase;
+      padding: 5px 9px; border-radius: 999px;
+      background: var(--ink); color: #fff;
+    }
+    .card h3 { font-size: 1.25rem; }
+    .card p { color: var(--muted); font-size: .92rem; flex: 1; }
+    .card .go { font-weight: 800; color: var(--teal-deep); }
+
+    /* Week chips — horizontal scroll, not left nav */
+    .week-rail {
+      display: flex; gap: 12px; overflow-x: auto;
+      padding-bottom: 8px; scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch;
+    }
+    .week-card {
+      flex: 0 0 min(280px, 78vw);
+      scroll-snap-align: start;
+      background: var(--white);
+      border: 2px solid var(--ink);
+      border-radius: 20px;
+      padding: 18px;
+      text-decoration: none;
+      transition: background .2s, transform .2s;
+    }
+    .week-card:hover { background: var(--mint); transform: translateY(-3px); }
+    .week-card .wn {
+      display: inline-block; font-size: .72rem; font-weight: 800;
+      background: var(--coral); color: #fff; padding: 4px 8px; border-radius: 6px;
+      margin-bottom: 10px;
+    }
+    .week-card h3 { font-size: 1.05rem; margin-bottom: 6px; }
+    .week-card p { font-size: .82rem; color: var(--muted); }
+
+    /* Pipeline as colored bars */
+    .bars { display: grid; gap: 10px; }
+    .bar {
+      display: grid; grid-template-columns: 48px 1fr auto;
+      align-items: center; gap: 14px;
+      padding: 14px 16px; border-radius: 16px; color: #fff; font-weight: 700;
+    }
+    .bar:nth-child(1) { background: #0f766e; }
+    .bar:nth-child(2) { background: #0369a1; }
+    .bar:nth-child(3) { background: #e11d48; }
+    .bar:nth-child(4) { background: #c2410c; }
+    .bar:nth-child(5) { background: #4d7c0f; }
+    .bar:nth-child(6) { background: #1e3a5f; }
+    .bar b { font-family: "Syne", sans-serif; font-size: 1.2rem; }
+
+    /* Docs / ads grids */
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 12px;
+    }
+    .mini {
+      background: var(--white);
+      border-radius: 16px;
+      border: 1px solid var(--line);
+      padding: 16px;
+      text-decoration: none;
+      transition: .2s;
+    }
+    .mini:hover { border-color: var(--teal); background: #f0fdfa; }
+    .mini strong { display: block; font-family: "Syne", sans-serif; margin-bottom: 4px; }
+    .mini span { font-size: .82rem; color: var(--muted); }
+
+    footer {
+      margin: 20px 24px 100px;
+      padding: 28px;
+      border-radius: 24px;
+      background: var(--ink); color: #cbd5e1;
+      text-align: center;
+    }
+    footer a { color: var(--sun); text-decoration: none; font-weight: 700; }
+    footer .brand {
+      font-family: "Syne", sans-serif; color: #fff; font-size: 1.4rem; margin-bottom: 8px;
+    }
+
+    /* Bottom-right GitHub */
+    .gh-fab {
+      position: fixed; right: 20px; bottom: 20px; z-index: 50;
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 12px 16px; border-radius: 999px;
+      background: var(--ink); color: #fff; text-decoration: none;
+      font-weight: 800; box-shadow: 0 12px 30px rgba(16,32,51,.35);
+      transition: transform .2s, background .2s;
+    }
+    .gh-fab:hover { transform: translateY(-3px) scale(1.04); background: #000; }
+    .gh-fab svg { width: 18px; height: 18px; fill: currentColor; }
+
+    @media (max-width: 900px) {
+      .hero-band { grid-template-columns: 1fr; min-height: auto; }
+      .hero-right { order: -1; padding-top: 28px; }
+      .poster { aspect-ratio: 5/4; max-width: 360px; transform: none !important; }
+      .card.big, .card.mid, .card.sm { grid-column: span 12; }
+      .top-nav { display: none; }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <a class="logo" href="#top"><i>RD</i> Rightly Dividing KJV</a>
+    <nav class="top-nav" aria-label="Sections">
+      <a href="#top">Home</a>
+      <a href="#explore">Explore</a>
+      <a href="#weeks">Weeks</a>
+      <a href="#docs">Docs</a>
+      <a href="#ads">Ads</a>
+      <a href="#pipeline">Pipeline</a>
+    </nav>
+    <a class="compare-chip" href="compare.html">Compare A / B</a>
+  </header>
+
+  <section class="hero-band" id="top">
+    <div class="hero-left">
+      <div class="eyebrow">Version B · Light landing</div>
+      <h1 class="display">Rightly Dividing <span>KJV</span></h1>
+      <p class="lede">A bright alternate hub for the same 12-week, 344-post King James study — built so you can compare layouts side by side.</p>
+      <div class="cta">
+        <a class="btn btn-teal" href="#weeks">See all 12 weeks</a>
+        <a class="btn btn-ink" href="https://www.youtube.com/@ohhenry6524" target="_blank" rel="noopener">YouTube</a>
+        <a class="btn btn-line" href="index.html">Open Version A</a>
+      </div>
+    </div>
+    <div class="hero-right">
+      <div class="poster" aria-hidden="true">
+        <div class="ref">2 TIMOTHY 2:15 · KJV</div>
+        <q>Study to shew thyself approved unto God… rightly dividing the word of truth.</q>
+        <div class="meta">344 posts · 12 weeks · Free study hub</div>
+      </div>
+    </div>
+  </section>
+
+  <div class="marquee" aria-hidden="true">
+    <div class="marquee-track">
+      <span>Foundations</span><span>·</span><span>Grace Age</span><span>·</span><span>Israel &amp; Kingdom</span><span>·</span>
+      <span>Paul’s Epistles</span><span>·</span><span>Prophecy</span><span>·</span><span>Finishing Strong</span><span>·</span>
+      <span>Foundations</span><span>·</span><span>Grace Age</span><span>·</span><span>Israel &amp; Kingdom</span><span>·</span>
+      <span>Paul’s Epistles</span><span>·</span><span>Prophecy</span><span>·</span><span>Finishing Strong</span><span>·</span>
+    </div>
+  </div>
+
+  <section class="wrap" id="explore">
+    <h2 class="sec-title">Explore the library</h2>
+    <p class="sec-sub">Bento cards — tap any tile. Same content as Version A, different composition.</p>
+    <div class="bento">
+      <a class="card big" href="https://www.youtube.com/@ohhenry6524" target="_blank" rel="noopener">
+        <span class="tag">Watch</span>
+        <h3>YouTube @ohhenry6524</h3>
+        <p>Short KJV right-division teachings. Subscribe for new uploads.</p>
+        <span class="go">Open channel →</span>
+      </a>
+      <a class="card mid" href="https://rightlydividingkjv.blogspot.com" target="_blank" rel="noopener">
+        <span class="tag">Read</span>
+        <h3>Blogger</h3>
+        <p>Full study posts with verse, exposition, and application.</p>
+        <span class="go">Visit blog →</span>
+      </a>
+      <a class="card sm" href="archive-index.html">
+        <span class="tag">Archive</span>
+        <h3>All posts</h3>
+        <p>344 studies indexed by week.</p>
+        <span class="go">Browse →</span>
+      </a>
+      <a class="card sm" href="content-dashboard.html">
+        <span class="tag">Ops</span>
+        <h3>Dashboard</h3>
+        <p>Track publish status across platforms.</p>
+        <span class="go">Open →</span>
+      </a>
+      <a class="card sm" href="publishing-guide.html">
+        <span class="tag">Guide</span>
+        <h3>Publishing</h3>
+        <p>Daily workflow for video + blog.</p>
+        <span class="go">Open →</span>
+      </a>
+    </div>
+  </section>
+
+  <section class="wrap" id="weeks" style="padding-top:0">
+    <h2 class="sec-title">12 weeks — swipe rail</h2>
+    <p class="sec-sub">Horizontal scroll instead of a left sidebar. Drag or swipe through the curriculum.</p>
+    <div class="week-rail">
+      <a class="week-card" href="rightlydividing_weeks1-2.html"><span class="wn">WEEK 1</span><h3>Foundations of Right Division</h3><p>Posts 1–28</p></a>
+      <a class="week-card" href="rightlydividing_weeks1-2.html"><span class="wn">WEEK 2</span><h3>The Grace Age Defined</h3><p>Posts 29–56</p></a>
+      <a class="week-card" href="rightlydividing_weeks3-4.html"><span class="wn">WEEK 3</span><h3>Israel, Law, and the Kingdom</h3><p>Posts 57–84</p></a>
+      <a class="week-card" href="rightlydividing_weeks3-4.html"><span class="wn">WEEK 4</span><h3>Paul’s Epistles</h3><p>Posts 85–112</p></a>
+      <a class="week-card" href="week5-posts.html"><span class="wn">WEEK 5</span><h3>Practical Right Division</h3><p>Posts 113–140</p></a>
+      <a class="week-card" href="week6-posts.html"><span class="wn">WEEK 6</span><h3>Advanced Dispensational Truths</h3><p>Posts 141–168</p></a>
+      <a class="week-card" href="week7-posts.html"><span class="wn">WEEK 7</span><h3>Common Doctrinal Pitfalls</h3><p>Posts 169–196</p></a>
+      <a class="week-card" href="week8-posts.html"><span class="wn">WEEK 8</span><h3>Application &amp; Maturity</h3><p>Posts 197–232</p></a>
+      <a class="week-card" href="week9-posts.html"><span class="wn">WEEK 9</span><h3>Ministry &amp; Missions</h3><p>Posts 233–260</p></a>
+      <a class="week-card" href="week10-posts.html"><span class="wn">WEEK 10</span><h3>Prophecy Rightly Divided</h3><p>Posts 261–288</p></a>
+      <a class="week-card" href="week11-posts.html"><span class="wn">WEEK 11</span><h3>Mysteries of Paul’s Gospel</h3><p>Posts 289–312</p></a>
+      <a class="week-card" href="week12-posts.html"><span class="wn">WEEK 12</span><h3>Finishing Strong</h3><p>Posts 313–344</p></a>
+    </div>
+  </section>
+
+  <section class="wrap" id="docs" style="padding-top:0">
+    <h2 class="sec-title">Docs</h2>
+    <p class="sec-sub">Same operator guides — linked from GitHub.</p>
+    <div class="grid-3">
+      <a class="mini" href="https://github.com/henrynkoh/rightlydividingkjv/blob/main/README.md" target="_blank" rel="noopener"><strong>README</strong><span>Overview &amp; commands</span></a>
+      <a class="mini" href="https://github.com/henrynkoh/rightlydividingkjv/blob/main/docs/QUICKSTART.md" target="_blank" rel="noopener"><strong>Quickstart</strong><span>~15 min setup</span></a>
+      <a class="mini" href="https://github.com/henrynkoh/rightlydividingkjv/blob/main/docs/TUTORIAL.md" target="_blank" rel="noopener"><strong>Tutorial</strong><span>First publish walkthrough</span></a>
+      <a class="mini" href="https://github.com/henrynkoh/rightlydividingkjv/blob/main/docs/MANUAL.md" target="_blank" rel="noopener"><strong>Manual</strong><span>Full ops reference</span></a>
+      <a class="mini" href="publishing-guide.html"><strong>Publishing Guide</strong><span>Visual HTML workflow</span></a>
+      <a class="mini" href="youtube-embed-map.html"><strong>Embed Mapper</strong><span>Match YT ↔ posts</span></a>
+    </div>
+  </section>
+
+  <section class="wrap" id="ads" style="padding-top:0">
+    <h2 class="sec-title">Ads pack</h2>
+    <p class="sec-sub">Promo copy for every channel (EN + KO where noted).</p>
+    <div class="grid-3">
+      <a class="mini" href="https://github.com/henrynkoh/rightlydividingkjv/blob/main/ads/facebook.md" target="_blank" rel="noopener"><strong>Facebook</strong><span>Feed &amp; story</span></a>
+      <a class="mini" href="https://github.com/henrynkoh/rightlydividingkjv/blob/main/ads/instagram.md" target="_blank" rel="noopener"><strong>Instagram</strong><span>Captions</span></a>
+      <a class="mini" href="https://github.com/henrynkoh/rightlydividingkjv/blob/main/ads/threads.md" target="_blank" rel="noopener"><strong>Threads</strong><span>Short posts</span></a>
+      <a class="mini" href="https://github.com/henrynkoh/rightlydividingkjv/blob/main/ads/blogger.md" target="_blank" rel="noopener"><strong>Blogger</strong><span>EN + KO</span></a>
+      <a class="mini" href="https://github.com/henrynkoh/rightlydividingkjv/blob/main/ads/naver-blog.md" target="_blank" rel="noopener"><strong>Naver</strong><span>EN + KO</span></a>
+      <a class="mini" href="https://github.com/henrynkoh/rightlydividingkjv/blob/main/ads/tistory.md" target="_blank" rel="noopener"><strong>Tistory</strong><span>EN + KO</span></a>
+      <a class="mini" href="https://github.com/henrynkoh/rightlydividingkjv/blob/main/ads/wordpress.md" target="_blank" rel="noopener"><strong>WordPress</strong><span>Full post</span></a>
+      <a class="mini" href="https://github.com/henrynkoh/rightlydividingkjv/blob/main/ads/newsletter.md" target="_blank" rel="noopener"><strong>Newsletter</strong><span>Issue body</span></a>
+      <a class="mini" href="https://github.com/henrynkoh/rightlydividingkjv/blob/main/ads/email.md" target="_blank" rel="noopener"><strong>Email</strong><span>EN + KO short</span></a>
+    </div>
+  </section>
+
+  <section class="wrap" id="pipeline" style="padding-top:0">
+    <h2 class="sec-title">Publish pipeline</h2>
+    <p class="sec-sub">Color bars — same six steps as Version A, different presentation.</p>
+    <div class="bars">
+      <div class="bar"><b>1</b><span>Study — KJV + right division notes</span><span>Scripture</span></div>
+      <div class="bar"><b>2</b><span>Record — post-NNN.mp4</span><span>Video</span></div>
+      <div class="bar"><b>3</b><span>YouTube upload + tags</span><span>API</span></div>
+      <div class="bar"><b>4</b><span>Blogger HTML + embed</span><span>Blog</span></div>
+      <div class="bar"><b>5</b><span>tracking.json update</span><span>Track</span></div>
+      <div class="bar"><b>6</b><span>GitHub Pages refresh</span><span>Hub</span></div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="brand">Rightly Dividing KJV · Version B</div>
+    <p style="margin-bottom:10px">
+      <a href="compare.html">Compare landings</a> ·
+      <a href="index.html">Version A (sidebar)</a> ·
+      <a href="landing-classic.html">Classic (archived)</a>
+    </p>
+    <p><a href="https://github.com/henrynkoh/rightlydividingkjv" target="_blank" rel="noopener">github.com/henrynkoh/rightlydividingkjv</a></p>
+  </footer>
+
+  <a class="gh-fab" href="https://github.com/henrynkoh/rightlydividingkjv" target="_blank" rel="noopener" aria-label="GitHub repository">
+    <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
+    GitHub
+  </a>
+</body>
+</html>
