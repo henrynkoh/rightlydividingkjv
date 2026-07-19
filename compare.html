@@ -3,169 +3,134 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Compare Landings A · B · C · D – Rightly Dividing KJV</title>
+  <title>Compare Landings A–E – Rightly Dividing KJV</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@500;700;800&family=Syne:wght@800&display=swap" rel="stylesheet">
   <style>
-    :root {
-      --ink: #102033;
-      --bg: #eef2f7;
-      --a-gold: #d4a84b;
-      --b-teal: #0d9488;
-      --b-sun: #fbbf24;
-      --c-brass: #b08d57;
-      --c-forest: #0f2a24;
-      --d-gold: #8f6f28;
-    }
+    :root { --ink: #102033; --bg: #eef2f7; }
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
       font-family: "Figtree", sans-serif;
-      background: var(--bg);
-      color: var(--ink);
-      min-height: 100vh;
-      padding: 40px 20px 80px;
+      background: var(--bg); color: var(--ink);
+      min-height: 100vh; padding: 40px 20px 80px;
     }
     h1 {
       font-family: "Syne", sans-serif;
-      font-size: clamp(1.8rem, 4vw, 2.5rem);
-      text-align: center;
-      margin-bottom: 8px;
+      font-size: clamp(1.7rem, 4vw, 2.4rem);
+      text-align: center; margin-bottom: 8px;
     }
     .sub {
-      text-align: center; color: #5a6b7d; margin-bottom: 36px; max-width: 58ch; margin-inline: auto;
+      text-align: center; color: #5a6b7d; margin-bottom: 32px;
+      max-width: 60ch; margin-inline: auto; font-size: .95rem;
     }
     .grid {
-      max-width: 1100px; margin: 0 auto;
-      display: grid; grid-template-columns: 1fr 1fr; gap: 18px;
+      max-width: 1140px; margin: 0 auto;
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px;
     }
     .card {
-      border-radius: 24px; padding: 26px 22px; text-decoration: none; color: inherit;
-      display: flex; flex-direction: column; gap: 12px;
-      transition: transform .2s, box-shadow .2s;
-      min-height: 280px;
-      box-shadow: 0 18px 40px rgba(16,32,51,.1);
+      border-radius: 22px; padding: 22px 20px; text-decoration: none; color: inherit;
+      display: flex; flex-direction: column; gap: 10px;
+      transition: transform .2s; min-height: 250px;
+      box-shadow: 0 16px 36px rgba(16,32,51,.1);
     }
-    .card:hover { transform: translateY(-6px); }
-    .card.a {
-      background: linear-gradient(165deg, #0b1220, #1a2438);
-      color: #eef2f7;
-      border: 1px solid rgba(212,168,75,.35);
-    }
-    .card.b {
-      background: linear-gradient(145deg, #ecfeff, #fff7ed);
-      border: 2px solid var(--ink);
-    }
-    .card.c {
-      background: linear-gradient(165deg, #0f2a24, #163d35);
-      color: #f7f3ea;
-      border: 1px solid rgba(176,141,87,.45);
-    }
-    .card.d {
-      background: linear-gradient(145deg, #f5f7fb, #ffffff);
-      border: 2px solid rgba(143,111,40,.35);
-      color: #1e293b;
-    }
+    .card:hover { transform: translateY(-5px); }
+    .card.a { background: linear-gradient(165deg,#0b1220,#1a2438); color:#eef2f7; border:1px solid rgba(212,168,75,.35); }
+    .card.b { background: linear-gradient(145deg,#ecfeff,#fff7ed); border:2px solid var(--ink); }
+    .card.c { background: linear-gradient(165deg,#0f2a24,#163d35); color:#f7f3ea; border:1px solid rgba(176,141,87,.45); }
+    .card.d { background: linear-gradient(145deg,#f5f7fb,#fff); border:2px solid rgba(143,111,40,.35); }
+    .card.e { background: linear-gradient(165deg,#222b40,#1c2436); color:#eef2f7; border:1px solid rgba(201,162,78,.4); grid-column: 2; }
     .badge {
-      align-self: flex-start;
-      font-size: .7rem; font-weight: 800; letter-spacing: .1em; text-transform: uppercase;
-      padding: 6px 10px; border-radius: 999px;
+      align-self: flex-start; font-size: .68rem; font-weight: 800;
+      letter-spacing: .1em; text-transform: uppercase;
+      padding: 5px 9px; border-radius: 999px;
     }
-    .a .badge { background: rgba(212,168,75,.2); color: var(--a-gold); }
-    .b .badge { background: var(--ink); color: var(--b-sun); }
-    .c .badge { background: var(--c-brass); color: var(--c-forest); }
-    .d .badge { background: rgba(143,111,40,.15); color: var(--d-gold); }
-    .card h2 {
-      font-family: "Syne", sans-serif; font-size: 1.4rem; line-height: 1.1;
+    .a .badge { background: rgba(212,168,75,.2); color: #d4a84b; }
+    .b .badge { background: #102033; color: #fbbf24; }
+    .c .badge { background: #b08d57; color: #0f2a24; }
+    .d .badge { background: rgba(143,111,40,.15); color: #8f6f28; }
+    .e .badge { background: rgba(201,162,78,.2); color: #e0c078; }
+    .card h2 { font-family: "Syne", sans-serif; font-size: 1.25rem; line-height: 1.15; }
+    .a h2, .e h2 { color: #e0c078; }
+    .b h2 { color: #0d9488; }
+    .c h2 { color: #b08d57; }
+    .d h2 { color: #8f6f28; }
+    .card p { font-size: .88rem; opacity: .85; flex: 1; }
+    .card ul { font-size: .8rem; padding-left: 1.1em; opacity: .9; }
+    .cta { font-weight: 800; font-size: .88rem; margin-top: 4px; }
+    .a .cta, .e .cta { color: #e0c078; }
+    .b .cta { color: #102033; }
+    .c .cta { color: #b08d57; }
+    .d .cta { color: #8f6f28; }
+    .tag {
+      display: inline-block; margin-left: 6px; font-size: .62rem;
+      padding: 2px 6px; border-radius: 999px; vertical-align: middle;
     }
-    .a h2 { color: var(--a-gold); }
-    .b h2 { color: var(--b-teal); }
-    .c h2 { color: var(--c-brass); }
-    .d h2 { color: var(--d-gold); }
-    .card p { font-size: .92rem; opacity: .85; flex: 1; }
-    .card ul { font-size: .84rem; padding-left: 1.1em; opacity: .9; }
-    .card .cta { margin-top: 8px; font-weight: 800; font-size: .92rem; }
-    .a .cta { color: var(--a-gold); }
-    .b .cta { color: var(--ink); }
-    .c .cta { color: var(--c-brass); }
-    .d .cta { color: var(--d-gold); }
-    .liked {
-      display: inline-block; margin-left: 6px;
-      font-size: .65rem; padding: 2px 6px; border-radius: 999px;
-      background: rgba(34,197,94,.2); color: #16a34a; vertical-align: middle;
-    }
-    .a .liked { color: #4ade80; }
+    .liked { background: rgba(34,197,94,.2); color: #4ade80; }
+    .new { background: rgba(56,189,248,.2); color: #38bdf8; }
     .extra {
-      max-width: 1100px; margin: 28px auto 0; text-align: center;
-      padding: 18px; border-radius: 16px; background: #fff;
-      border: 1px dashed #94a3b8;
-      font-size: .92rem; color: #475569;
+      max-width: 1140px; margin: 28px auto 0; text-align: center;
+      padding: 16px; border-radius: 14px; background: #fff;
+      border: 1px dashed #94a3b8; font-size: .9rem; color: #475569;
     }
     .extra a { color: var(--ink); font-weight: 800; }
-    @media (max-width: 720px) {
-      .grid { grid-template-columns: 1fr; max-width: 480px; }
+    @media (max-width: 900px) {
+      .grid { grid-template-columns: 1fr; max-width: 460px; }
+      .card.e { grid-column: auto; }
     }
   </style>
 </head>
 <body>
-  <h1>Compare A · B · C · D</h1>
+  <h1>Compare A · B · C · D · E</h1>
   <p class="sub">
-    A, B, and C are unchanged. <strong>D</strong> keeps A’s exact sidebar layout with a lighter, harmonious color pass.
+    A–D unchanged. <strong>E</strong> keeps the same sidebar layout as A/D with a mid “dusk” palette — less light than D, softer than A.
   </p>
 
   <div class="grid">
     <a class="card a" href="index.html">
-      <span class="badge">Version A · Main<span class="liked">liked</span></span>
-      <h2>Dark sidebar hub</h2>
-      <p>Ink atmosphere, gold accents, sticky left nav — your preferred structure.</p>
-      <ul>
-        <li>Left scrollable nav</li>
-        <li>Dark dashboard feel</li>
-        <li>Live at site root</li>
-      </ul>
+      <span class="badge">A · Main</span>
+      <h2>Dark sidebar</h2>
+      <p>Deep ink hub — original favorite structure.</p>
+      <ul><li>Darkest of A/D/E</li><li>Site root</li></ul>
       <span class="cta">Open A →</span>
     </a>
-
     <a class="card b" href="landing-b.html">
-      <span class="badge">Version B</span>
-      <h2>Light bento + week rail</h2>
-      <p>Different structure — bright magazine / horizontal weeks.</p>
-      <ul>
-        <li>Top nav + bento</li>
-        <li>Unchanged</li>
-      </ul>
+      <span class="badge">B</span>
+      <h2>Light bento</h2>
+      <p>Different layout — bright magazine rail.</p>
+      <ul><li>Unchanged</li></ul>
       <span class="cta">Open B →</span>
     </a>
-
     <a class="card c" href="landing-c.html">
-      <span class="badge">Version C</span>
-      <h2>Premium journal + dock</h2>
-      <p>Different structure — forest/ivory manuscript + bottom dock.</p>
-      <ul>
-        <li>Vertical timeline</li>
-        <li>Unchanged</li>
-      </ul>
+      <span class="badge">C</span>
+      <h2>Journal + dock</h2>
+      <p>Different layout — forest manuscript.</p>
+      <ul><li>Unchanged</li></ul>
       <span class="cta">Open C →</span>
     </a>
-
     <a class="card d" href="landing-d.html">
-      <span class="badge">Version D · New</span>
-      <h2>Same layout as A · lighter</h2>
-      <p>Identical structure &amp; sections — soft daylight slate, brass gold, teal accents for clearer harmony.</p>
-      <ul>
-        <li>Same left sidebar hub</li>
-        <li>Lighter harmonious palette</li>
-        <li>Compare directly with A</li>
-      </ul>
+      <span class="badge">D<span class="tag liked">liked light</span></span>
+      <h2>Same layout · lightest</h2>
+      <p>Daylight slate + brass — brightest of the A-family.</p>
+      <ul><li>Same structure as A</li><li>Unchanged</li></ul>
       <span class="cta">Open D →</span>
+    </a>
+    <a class="card e" href="landing-e.html">
+      <span class="badge">E · New<span class="tag new">new</span></span>
+      <h2>Same layout · dusk mid</h2>
+      <p>Between A and D — soft twilight slate, warm gold, teal accents.</p>
+      <ul>
+        <li>Identical sidebar hub</li>
+        <li>A bit less light than D</li>
+        <li>Harmonious mid-tone</li>
+      </ul>
+      <span class="cta">Open E →</span>
     </a>
   </div>
 
   <div class="extra">
-    Classic archive:
-    <a href="landing-classic.html">landing-classic.html</a>
-    · Main:
-    <a href="https://henrynkoh.github.io/rightlydividingkjv/">henrynkoh.github.io/rightlydividingkjv/</a>
+    Tip: open <a href="landing-d.html">D</a> and <a href="landing-e.html">E</a> in two tabs to judge lightness.
+    · Main: <a href="https://henrynkoh.github.io/rightlydividingkjv/">A (root)</a>
   </div>
 </body>
 </html>
