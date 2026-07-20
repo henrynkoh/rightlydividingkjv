@@ -376,6 +376,16 @@
       transition: transform .2s, border-color .2s;
     }
     .step:hover { transform: translateY(-3px); border-color: rgba(163,230,53,.35); }
+    a.step {
+      display: block; text-decoration: none; color: inherit;
+      border-color: rgba(212,168,75,.4);
+      background: linear-gradient(160deg, rgba(212,168,75,.14), rgba(18,26,43,.95));
+    }
+    a.step:hover { border-color: var(--gold); }
+    a.step .go-study {
+      display: block; margin-top: 8px;
+      font-size: .72rem; font-weight: 700; color: var(--gold-soft);
+    }
     .step .n {
       width: 28px; height: 28px; border-radius: 8px;
       display: grid; place-items: center;
