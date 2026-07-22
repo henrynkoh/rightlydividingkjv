@@ -130,14 +130,15 @@ def upload_to_youtube(post, video_path, cfg):
 
     youtube = build("youtube", "v3", credentials=creds)
 
-    title = f"{post['title']} | KJV Right Division | {post['verse']}"[:100]
+    verse = post.get('verse') or post.get('verse_ref', '')
+    title = f"{post['title']} | KJV Right Division | {verse}"[:100]
 
     # week label works for both "week8" (string) and 9 (integer)
     wk = post["week"]
     week_label = f"Week {str(wk).replace('week', '')}"
 
     description = f"""📖 {post['title']}
-"{post['verse']}" KJV
+"{verse}" KJV
 
 In this study we rightly divide the Word of Truth (2 Tim 2:15) and see exactly what this passage means for the Body of Christ in the Age of Grace.
 
@@ -151,7 +152,7 @@ In this study we rightly divide the Word of Truth (2 Tim 2:15) and see exactly w
         "KJV", "Right Division", "Dispensational", "Bible Study",
         "2 Timothy 2:15", "Grace Age", "Body of Christ",
         week_label,
-        post["verse"].split(" ")[0] if " " in post["verse"] else post["verse"]
+        verse.split(" ")[0] if " " in verse else verse
     ]
 
     body = {
@@ -437,11 +438,11 @@ def run_pipeline(post_n, cfg, posts, posts_meta, tracking, video_path=None,
                  dry_run=False, blog_only=False, yt_id=None):
     """Run the full pipeline for one post. Returns True on success."""
     print(f"\n{'═'*60}")
-    print(f"  POST #{post_n}: {posts[post_n]['title']}")
-    print(f"  Verse: {posts[post_n]['verse']} | {posts[post_n]['week']}")
-    print(f"{'═'*60}")
-
     post = posts[post_n]
+    verse = post.get('verse') or post.get('verse_ref', '')
+    print(f"  POST #{post_n}: {post['title']}")
+    print(f"  Verse: {verse} | {post['week']}")
+    print(f"{'═'*60}")
 
     # Skip if already done
     if str(post_n) in tracking and tracking[str(post_n)].get("blog_done"):
