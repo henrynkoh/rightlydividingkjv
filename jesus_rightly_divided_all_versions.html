@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>How Jesus Rightly Divided the Bible - All Versions | Words of Truth</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            min-height: 100vh;
+            color: white;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        /* Header */
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 30px;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 20px;
+            border: 2px solid rgba(255, 215, 0, 0.3);
+        }
+        
+        .header h1 {
+            font-size: 2.5rem;
+            color: #ffd700;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+        }
+        
+        .header p {
+            font-size: 1.2rem;
+            color: #e6e6fa;
+            margin-bottom: 15px;
+        }
+        
+        .source-link {
+            color: #4ecdc4;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+        
+        .source-link:hover {
+            color: #ffd700;
+            text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+        }
+        
+        /* Grid Layout */
+        .versions-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+        
+        /* Version Cards */
+        .version-card {
+            background: rgba(0, 0, 0, 0.4);
+            border: 2px solid rgba(255, 215, 0, 0.3);
+            border-radius: 20px;
+            padding: 25px;
+            text-align: center;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+        
+        .version-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.7);
+            border-color: rgba(255, 215, 0, 0.6);
+        }
+        
+        .version-header {
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid rgba(255, 215, 0, 0.3);
+        }
+        
+        .version-title {
+            font-size: 1.4rem;
+            color: #ffd700;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 5px;
+        }
+        
+        .version-duration {
+            font-size: 1rem;
+            color: #4ecdc4;
+            font-weight: bold;
+        }
+        
+        .version-description {
+            font-size: 0.9rem;
+            color: #b8c5d6;
+            line-height: 1.5;
+            margin-bottom: 20px;
+        }
+        
+        /* Video Player */
+        .video-player {
+            width: 100%;
+            height: 300px;
+            border-radius: 15px;
+            margin-bottom: 20px;
+            background: #000;
+            border: 2px solid rgba(65, 105, 225, 0.3);
+        }
+        
+        /* Script Display */
+        .script-display {
+            background: rgba(65, 105, 225, 0.2);
+            border: 2px solid rgba(65, 105, 225, 0.5);
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 20px;
+            min-height: 120px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .script-text {
+            font-size: 1.1rem;
+            color: #e6e6fa;
+            font-style: italic;
+            text-align: center;
+            line-height: 1.6;
+        }
+        
+        /* Progress Bar */
+        .progress-container {
+            margin-bottom: 20px;
+        }
+        
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 4px;
+            margin-bottom: 10px;
+            overflow: hidden;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(45deg, #4169e1, #6495ed);
+            border-radius: 4px;
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+        
+        .progress-text {
+            font-size: 0.8rem;
+            color: #b8c5d6;
+            text-align: center;
+        }
+        
+        /* Controls */
+        .controls {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        .control-btn {
+            background: linear-gradient(45deg, #4169e1, #6495ed);
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 12px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(65, 105, 225, 0.4);
+            font-size: 0.8rem;
+        }
+        
+        .control-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(65, 105, 225, 0.6);
+        }
+        
+        .control-btn.secondary {
+            background: linear-gradient(45deg, #4ecdc4, #44a08d);
+            box-shadow: 0 5px 15px rgba(78, 205, 196, 0.4);
+        }
+        
+        .control-btn.secondary:hover {
+            box-shadow: 0 8px 20px rgba(78, 205, 196, 0.6);
+        }
+        
+        /* Features Section */
+        .features-section {
+            background: rgba(0, 0, 0, 0.3);
+            border: 2px solid rgba(255, 215, 0, 0.3);
+            border-radius: 20px;
+            padding: 30px;
+            text-align: center;
+        }
+        
+        .features-section h2 {
+            color: #ffd700;
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+        
+        .feature-item {
+            background: rgba(65, 105, 225, 0.1);
+            border: 1px solid rgba(65, 105, 225, 0.3);
+            border-radius: 15px;
+            padding: 20px;
+        }
+        
+        .feature-icon {
+            font-size: 2rem;
+            margin-bottom: 10px;
+        }
+        
+        .feature-title {
+            color: #4ecdc4;
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+        
+        .feature-description {
+            color: #b8c5d6;
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .versions-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .version-card {
+                padding: 20px;
+            }
+            
+            .video-player {
+                height: 250px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <h1>📖 How Jesus Rightly Divided the Bible</h1>
+            <p>All Three Versions - Complete Video Series</p>
+            <p>Source: <a href="https://www.youtube.com/watch?v=Kl3I3JCzHh8" target="_blank" class="source-link">YouTube Video</a></p>
+            <p>🎤 Human-Sounding Voice • 📱 YouTube Shorts Optimized • 🎬 Professional Quality</p>
+        </div>
+        
+        <!-- All Three Versions -->
+        <div class="versions-grid">
+            <!-- 25-Second Version -->
+            <div class="version-card">
+                <div class="version-header">
+                    <div class="version-title">
+                        <span>⚡</span>
+                        <span>Quick & Punchy</span>
+                    </div>
+                    <div class="version-duration">25 Seconds</div>
+                </div>
+                <div class="version-description">
+                    Perfect for maximum engagement and viral potential. Quick, powerful delivery optimized for social media.
+                </div>
+                
+                <video class="video-player" id="video25s" controls>
+                    <source src="jesus_rightly_divided_shorts_25s_20250726_173115.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+                
+                <div class="script-display" id="script25s">
+                    <div class="script-text">
+                        "How Jesus Rightly Divided the Bible. What does it mean to rightly divide Scripture?"
+                    </div>
+                </div>
+                
+                <div class="progress-container">
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="progress25s"></div>
+                    </div>
+                    <div class="progress-text">Progress: <span id="progressText25s">0%</span></div>
+                </div>
+                
+                <div class="controls">
+                    <button class="control-btn" onclick="playVideo('video25s')">▶️ PLAY</button>
+                    <button class="control-btn secondary" onclick="pauseVideo('video25s')">⏸️ PAUSE</button>
+                    <button class="control-btn" onclick="resetVideo('video25s')">🔄 RESET</button>
+                </div>
+            </div>
+            
+            <!-- 50-Second Version -->
+            <div class="version-card">
+                <div class="version-header">
+                    <div class="version-title">
+                        <span>📚</span>
+                        <span>Detailed Explanation</span>
+                    </div>
+                    <div class="version-duration">50 Seconds</div>
+                </div>
+                <div class="version-description">
+                    Extended teaching with deeper explanation. Balanced engagement and theological depth.
+                </div>
+                
+                <video class="video-player" id="video50s" controls>
+                    <source src="jesus_rightly_divided_shorts_50s_20250726_173120.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+                
+                <div class="script-display" id="script50s">
+                    <div class="script-text">
+                        "How Jesus Rightly Divided the Bible. What does it mean to rightly divide Scripture?"
+                    </div>
+                </div>
+                
+                <div class="progress-container">
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="progress50s"></div>
+                    </div>
+                    <div class="progress-text">Progress: <span id="progressText50s">0%</span></div>
+                </div>
+                
+                <div class="controls">
+                    <button class="control-btn" onclick="playVideo('video50s')">▶️ PLAY</button>
+                    <button class="control-btn secondary" onclick="pauseVideo('video50s')">⏸️ PAUSE</button>
+                    <button class="control-btn" onclick="resetVideo('video50s')">🔄 RESET</button>
+                </div>
+            </div>
+            
+            <!-- 75-Second Version -->
+            <div class="version-card">
+                <div class="version-header">
+                    <div class="version-title">
+                        <span>⛪</span>
+                        <span>Comprehensive Teaching</span>
+                    </div>
+                    <div class="version-duration">75 Seconds</div>
+                </div>
+                <div class="version-description">
+                    Full sermon-style delivery with complete theological explanation. Maximum educational value.
+                </div>
+                
+                <video class="video-player" id="video75s" controls>
+                    <source src="jesus_rightly_divided_shorts_75s_20250726_173124.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+                
+                <div class="script-display" id="script75s">
+                    <div class="script-text">
+                        "How Jesus Rightly Divided the Bible. What does it mean to rightly divide Scripture?"
+                    </div>
+                </div>
+                
+                <div class="progress-container">
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="progress75s"></div>
+                    </div>
+                    <div class="progress-text">Progress: <span id="progressText75s">0%</span></div>
+                </div>
+                
+                <div class="controls">
+                    <button class="control-btn" onclick="playVideo('video75s')">▶️ PLAY</button>
+                    <button class="control-btn secondary" onclick="pauseVideo('video75s')">⏸️ PAUSE</button>
+                    <button class="control-btn" onclick="resetVideo('video75s')">🔄 RESET</button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Features Section -->
+        <div class="features-section">
+            <h2>🎯 Series Features</h2>
+            <div class="features-grid">
+                <div class="feature-item">
+                    <div class="feature-icon">🎤</div>
+                    <div class="feature-title">Human-Sounding Voice</div>
+                    <div class="feature-description">Daniel voice with British accent for natural, authoritative delivery</div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">📱</div>
+                    <div class="feature-title">YouTube Shorts Optimized</div>
+                    <div class="feature-description">9:16 aspect ratio perfect for mobile viewing and social media</div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">🎬</div>
+                    <div class="feature-title">Professional Quality</div>
+                    <div class="feature-description">Broadcast-ready videos with synchronized script narration</div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">⚡</div>
+                    <div class="feature-title">Multiple Durations</div>
+                    <div class="feature-description">25s, 50s, and 75s versions for different engagement needs</div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">📖</div>
+                    <div class="feature-title">Biblical Content</div>
+                    <div class="feature-description">Focused on Jesus' method of rightly dividing Scripture</div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">🌿</div>
+                    <div class="feature-title">Rightly Dividing Brand</div>
+                    <div class="feature-description">Consistent branding with "Words of Truth" logo</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // Script content for each version
+        const scriptContent25s = [
+            { text: "How Jesus Rightly Divided the Bible. What does it mean to rightly divide Scripture?", time: 0 },
+            { text: "Jesus showed us the proper way to understand God's Word.", time: 5 },
+            { text: "He separated the old from the new, the law from grace.", time: 10 },
+            { text: "He revealed the hidden mysteries of the kingdom.", time: 15 },
+            { text: "Follow His example in studying Scripture!", time: 20 }
+        ];
+        
+        const scriptContent50s = [
+            { text: "How Jesus Rightly Divided the Bible. What does it mean to rightly divide Scripture?", time: 0 },
+            { text: "Jesus showed us the proper way to understand God's Word.", time: 5 },
+            { text: "He separated the old from the new, the law from grace.", time: 10 },
+            { text: "He revealed the hidden mysteries of the kingdom.", time: 15 },
+            { text: "He taught us to discern truth from tradition.", time: 20 },
+            { text: "Follow His example in studying Scripture!", time: 25 }
+        ];
+        
+        const scriptContent75s = [
+            { text: "How Jesus Rightly Divided the Bible. What does it mean to rightly divide Scripture?", time: 0 },
+            { text: "Jesus showed us the proper way to understand God's Word.", time: 5 },
+            { text: "He separated the old from the new, the law from grace.", time: 10 },
+            { text: "He revealed the hidden mysteries of the kingdom.", time: 15 },
+            { text: "He taught us to discern truth from tradition.", time: 20 },
+            { text: "2 Timothy 2:15 - Study to show yourself approved unto God.", time: 25 },
+            { text: "Rightly dividing the word of truth.", time: 30 },
+            { text: "Follow His example in studying Scripture!", time: 35 }
+        ];
+        
+        // Video control functions
+        function playVideo(videoId) {
+            const video = document.getElementById(videoId);
+            video.play();
+        }
+        
+        function pauseVideo(videoId) {
+            const video = document.getElementById(videoId);
+            video.pause();
+        }
+        
+        function resetVideo(videoId) {
+            const video = document.getElementById(videoId);
+            video.currentTime = 0;
+            video.pause();
+        }
+        
+        // Setup video synchronization
+        function setupVideoSync(videoId, scriptContent, scriptElementId, progressElementId, progressTextElementId) {
+            const video = document.getElementById(videoId);
+            const scriptElement = document.getElementById(scriptElementId);
+            const progressElement = document.getElementById(progressElementId);
+            const progressTextElement = document.getElementById(progressTextElementId);
+            
+            video.addEventListener('timeupdate', function() {
+                const currentTime = video.currentTime;
+                let currentScriptIndex = 0;
+                
+                // Find the appropriate script segment
+                for (let i = 0; i < scriptContent.length; i++) {
+                    if (currentTime >= scriptContent[i].time) {
+                        currentScriptIndex = i;
+                    }
+                }
+                
+                // Update script display
+                scriptElement.querySelector('.script-text').textContent = scriptContent[currentScriptIndex].text;
+                
+                // Update progress
+                const progress = (currentTime / video.duration) * 100;
+                progressElement.style.width = progress + '%';
+                progressTextElement.textContent = Math.round(progress) + '%';
+            });
+            
+            video.addEventListener('ended', function() {
+                progressElement.style.width = '100%';
+                progressTextElement.textContent = '100%';
+            });
+        }
+        
+        // Initialize all video sync when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            setupVideoSync('video25s', scriptContent25s, 'script25s', 'progress25s', 'progressText25s');
+            setupVideoSync('video50s', scriptContent50s, 'script50s', 'progress50s', 'progressText50s');
+            setupVideoSync('video75s', scriptContent75s, 'script75s', 'progress75s', 'progressText75s');
+        });
+    </script>
+</body>
+</html> 

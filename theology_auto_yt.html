@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="ko" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TheologyAutoYT - AI-Powered Theological Content Creation</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'theology': {
+                            50: '#f0f9ff',
+                            100: '#e0f2fe',
+                            500: '#0ea5e9',
+                            600: '#0284c7',
+                            700: '#0369a1',
+                            900: '#0c4a6e'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-gray-50 min-h-screen">
+    <!-- Navigation -->
+    <nav class="bg-white shadow-lg sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center">
+                    <i class="fas fa-cross text-theology-600 text-2xl mr-3"></i>
+                    <h1 class="text-xl font-bold text-gray-900">TheologyAutoYT</h1>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <span class="text-sm text-gray-600">AI-Powered Theological Content</span>
+                    <div class="w-3 h-3 bg-green-500 rounded-full animate-pulse"></div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <div class="bg-gradient-to-r from-theology-600 to-theology-800 text-white py-20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h1 class="text-5xl md:text-6xl font-bold mb-6">
+                TheologyAutoYT
+            </h1>
+            <p class="text-xl md:text-2xl mb-8 opacity-90">
+                AI-Powered Theological Content Creation Pipeline
+            </p>
+            <div class="flex flex-wrap justify-center gap-4 text-sm">
+                <span class="bg-white/20 px-4 py-2 rounded-full">🤖 AI Script Generation</span>
+                <span class="bg-white/20 px-4 py-2 rounded-full">🎤 Korean TTS</span>
+                <span class="bg-white/20 px-4 py-2 rounded-full">🎬 Video Creation</span>
+                <span class="bg-white/20 px-4 py-2 rounded-full">📺 YouTube Upload</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12" x-data="theologyApp()">
+        <!-- Input Section -->
+        <div class="mb-16">
+            <div class="text-center mb-8">
+                <h2 class="text-3xl font-bold text-gray-900 mb-4">
+                    <i class="fas fa-edit text-theology-600 mr-3"></i>
+                    대본 입력 섹션
+                </h2>
+                <p class="text-gray-600">신학적 주제를 입력하면 AI가 완전한 비디오를 생성합니다</p>
+            </div>
+
+            <div class="max-w-4xl mx-auto">
+                <div class="bg-white rounded-2xl p-8 shadow-xl border">
+                    <form @submit.prevent="startGeneration()">
+                        <div class="mb-6">
+                            <label class="block text-sm font-medium text-gray-700 mb-2">
+                                대본의 목적 (Purpose)
+                            </label>
+                            <textarea 
+                                x-model="inputPurpose"
+                                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-theology-500 focus:border-transparent resize-none"
+                                rows="4"
+                                placeholder="예: 성경의 기본 구조와 하나님의 구원 계획에 대해 간단히 설명"
+                                required
+                            ></textarea>
+                        </div>
+                        
+                        <div class="flex flex-wrap gap-4 mb-6">
+                            <div class="flex-1 min-w-48">
+                                <label class="block text-sm font-medium text-gray-700 mb-2">목표 길이</label>
+                                <select x-model="targetDuration" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-theology-500">
+                                    <option value="180">3분 (180초)</option>
+                                    <option value="300">5분 (300초)</option>
+                                    <option value="600">10분 (600초)</option>
+                                    <option value="900">15분 (900초)</option>
+                                </select>
+                            </div>
+                            <div class="flex-1 min-w-48">
+                                <label class="block text-sm font-medium text-gray-700 mb-2">음성</label>
+                                <select x-model="voiceType" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-theology-500">
+                                    <option value="ko-KR-Standard-A">한국어 남성</option>
+                                    <option value="ko-KR-Standard-B">한국어 여성</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <button 
+                            type="submit"
+                            :disabled="isProcessing"
+                            class="w-full bg-theology-600 hover:bg-theology-700 disabled:bg-gray-400 text-white font-bold py-4 px-6 rounded-lg transition-all duration-300 transform hover:scale-105 disabled:scale-100"
+                        >
+                            <i class="fas fa-play mr-2" x-show="!isProcessing"></i>
+                            <i class="fas fa-spinner fa-spin mr-2" x-show="isProcessing"></i>
+                            <span x-text="isProcessing ? '처리 중...' : '비디오 생성 시작'"></span>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- Processing Steps -->
+        <div x-show="isProcessing || completedSteps.length > 0" class="mb-16">
+            <h2 class="text-3xl font-bold text-gray-900 mb-8 text-center">
+                <i class="fas fa-cogs text-theology-600 mr-3"></i>
+                처리 단계
+            </h2>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <template x-for="(step, index) in processingSteps" :key="index">
+                    <div class="bg-white rounded-xl p-6 shadow-lg border-l-4 transition-all duration-300" 
+                         :class="{
+                             'border-theology-500 bg-theology-50': step.status === 'active',
+                             'border-green-500 bg-green-50': step.status === 'completed',
+                             'border-gray-300 bg-gray-50': step.status === 'pending'
+                         }">
+                        <div class="flex items-center mb-4">
+                            <div class="w-10 h-10 rounded-full flex items-center justify-center mr-3"
+                                 :class="{
+                                     'bg-theology-500 text-white': step.status === 'active',
+                                     'bg-green-500 text-white': step.status === 'completed',
+                                     'bg-gray-300 text-gray-600': step.status === 'pending'
+                                 }">
+                                <i :class="step.icon" x-show="step.status !== 'active'"></i>
+                                <i class="fas fa-spinner fa-spin" x-show="step.status === 'active'"></i>
+                            </div>
+                            <h3 class="font-semibold text-gray-900" x-text="step.title"></h3>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <div class="w-full bg-gray-200 rounded-full h-2">
+                                <div class="h-2 rounded-full transition-all duration-500"
+                                     :class="{
+                                         'bg-theology-500': step.status === 'active',
+                                         'bg-green-500': step.status === 'completed',
+                                         'bg-gray-300': step.status === 'pending'
+                                     }"
+                                     :style="`width: ${step.progress}%`"></div>
+                            </div>
+                            <p class="text-sm text-gray-600 mt-1" x-text="step.progress + '%'"></p>
+                        </div>
+                        
+                        <p class="text-sm text-gray-600" x-text="step.description"></p>
+                        
+                        <div x-show="step.status === 'completed'" class="mt-3 text-green-600 text-sm">
+                            <i class="fas fa-check-circle mr-1"></i>
+                            <span x-text="step.result"></span>
+                        </div>
+                    </div>
+                </template>
+            </div>
+        </div>
+
+        <!-- Output Section -->
+        <div>
+            <div class="text-center mb-8">
+                <h2 class="text-3xl font-bold text-gray-900 mb-4">
+                    <i class="fas fa-video text-theology-600 mr-3"></i>
+                    생성된 비디오 컬렉션
+                </h2>
+                <p class="text-gray-600">AI가 생성한 신학적 콘텐츠 비디오들</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Sample Video Card -->
+                <div class="bg-white rounded-xl shadow-lg overflow-hidden transition-all duration-300 hover:scale-105">
+                    <div class="relative">
+                        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='225' viewBox='0 0 400 225'%3E%3Crect width='400' height='225' fill='%230ea5e9'/%3E%3Ctext x='50%25' y='50%25' font-family='Arial' font-size='16' fill='white' text-anchor='middle' dy='.3em'%3E성경의 기본 구조와 하나님의 구원 계획%3C/text%3E%3C/svg%3E" 
+                             alt="Generated Video Thumbnail" class="w-full h-48 object-cover">
+                        <div class="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center">
+                            <button class="bg-white text-theology-600 rounded-full p-3 hover:bg-gray-100 transition-colors">
+                                <i class="fas fa-play text-xl"></i>
+                            </button>
+                        </div>
+                        <div class="absolute top-2 right-2 bg-red-600 text-white px-2 py-1 rounded text-xs font-semibold">
+                            LIVE
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="font-bold text-lg mb-2">성경의 기본 구조와 하나님의 구원 계획</h3>
+                        <p class="text-gray-600 text-sm mb-4">구약과 신약의 연결성, 메시아의 예언과 성취, 하나님의 구원 계획에 대한 체계적인 설명</p>
+                        <div class="flex items-center justify-between text-sm text-gray-500">
+                            <span><i class="fas fa-clock mr-1"></i>2분 20초</span>
+                            <span><i class="fas fa-eye mr-1"></i>1,234</span>
+                            <span><i class="fas fa-thumbs-up mr-1"></i>89</span>
+                        </div>
+                        <div class="mt-4 flex space-x-2">
+                            <button class="flex-1 bg-theology-600 text-white py-2 px-4 rounded-lg hover:bg-theology-700 transition-colors">
+                                <i class="fas fa-play mr-2"></i>재생
+                            </button>
+                            <button class="bg-gray-200 text-gray-700 py-2 px-4 rounded-lg hover:bg-gray-300 transition-colors">
+                                <i class="fas fa-download"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Template for new videos -->
+                <template x-for="video in generatedVideos" :key="video.id">
+                    <div class="bg-white rounded-xl shadow-lg overflow-hidden transition-all duration-300 hover:scale-105">
+                        <div class="relative">
+                            <img :src="video.thumbnail" :alt="video.title" class="w-full h-48 object-cover">
+                            <div class="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center">
+                                <button class="bg-white text-theology-600 rounded-full p-3 hover:bg-gray-100 transition-colors">
+                                    <i class="fas fa-play text-xl"></i>
+                                </button>
+                            </div>
+                            <div class="absolute top-2 right-2 bg-red-600 text-white px-2 py-1 rounded text-xs font-semibold">
+                                NEW
+                            </div>
+                        </div>
+                        <div class="p-6">
+                            <h3 class="font-bold text-lg mb-2" x-text="video.title"></h3>
+                            <p class="text-gray-600 text-sm mb-4" x-text="video.description"></p>
+                            <div class="flex items-center justify-between text-sm text-gray-500">
+                                <span><i class="fas fa-clock mr-1"></i><span x-text="video.duration"></span></span>
+                                <span><i class="fas fa-eye mr-1"></i><span x-text="video.views"></span></span>
+                                <span><i class="fas fa-thumbs-up mr-1"></i><span x-text="video.likes"></span></span>
+                            </div>
+                            <div class="mt-4 flex space-x-2">
+                                <button class="flex-1 bg-theology-600 text-white py-2 px-4 rounded-lg hover:bg-theology-700 transition-colors">
+                                    <i class="fas fa-play mr-2"></i>재생
+                                </button>
+                                <button class="bg-gray-200 text-gray-700 py-2 px-4 rounded-lg hover:bg-gray-300 transition-colors">
+                                    <i class="fas fa-download"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </template>
+
+                <!-- Empty state -->
+                <div x-show="generatedVideos.length === 0" class="col-span-full text-center py-12">
+                    <i class="fas fa-video text-6xl text-gray-300 mb-4"></i>
+                    <h3 class="text-xl font-semibold text-gray-600 mb-2">아직 생성된 비디오가 없습니다</h3>
+                    <p class="text-gray-500">위의 입력 섹션에서 신학적 주제를 입력하여 첫 번째 비디오를 생성해보세요!</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">TheologyAutoYT</h3>
+                    <p class="text-gray-400">AI-powered theological content creation pipeline for Korean Christian education.</p>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">기능</h3>
+                    <ul class="space-y-2 text-gray-400">
+                        <li>�� AI 스크립트 생성</li>
+                        <li>🎤 한국어 TTS</li>
+                        <li>🎬 자동 비디오 제작</li>
+                        <li>📺 YouTube 업로드</li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">기술 스택</h3>
+                    <ul class="space-y-2 text-gray-400">
+                        <li>OpenAI GPT-4o-mini</li>
+                        <li>Azure Speech Services</li>
+                        <li>Google Cloud TTS</li>
+                        <li>YouTube Data API</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400">
+                <p>&copy; 2025 TheologyAutoYT. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        function theologyApp() {
+            return {
+                inputPurpose: '',
+                targetDuration: 300,
+                voiceType: 'ko-KR-Standard-A',
+                isProcessing: false,
+                generatedVideos: [],
+                completedSteps: [],
+                processingSteps: [
+                    {
+                        title: 'AI 스크립트 생성',
+                        description: 'OpenAI GPT-4o-mini로 신학적 콘텐츠 생성',
+                        icon: 'fas fa-brain',
+                        status: 'pending',
+                        progress: 0,
+                        result: ''
+                    },
+                    {
+                        title: 'TTS 음성 합성',
+                        description: '한국어 자연스러운 음성 생성',
+                        icon: 'fas fa-microphone',
+                        status: 'pending',
+                        progress: 0,
+                        result: ''
+                    },
+                    {
+                        title: '오디오 처리',
+                        description: '방송 품질 오디오 정규화',
+                        icon: 'fas fa-volume-up',
+                        status: 'pending',
+                        progress: 0,
+                        result: ''
+                    },
+                    {
+                        title: '비디오 렌더링',
+                        description: '자막이 포함된 비디오 생성',
+                        icon: 'fas fa-video',
+                        status: 'pending',
+                        progress: 0,
+                        result: ''
+                    },
+                    {
+                        title: '썸네일 생성',
+                        description: '전문적인 썸네일 이미지 생성',
+                        icon: 'fas fa-image',
+                        status: 'pending',
+                        progress: 0,
+                        result: ''
+                    },
+                    {
+                        title: 'YouTube 업로드',
+                        description: 'YouTube에 비디오 업로드',
+                        icon: 'fab fa-youtube',
+                        status: 'pending',
+                        progress: 0,
+                        result: ''
+                    }
+                ],
+
+                async startGeneration() {
+                    if (!this.inputPurpose.trim()) return;
+                    
+                    this.isProcessing = true;
+                    this.completedSteps = [];
+                    
+                    // Reset all steps
+                    this.processingSteps.forEach(step => {
+                        step.status = 'pending';
+                        step.progress = 0;
+                        step.result = '';
+                    });
+
+                    // Simulate processing each step
+                    for (let i = 0; i < this.processingSteps.length; i++) {
+                        const step = this.processingSteps[i];
+                        step.status = 'active';
+                        
+                        // Simulate progress
+                        for (let progress = 0; progress <= 100; progress += 10) {
+                            step.progress = progress;
+                            await this.sleep(200);
+                        }
+                        
+                        step.status = 'completed';
+                        step.result = this.getStepResult(i);
+                        this.completedSteps.push(step);
+                        
+                        await this.sleep(500);
+                    }
+                    
+                    // Add generated video
+                    this.addGeneratedVideo();
+                    this.isProcessing = false;
+                },
+
+                getStepResult(stepIndex) {
+                    const results = [
+                        '스크립트 1,200자 생성 완료',
+                        '2분 20초 음성 파일 생성',
+                        '방송 품질 오디오 완성',
+                        '1280x720 비디오 렌더링 완료',
+                        '전문 썸네일 이미지 생성',
+                        'YouTube 업로드 성공'
+                    ];
+                    return results[stepIndex] || '완료';
+                },
+
+                addGeneratedVideo() {
+                    const newVideo = {
+                        id: Date.now(),
+                        title: this.inputPurpose.substring(0, 50) + (this.inputPurpose.length > 50 ? '...' : ''),
+                        description: 'AI가 생성한 신학적 콘텐츠 비디오입니다.',
+                        duration: Math.floor(this.targetDuration / 60) + '분 ' + (this.targetDuration % 60) + '초',
+                        views: Math.floor(Math.random() * 1000) + 100,
+                        likes: Math.floor(Math.random() * 100) + 10,
+                        thumbnail: 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="400" height="225" viewBox="0 0 400 225"%3E%3Crect width="400" height="225" fill="%230ea5e9"/%3E%3Ctext x="50%25" y="50%25" font-family="Arial" font-size="14" fill="white" text-anchor="middle" dy=".3em"%3E' + encodeURIComponent(this.inputPurpose.substring(0, 30)) + '%3C/text%3E%3C/svg%3E'
+                    };
+                    this.generatedVideos.unshift(newVideo);
+                },
+
+                sleep(ms) {
+                    return new Promise(resolve => setTimeout(resolve, ms));
+                }
+            }
+        }
+    </script>
+</body>
+</html>
