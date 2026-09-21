@@ -1,0 +1,657 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>행위로 구원받는다는 다섯 주장 — 진리의 말씀을 바르게 나누라</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&amp;family=Lora:ital,wght@0,400;0,500;0,600;1,400&amp;family=Noto+Serif+KR:wght@400;500;600&amp;display=swap">
+<style>
+  :root {
+    --bg:        #F5EDD8;
+    --bg-card:   #EDE5D0;
+    --bg-hero:   #2A2310;
+    --border:    #C8B89A;
+    --text-h:    #1A1508;
+    --text-body: #3A3020;
+    --text-muted:#7A6F5A;
+    --gold:      #B8922A;
+    --gold-lt:   #D4AE54;
+    --hero-text: #F5EDD8;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: var(--bg); color: var(--text-body); font-family: 'Lora','Noto Serif KR',Georgia,serif; }
+  .hero { background: var(--bg-hero); position: relative; overflow: hidden; padding: 80px 24px 72px; text-align: center; }
+  .hero::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse 60% 70% at 50% 40%, rgba(200,162,74,0.14) 0%, transparent 70%); pointer-events: none; }
+  .hero-eyebrow { font-family: 'Cinzel', serif; font-size: 0.72rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--gold); margin-bottom: 20px; }
+  .hero-title { font-family: 'Cinzel', serif; font-size: clamp(1.55rem,4.4vw,2.8rem); font-weight: 700; color: var(--hero-text); line-height: 1.22; margin-bottom: 10px; }
+  .hero-subtitle { font-family: 'Cinzel', serif; font-size: clamp(1rem,2.4vw,1.35rem); font-weight: 400; color: var(--gold-lt); letter-spacing: 0.04em; margin-bottom: 32px; }
+  .hero-rule { width: 60px; height: 1px; background: var(--gold); margin: 0 auto 28px; opacity: 0.6; }
+  .hero-verse { max-width: 660px; margin: 0 auto; color: rgba(245,237,216,0.70); font-size: 0.93rem; font-style: italic; line-height: 1.6; }
+  .hero-verse cite { display: block; font-style: normal; font-family: 'Cinzel', serif; font-size: 0.75rem; letter-spacing: 0.12em; color: var(--gold); margin-top: 10px; text-transform: uppercase; }
+  .intro { max-width: 760px; margin: 48px auto 0; padding: 0 24px; text-align: center; }
+  .intro p, .judge p { font-size: 1.02rem; color: var(--text-body); line-height: 1.85; word-break: keep-all; }
+  .nav { max-width: 760px; margin: 20px auto 0; padding: 0 24px; text-align: center; font-family: 'Cinzel', serif; font-size: 0.78rem; letter-spacing: 0.08em; color: var(--gold); }
+  .nav a { color: var(--gold); text-decoration: none; }
+  .section-label { max-width: 920px; margin: 56px auto 24px; padding: 0 24px; display: flex; align-items: center; gap: 16px; }
+  .section-label span { font-family: 'Cinzel', serif; font-size: 0.7rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--gold); }
+  .section-label::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+  .grid { max-width: 920px; margin: 0 auto; padding: 0 20px 24px; display: grid; grid-template-columns: 1fr; gap: 20px; }
+  .card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 8px; box-shadow: 0 2px 12px rgba(0,0,0,0.10); overflow: hidden; }
+  .card-header { display: flex; align-items: flex-start; gap: 14px; padding: 20px 20px 0; }
+  .card-num { font-family: 'Cinzel', serif; font-size: 1.1rem; font-weight: 700; color: var(--gold); min-width: 36px; }
+  .card-ref { font-family: 'Cinzel', serif; font-size: 0.78rem; font-weight: 600; letter-spacing: 0.04em; color: var(--text-h); text-transform: uppercase; line-height: 1.4; }
+  .card-ref em { font-style: normal; text-transform: none; color: var(--text-muted); font-weight: 400; }
+  .card-body { padding: 16px 20px 20px; display: flex; flex-direction: column; gap: 12px; }
+  .kjv { background: #F0E8D4; border-left: 3px solid var(--gold); border-radius: 0 4px 4px 0; padding: 12px 14px; }
+  .kjv.grace { border-left-color: #7A6F5A; }
+  .kjv-label, .ko-label { font-family: 'Cinzel', serif; font-size: 0.62rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--gold); margin-bottom: 6px; }
+  .kjv.grace .kjv-label, .ko-label { color: var(--text-muted); }
+  .kjv p { font-size: 0.9rem; color: var(--text-body); line-height: 1.65; font-style: italic; }
+  .ko p { font-size: 0.88rem; color: #4A3F2F; line-height: 1.75; word-break: keep-all; }
+  .note { font-size: 0.86rem; color: var(--text-muted); line-height: 1.7; }
+  table.stats { width: 100%; max-width: 760px; margin: 28px auto 0; border-collapse: collapse; font-size: 0.9rem; }
+  table.stats th, table.stats td { border-bottom: 1px solid var(--border); padding: 10px 8px; text-align: left; }
+  table.stats th { font-family: 'Cinzel', serif; font-size: 0.68rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--gold); }
+  .judge { max-width: 760px; margin: 8px auto 8px; padding: 0 24px 8px; }
+  .judge h2 { font-family: 'Cinzel', serif; font-size: 0.78rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--gold); margin: 24px 0 10px; }
+  .footer-banner { background: var(--bg-hero); border-top: 1px solid var(--border); padding: 52px 24px 48px; text-align: center; }
+  .footer-banner p { max-width: 680px; margin: 0 auto 20px; font-size: 0.96rem; color: rgba(245,237,216,0.72); line-height: 1.8; word-break: keep-all; }
+  .footer-banner blockquote { max-width: 560px; margin: 0 auto; font-style: italic; color: var(--gold-lt); font-size: 0.95rem; line-height: 1.7; padding: 16px 20px; border: 1px solid rgba(200,162,74,0.3); border-radius: 8px; }
+  .footer-banner cite { display: block; font-style: normal; font-family: 'Cinzel', serif; font-size: 0.7rem; letter-spacing: 0.14em; color: var(--gold); margin-top: 10px; text-transform: uppercase; }
+  .page-footer { padding: 20px 24px; text-align: center; }
+  .page-footer p { font-family: 'Cinzel', serif; font-size: 0.68rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--text-muted); }
+  @media (max-width: 540px) { .hero { padding: 60px 20px 52px; } }
+</style>
+</head>
+<body>
+<header class="hero">
+  <p class="hero-eyebrow">Rightly Dividing · 2 Timothy 2:15</p>
+  <h1 class="hero-title">행위로 구원받는다는 다섯 주장</h1>
+  <p class="hero-subtitle">Sabbath · Tithe · Alms · Programs · Membership</p>
+  <div class="hero-rule"></div>
+  <div class="hero-verse">
+    <p>"Study to shew thyself approved unto God, a workman that needeth not to be ashamed, rightly dividing the word of truth."</p>
+    <cite>디모데후서 2:15 · 2 Timothy 2:15 KJV</cite>
+  </div>
+</header>
+<section class="intro">
+  <p>안식일, 십일조, 구제·사회봉사, 모든 예배와 프로그램, 교회 등록·출석을 지키지 않으면 구원받지 못한다는 주장. 각 주장마다 지지로 인용되는 구절과 반박 구절을 KJV와 흠정역으로 모았습니다. 지지 칸은 그 주장이 끌어다 쓰는 구절이지, 그 주장을 옳다고 인정하는 것이 아닙니다. 각 끝에 진리의 말씀을 바르게 나누는 판단과 통찰을 두었습니다.</p>
+</section>
+<nav class="nav"><a href="#sabbath">안식일</a> · <a href="#tithe">십일조</a> · <a href="#alms">구제·봉사</a> · <a href="#programs">예배·프로그램</a> · <a href="#membership">등록·출석</a></nav>
+<table class="stats">
+  <thead><tr><th>프로젝트</th><th>지지 인용 / 절</th><th>반박 인용 / 절</th><th>반박 절 비중</th></tr></thead>
+  <tbody>
+    <tr><td>안식일</td><td>8건 / 23절</td><td>9건 / 28절</td><td>55%</td></tr><tr><td>십일조</td><td>6건 / 17절</td><td>7건 / 22절</td><td>56%</td></tr><tr><td>구제·봉사</td><td>7건 / 31절</td><td>7건 / 20절</td><td>39%</td></tr><tr><td>예배·프로그램</td><td>5건 / 15절</td><td>5건 / 26절</td><td>63%</td></tr><tr><td>등록·출석</td><td>5건 / 17절</td><td>5건 / 20절</td><td>54%</td></tr>
+    <tr><td><strong>합계</strong></td><td><strong>31건 / 103절</strong></td><td><strong>33건 / 116절</strong></td><td><strong>53%</strong></td></tr>
+  </tbody>
+</table>
+<section class="intro"><p>집계는 인용 건수와 범위 폭을 더한 KJV 절 수입니다. 구제·봉사만 지지 쪽 절 수가 더 깁니다. 마태복음 25장과 야고보서 2장이 길기 때문이지, 몸의 교회 구원 교리가 바뀌기 때문이 아닙니다. 인용 64건.</p></section>
+<div class="section-label" id="sabbath"><span>Project 01 · 안식일 · 지지 23절 · 반박 28절</span></div>
+<section class="intro project-claim"><p><strong>주장.</strong> 안식일을 지키지 않으면 구원받지 못한다</p></section>
+<div class="section-label"><span>지지로 인용되는 구절 · verses the claim cites</span></div>
+<main class="grid"><article class="card">
+  <div class="card-header"><span class="card-num">01</span><span class="card-ref">Exodus 20:8–11<br><em>십계명의 넷째 명령 · 4절</em></span></div>
+  <div class="card-body">
+    <div class="kjv"><p class="kjv-label">지지로 인용 · Claim cites · KJV</p><p>Remember the sabbath day, to keep it holy. Six days shalt thou labour, and do all thy work: But the seventh day is the sabbath of the LORD thy God: in it thou shalt not do any work… For in six days the LORD made heaven and earth… and rested the seventh day: wherefore the LORD blessed the sabbath day, and hallowed it.</p></div>
+    <div class="ko"><p class="ko-label">흠정역</p><p>안식일을 기억하여 거룩히 지키라. 엿새 동안은 네가 수고하고 네 모든 일을 할 것이나 일곱째 날은 주 네 하나님의 안식일인즉 그 날에는 너나 네 아들이나 네 딸이나 네 남종이나 네 여종이나 네 가축이나 네 문 안에 거하는 네 나그네나 아무 일도 하지 말라. 엿새 동안에 주가 하늘과 땅과 바다와 그것들 안에 있는 모든 것을 만들고 일곱째 날에 안식하였느니라. 그러므로 주가 안식일을 복되게 하여 그 날을 거룩하게 하였느니라.</p></div>
+    <p class="note">안식일 준수를 시내 언약의 핵심 계명으로 읽어, 지키지 않으면 하나님 백성이 아니라고 주장함.</p>
+  </div>
+</article>
+<article class="card">
+  <div class="card-header"><span class="card-num">02</span><span class="card-ref">Exodus 31:13–17<br><em>이스라엘과의 표적·영속 언약 · 5절</em></span></div>
+  <div class="card-body">
+    <div class="kjv"><p class="kjv-label">지지로 인용 · Claim cites · KJV</p><p>Verily my sabbaths ye shall keep: for it is a sign between me and you throughout your generations… Ye shall keep the sabbath therefore; for it is holy unto you: every one that defileth it shall surely be put to death… Wherefore the children of Israel shall keep the sabbath… for a perpetual covenant. It is a sign between me and the children of Israel for ever.</p></div>
+    <div class="ko"><p class="ko-label">흠정역</p><p>너희는 진실로 내 안식일을 지킬지니라. 그것은 너희 대대로 나와 너희 사이에 있을 표적이니… 그러므로 너희는 안식일을 지킬지니 그것은 너희에게 거룩하니라. 안식일을 더럽히는 자는 다 반드시 죽일지니… 이스라엘 자손이 안식일을 지키되 그들의 대대로 안식일을 준수하여 영속하는 언약으로 삼을 것이니라. 안식일은 나와 이스라엘 자손들 사이에 있을 영원한 표적이니…</p></div>
+    <p class="note">안식일은 하나님과 이스라엘 사이의 영원한 표적이며, 더럽히면 끊어진다고 하므로 구원의 표지로 봄.</p>
+  </div>
+</article>
+<article class="card">
+  <div class="card-header"><span class="card-num">03</span><span class="card-ref">Genesis 2:2–3<br><em>창조의 안식 · 2절</em></span></div>
+  <div class="card-body">
+    <div class="kjv"><p class="kjv-label">지지로 인용 · Claim cites · KJV</p><p>And on the seventh day God ended his work which he had made; and he rested on the seventh day from all his work which he had made. And God blessed the seventh day, and sanctified it.</p></div>
+    <div class="ko"><p class="ko-label">흠정역</p><p>일곱째 날에 하나님께서 자신이 만든 자신의 일을 마치시고 자신이 만든 모든 일에서 떠나 일곱째 날에 안식하시니라. 하나님께서 일곱째 날을 복 주시고 그 날을 거룩히 구별하셨으니</p></div>
+    <p class="note">율법 이전부터 일곱째 날이 복되고 거룩하므로, 모든 시대·모든 사람에게 구속력 있는 창조 규례라고 주장함.</p>
+  </div>
+</article>
+<article class="card">
+  <div class="card-header"><span class="card-num">04</span><span class="card-ref">Deuteronomy 5:12–15<br><em>출애굽과 연결된 안식 · 4절</em></span></div>
+  <div class="card-body">
+    <div class="kjv"><p class="kjv-label">지지로 인용 · Claim cites · KJV</p><p>Keep the sabbath day to sanctify it, as the LORD thy God hath commanded thee… And remember that thou wast a servant in the land of Egypt, and that the LORD thy God brought thee out thence… therefore the LORD thy God commanded thee to keep the sabbath day.</p></div>
+    <div class="ko"><p class="ko-label">흠정역</p><p>주 네 하나님이 네게 명령한 대로 안식일을 지켜 거룩히 구별하라… 너는 기억하라. 네가 이집트 땅에서 종이었더니 주 네 하나님이 강한 손과 뻗은 팔로 너를 거기서 데리고 나왔나니 그러므로 주 네 하나님이 네게 명령하여 안식일을 지키게 하였느니라.</p></div>
+    <p class="note">안식일은 이스라엘이 속박에서 나온 구원을 기념하므로, 구원받은 자의 정체성 표라고 읽음.</p>
+  </div>
+</article>
+<article class="card">
+  <div class="card-header"><span class="card-num">05</span><span class="card-ref">Ezekiel 20:12, 20<br><em>거룩히 구별하는 표적 · 2절</em></span></div>
+  <div class="card-body">
+    <div class="kjv"><p class="kjv-label">지지로 인용 · Claim cites · KJV</p><p>Moreover also I gave them my sabbaths, to be a sign between me and them, that they might know that I am the LORD that sanctify them… And hallow my sabbaths; and they shall be a sign between me and you, that ye may know that I am the LORD your God.</p></div>
+    <div class="ko"><p class="ko-label">흠정역</p><p>또 나는 내 안식일들을 주어 나와 그들 사이에 표적이 되게 하였나니 이것은 내가 그들을 거룩히 구별하는 주인 줄을 그들이 알게 하려 함이었노라… 내 안식일들을 거룩히 할지어다. 그것들이 나와 너희 사이에 표적이 되리니 이것은 내가 주 너희 하나님인 줄 너희가 알게 하려 함이라.</p></div>
+    <p class="note">안식일을 더럽힌 것이 이스라엘 심판의 원인이므로, 안식일 폐기는 구원 상실과 같다고 봄.</p>
+  </div>
+</article>
+<article class="card">
+  <div class="card-header"><span class="card-num">06</span><span class="card-ref">Isaiah 58:13–14<br><em>안식일을 영화롭게 하면 복을 받음 · 2절</em></span></div>
+  <div class="card-body">
+    <div class="kjv"><p class="kjv-label">지지로 인용 · Claim cites · KJV</p><p>If thou turn away thy foot from the sabbath, from doing thy pleasure on my holy day; and call the sabbath a delight, the holy of the LORD, honourable… Then shalt thou delight thyself in the LORD; and I will cause thee to ride upon the high places of the earth.</p></div>
+    <div class="ko"><p class="ko-label">흠정역</p><p>만일 네가 안식일에 네 발을 돌이켜 내 거룩한 날에 네 즐거움을 행하지 아니하고 안식일을 기쁨이라, 주의 거룩한 날을 존귀한 것이라 부르며… 그리하면 네가 주 안에서 너를 기뻐하리니 내가 너로 하여금 땅의 높은 곳들을 타게 하고</p></div>
+    <p class="note">안식일을 영화롭게 하는 자에게 땅의 유업과 야곱의 유업을 약속하므로, 구원·축복의 조건으로 씀.</p>
+  </div>
+</article>
+<article class="card">
+  <div class="card-header"><span class="card-num">07</span><span class="card-ref">Luke 4:16; Acts 17:2<br><em>예수님과 바울의 회당 안식일 · 2절</em></span></div>
+  <div class="card-body">
+    <div class="kjv"><p class="kjv-label">지지로 인용 · Claim cites · KJV</p><p>And he came to Nazareth… and, as his custom was, he went into the synagogue on the sabbath day… And Paul, as his manner was, went in unto them, and three sabbath days reasoned with them out of the scriptures.</p></div>
+    <div class="ko"><p class="ko-label">흠정역</p><p>예수님께서 자기가 자라난 나사렛에 이르사 자신의 관례대로 안식일에 회당에 들어가사… 바울이 자기의 관례대로 그들에게로 들어가 세 안식일에 성경 기록들을 가지고 그들과 변론하되</p></div>
+    <p class="note">주와 바울이 안식일에 회당에 갔으므로 신약 교회도 일곱째 날을 지켜야 구원의 본을 따른다고 주장함.</p>
+  </div>
+</article>
+<article class="card">
+  <div class="card-header"><span class="card-num">08</span><span class="card-ref">Hebrews 4:9; Revelation 14:12<br><em>남아 있는 안식 / 성도들의 인내 · 2절</em></span></div>
+  <div class="card-body">
+    <div class="kjv"><p class="kjv-label">지지로 인용 · Claim cites · KJV</p><p>There remaineth therefore a rest to the people of God… Here is the patience of the saints: here are they that keep the commandments of God, and the faith of Jesus.</p></div>
+    <div class="ko"><p class="ko-label">흠정역</p><p>그러므로 하나님의 백성에게는 안식이 남아 있도다… 여기에 성도들의 인내가 있나니 그들은 하나님의 명령들과 예수님의 믿음을 지키는 자들이니라.</p></div>
+    <p class="note">히브리서의 ‘안식’과 계시록의 계명 준수를 일곱째 날 안식일 준수로 읽어, 끝까지 지키는 자만 구원받는다고 함.</p>
+  </div>
+</article></main>
+<div class="section-label"><span>반박 구절 · Pauline grace / right division</span></div>
+<main class="grid"><article class="card">
+  <div class="card-header"><span class="card-num">01</span><span class="card-ref">Colossians 2:16–17<br><em>안식일로 판단하지 말라 · 2절</em></span></div>
+  <div class="card-body">
+    <div class="kjv grace"><p class="kjv-label">반박 · Refute · KJV</p><p>Let no man therefore judge you in meat, or in drink, or in respect of an holyday, or of the new moon, or of the sabbath days: Which are a shadow of things to come; but the body is of Christ.</p></div>
+    <div class="ko"><p class="ko-label">흠정역</p><p>그러므로 아무도 먹는 것이나 마시는 것으로 인하여 또 거룩한 날이나 월삭이나 안식일에 관하여 너희를 판단하지 못하게 하라. 그것들은 다가올 것들의 그림자이거니와 몸은 그리스도께 속해 있느니라.</p></div>
+    <p class="note">거룩한 날·월삭·안식일은 그림자에 불과하고 몸은 그리스도께 속하므로, 안식일 준수를 구원 조건으로 세울 수 없음.</p>
+  </div>
+</article>
+<article class="card">
+  <div class="card-header"><span class="card-num">02</span><span class="card-ref">Romans 14:5–6<br><em>날을 같게 여겨도 주를 위함 · 2절</em></span></div>
+  <div class="card-body">
+    <div class="kjv grace"><p class="kjv-label">반박 · Refute · KJV</p><p>One man esteemeth one day above another: another esteemeth every day alike. Let every man be fully persuaded in his own mind. He that regardeth the day, regardeth it unto the Lord; and he that regardeth not the day, to the Lord he doth not regard it.</p></div>
+    <div class="ko"><p class="ko-label">흠정역</p><p>어떤 사람은 한 날을 다른 날보다 귀히 여기고 다른 사람은 모든 날을 같게 여기나니 각 사람은 자기 마음에서 완전히 확신할지니라. 날을 중히 여기는 자도 주를 위해 중히 여기고 날을 중히 여기지 아니하는 자도 주를 위해 중히 여기지 아니하며</p></div>
+    <p class="note">한 날을 귀히 여기는 자와 모든 날을 같게 여기는 자가 모두 주를 위해 하며, 날 준수가 구원의 시금석이 아님.</p>
+  </div>
+</article>
+<article class="card">
+  <div class="card-header"><span class="card-num">03</span><span class="card-ref">Galatians 4:9–11<br><em>날·달·때·해를 지키는 종노릇 · 3절</em></span></div>
+  <div class="card-body">
+    <div class="kjv grace"><p class="kjv-label">반박 · Refute · KJV</p><p>But now, after that ye have known God, or rather are known of God, how turn ye again to the weak and beggarly elements, whereunto ye desire again to be in bondage? Ye observe days, and months, and times, and years. I am afraid of you, lest I have bestowed upon you labour in vain.</p></div>
+    <div class="ko"><p class="ko-label">흠정역</p><p>그러나 이제 너희가 하나님을 안 뒤에 혹은 하나님께 알려진 뒤에 어찌하여 다시 약하고 천한 초등 원리로 돌아가 다시 그것에 종노릇 하려 하느냐? 너희가 날과 달과 때와 해를 지키니 내가 너희를 위하여 헛되이 수고하였을까 너희로 인해 염려하노라.</p></div>
+    <p class="note">은혜로 알려진 뒤에 날과 해를 다시 지키는 것은 초등 원리로 돌아가는 것이며, 바울이 헛되이 수고할까 염려한 일임.</p>
+  </div>
+</article>
+<article class="card">
+  <div class="card-header"><span class="card-num">04</span><span class="card-ref">Galatians 5:1–4<br><em>율법으로 의롭게 되면 은혜에서 떨어짐 · 4절</em></span></div>
+  <div class="card-body">
+    <div class="kjv grace"><p class="kjv-label">반박 · Refute · KJV</p><p>Stand fast therefore in the liberty wherewith Christ hath made us free, and be not entangled again with the yoke of bondage… Christ is become of no effect unto you, whosoever of you are justified by the law; ye are fallen from grace.</p></div>
+    <div class="ko"><p class="ko-label">흠정역</p><p>그리스도께서 우리를 자유롭게 하려고 자유를 주셨으니 그러므로 그 안에 굳게 서고 다시는 속박의 멍에를 메지 말라… 너희 중에 누구든지 율법으로 의롭게 된 자에게는 그리스도께서 아무런 효력이 없으며 너희는 은혜에서 떨어져 나갔느니라.</p></div>
+    <p class="note">할례·율법 전체를 구원 조건으로 붙이면 그리스도가 무효가 됨. 안식일을 구원 조건으로 붙이는 것도 같은 멍에임.</p>
+  </div>
+</article>
+<article class="card">
+  <div class="card-header"><span class="card-num">05</span><span class="card-ref">Romans 6:14; 3:20, 28<br><em>은혜 아래 / 율법의 행위로 의롭게 되지 못함 · 3절</em></span></div>
+  <div class="card-body">
+    <div class="kjv grace"><p class="kjv-label">반박 · Refute · KJV</p><p>For ye are not under the law, but under grace… Therefore by the deeds of the law there shall no flesh be justified in his sight… Therefore we conclude that a man is justified by faith without the deeds of the law.</p></div>
+    <div class="ko"><p class="ko-label">흠정역</p><p>너희가 율법 아래 있지 아니하고 은혜 아래 있으므로 죄가 너희를 지배하지 못하리라… 그러므로 율법의 행위로는 아무 육체도 그분의 눈앞에서 의롭게 될 수 없나니… 그러므로 우리가 결론을 내리노니 사람은 율법의 행위 없이 믿음으로 의롭게 되느니라.</p></div>
+    <p class="note">이 경륜의 성도는 율법 아래 있지 않고, 율법의 행위로는 아무도 의롭게 되지 못함.</p>
+  </div>
+</article>
+<article class="card">
+  <div class="card-header"><span class="card-num">06</span><span class="card-ref">Ephesians 2:8–9, 15<br><em>은혜로 구원 / 규례의 율법을 없애심 · 3절</em></span></div>
+  <div class="card-body">
+    <div class="kjv grace"><p class="kjv-label">반박 · Refute · KJV</p><p>For by grace are ye saved through faith; and that not of yourselves: it is the gift of God: Not of works, lest any man should boast… Having abolished in his flesh the enmity, even the law of commandments contained in ordinances.</p></div>
+    <div class="ko"><p class="ko-label">흠정역</p><p>너희가 믿음을 통해 은혜로 구원을 받았나니 그것은 너희 자신에게서 난 것이 아니요 하나님의 선물이니라. 행위에서 난 것이 아니니 이것은 아무도 자랑하지 못하게 하려 함이라… 원수 되게 하는 것 즉 규례들에 수록된 명령들의 율법을 자기 육체로 없애셨으니</p></div>
+    <p class="note">구원은 선물이지 행위가 아니며, 그리스도께서 규례들에 수록된 명령들의 율법을 자기 육체로 없애셨음.</p>
+  </div>
+</article>
+<article class="card">
+  <div class="card-header"><span class="card-num">07</span><span class="card-ref">Acts 15:10–11, 24, 28–29<br><em>예루살렘 회의: 율법 멍에를 지우지 않음 · 5절</em></span></div>
+  <div class="card-body">
+    <div class="kjv grace"><p class="kjv-label">반박 · Refute · KJV</p><p>Now therefore why tempt ye God, to put a yoke upon the neck of the disciples… But we believe that through the grace of the Lord Jesus Christ we shall be saved, even as they… we gave no such commandment… For it seemed good to the Holy Ghost, and to us, to lay upon you no greater burden than these necessary things.</p></div>
+    <div class="ko"><p class="ko-label">흠정역</p><p>그런데 이제 너희가 어찌하여… 멍에를 제자들의 목에 두려 하여 하나님을 시험하느냐? 그러나 우리는 그들과 마찬가지로 주 예수 그리스도의 은혜로 구원받을 줄을 믿노라… 우리는 그들에게 그런 명령을 준 적이 없으므로… 성령님과 우리는 이 필요한 것들 외에 다른 큰 짐을 너희에게 지우지 아니하는 것을 좋게 여겼나니</p></div>
+    <p class="note">이방인 성도에게 할례와 율법 준수를 구원 조건으로 명한 적이 없고, 안식일도 그 필요 목록에 없음.</p>
+  </div>
+</article>
+<article class="card">
+  <div class="card-header"><span class="card-num">08</span><span class="card-ref">Galatians 3:10–13<br><em>율법의 행위에 속한 자는 저주 아래 · 4절</em></span></div>
+  <div class="card-body">
+    <div class="kjv grace"><p class="kjv-label">반박 · Refute · KJV</p><p>For as many as are of the works of the law are under the curse… Cursed is every one that continueth not in all things which are written in the book of the law to do them… Christ hath redeemed us from the curse of the law, being made a curse for us.</p></div>
+    <div class="ko"><p class="ko-label">흠정역</p><p>율법의 행위에 속한 자들은 다 저주 아래 있나니 기록된바, 율법 책에 기록된 모든 것을 행하기 위하여 항상 그것들 가운데 거하지 아니하는 자는 다 저주받은 자니라… 그리스도께서 우리를 위해 저주가 되사 율법의 저주에서 우리를 구속하셨으니</p></div>
+    <p class="note">율법 책의 모든 것을 항상 행하지 않으면 저주 아래 있음. 안식일 하나만 구원 조건으로 떼어 지킬 수 없음. 그리스도께서 그 저주에서 구속하심.</p>
+  </div>
+</article>
+<article class="card">
+  <div class="card-header"><span class="card-num">09</span><span class="card-ref">Romans 10:4; Acts 20:7<br><em>율법의 끝은 그리스도 / 주의 첫째 날 · 2절</em></span></div>
+  <div class="card-body">
+    <div class="kjv grace"><p class="kjv-label">반박 · Refute · KJV</p><p>For Christ is the end of the law for righteousness to every one that believeth… And upon the first day of the week, when the disciples came together to break bread, Paul preached unto them.</p></div>
+    <div class="ko"><p class="ko-label">흠정역</p><p>그리스도께서는 믿는 각 사람에게 의가 되시기 위해 율법의 끝마침이 되시느니라… 주의 첫째 날에 제자들이 빵을 떼려고 함께 모였을 때에 바울이 그들에게 선포하려고 준비하였으니</p></div>
+    <p class="note">그리스도는 믿는 각 사람에게 율법의 끝이시며, 은혜 경륜의 모임은 안식일이 아니라 주의 첫째 날에 떡을 뗌.</p>
+  </div>
+</article></main>
+<section class="judge">
+  <h2>Judgement</h2>
+  <p>안식일을 지키지 않으면 구원받지 못한다는 주장은, 시내 언약 아래 이스라엘에게 주신 표적을 그리스도의 몸의 구원 조건으로 옮긴 것이다. 출 31:13, 17은 그 표적의 당사자를 ‘이스라엘 자손’이라고 못 박는다. 이 경륜에서 바울은 안식일로 판단하지 말라고 하고(골 2:16-17), 날과 해를 다시 지키는 것을 초등 원리로 돌아가는 일로 보며(갈 4:9-11), 율법으로 의롭게 되면 은혜에서 떨어진다고 한다(갈 5:4). 예루살렘 회의는 이방인에게 율법 멍에를 구원 조건으로 지우지 않았다(행 15).</p>
+  <h2>Insight · 딤후 2:15</h2>
+  <p>진리의 말씀을 바르게 나누면(딤후 2:15) 창조의 일곱째 날, 이스라엘의 안식일, 왕국 복음의 안식, 몸의 성도가 그리스도 안에서 이미 들어간 안식(히 4:3, 10; 골 2:17)이 한 줄로 뭉개지지 않는다. 구원은 안식일 준수가 아니라 믿음을 통한 은혜의 선물이다. 안식일을 주를 위해 귀히 여기는 양심은 로마서 14장이 허용하나, 그것을 구원의 문으로 세우는 것은 다른 복음이다.</p>
+</section>
+<div class="section-label" id="tithe"><span>Project 02 · 십일조 · 지지 17절 · 반박 22절</span></div>
+<section class="intro project-claim"><p><strong>주장.</strong> 십일조를 지키지 않으면 구원받지 못한다</p></section>
+<div class="section-label"><span>지지로 인용되는 구절 · verses the claim cites</span></div>
+<main class="grid"><article class="card">
+  <div class="card-header"><span class="card-num">01</span><span class="card-ref">Malachi 3:8–10<br><em>십일조를 강도질하면 저주 · 3절</em></span></div>
+  <div class="card-body">
+    <div class="kjv"><p class="kjv-label">지지로 인용 · Claim cites · KJV</p><p>Will a man rob God? Yet ye have robbed me. But ye say, Wherein have we robbed thee? In tithes and offerings. Ye are cursed with a curse: for ye have robbed me, even this whole nation. Bring ye all the tithes into the storehouse… and prove me now herewith… if I will not open you the windows of heaven.</p></div>
+    <div class="ko"><p class="ko-label">흠정역</p><p>사람이 하나님의 것을 강도질하겠느냐? 그러나 너희는 내 것을 강도질하고도 말하기를, 우리가 어떤 점에서 주의 것을 강도질하였나이까? 하나니 너희가 십일조와 헌물에서 강도질하였느니라. 너희가 저주로 저주를 받았으니 이는 너희 곧 이 온 민족이 내 것을 강도질하였기 때문이라. 너희는 모든 십일조를 창고로 가져와 내 집에 먹을 것이 있게 하고 이제 그것으로 나를 시험하여 내가 너희를 위해 하늘의 창들을 열고 너희에게 복을 쏟아 붓되 그것을 받을 곳이 없도록 붓지 아니하나 보라.</p></div>
+    <p class="note">십일조를 창고에 들이지 않으면 하나님의 것을 강도질한 것이요 저주를 받는다고 하여, 구원·축복의 조건으로 씀.</p>
+  </div>
+</article>
+<article class="card">
+  <div class="card-header"><span class="card-num">02</span><span class="card-ref">Leviticus 27:30–32<br><em>땅과 가축의 십일조는 주의 것 · 3절</em></span></div>
+  <div class="card-body">
+    <div class="kjv"><p class="kjv-label">지지로 인용 · Claim cites · KJV</p><p>And all the tithe of the land, whether of the seed of the land, or of the fruit of the tree, is the LORD&#x27;S: it is holy unto the LORD… And concerning the tithe of the herd, or of the flock… the tenth shall be holy unto the LORD.</p></div>
+    <div class="ko"><p class="ko-label">흠정역</p><p>땅의 모든 십일조 곧 땅의 씨나 나무 열매의 십일조는 주의 것이니 그것은 주께 거룩하니라… 소 떼나 양 떼의 십일조에 관하여는… 그것의 십분의 일은 주께 거룩하리라.</p></div>
+    <p class="note">십일조는 주의 것이요 거룩하므로, 바치지 않으면 거룩한 것을 도둑질한 것이며 구원과 무관할 수 없다고 함.</p>
+  </div>
+</article>
+<article class="card">
+  <div class="card-header"><span class="card-num">03</span><span class="card-ref">Numbers 18:21; Deuteronomy 14:22–23<br><em>레위 지파의 기업 / 십일조를 가져와 여호와를 경외함 · 3절</em></span></div>
+  <div class="card-body">
+    <div class="kjv"><p class="kjv-label">지지로 인용 · Claim cites · KJV</p><p>And, behold, I have given the children of Levi all the tenth in Israel for an inheritance, for their service which they serve… Thou shalt truly tithe all the increase of thy seed… And thou shalt eat before the LORD thy God… that thou mayest learn to fear the LORD thy God always.</p></div>
+    <div class="ko"><p class="ko-label">흠정역</p><p>보라, 내가 이스라엘의 모든 십일조를 레위 자손에게 상속 재산으로 주었나니 이는 그들이 수행하는 섬기는 일 곧 회중의 성막에서 하는 섬기는 일을 위한 것이니라… 너는 반드시 네 씨의 모든 소출의 십일조를 드릴 것이요… 주 네 하나님 앞에서 먹고… 네가 항상 주 네 하나님 두려워하기를 배우게 하려 함이니라.</p></div>
+    <p class="note">십일조는 레위인의 기업이며 주 경외를 배우게 하므로, 교회 목회자 사례와 구원의 순종으로 대응시킴.</p>
+  </div>
+</article>
+<article class="card">
+  <div class="card-header"><span class="card-num">04</span><span class="card-ref">Genesis 14:20; Hebrews 7:8<br><em>아브라함이 멜기세덱에게 십일조 · 2절</em></span></div>
+  <div class="card-body">
+    <div class="kjv"><p class="kjv-label">지지로 인용 · Claim cites · KJV</p><p>And blessed be the most high God, which hath delivered thine enemies into thy hand. And he gave him tithes of all… And here men that die receive tithes; but there he receiveth them, of whom it is witnessed that he liveth.</p></div>
+    <div class="ko"><p class="ko-label">흠정역</p><p>네 원수들을 네 손에 넘겨주신 지극히 높으신 하나님을 찬송할지로다, 하매 그가 모든 것의 십일조를 그에게 주니라… 여기서는 죽는 사람들이 십일조를 받으나 저기서는 살아 계심을 증언 받는 분이 받으시느니라.</p></div>
+    <p class="note">율법 이전 아브라함이 십일조를 바쳤고 히브리서가 그것을 인정하므로, 은혜 시대에도 십일조가 구원의 본이라고 주장함.</p>
+  </div>
+</article>
+<article class="card">
+  <div class="card-header"><span class="card-num">05</span><span class="card-ref">Matthew 23:23; Luke 11:42<br><em>십일조를 행하되 더 중대한 것을 버리지 말라 · 2절</em></span></div>
+  <div class="card-body">
+    <div class="kjv"><p class="kjv-label">지지로 인용 · Claim cites · KJV</p><p>Woe unto you, scribes and Pharisees, hypocrites! for ye pay tithe of mint and anise and cummin, and have omitted the weightier matters of the law, judgment, mercy, and faith: these ought ye to have done, and not to leave the other undone.</p></div>
+    <div class="ko"><p class="ko-label">흠정역</p><p>서기관들과 바리새인들, 위선자들아, 너희에게 화가 있을지어다! 너희가 박하와 회향과 근채의 십일조는 바치되 율법의 더 중대한 문제인 공의와 긍휼과 믿음은 무시하였도다. 너희가 마땅히 이것들을 행하였어야 하거니와 다른 것도 행하지 않은 채 내버려 두지 말아야 하느니라.</p></div>
+    <p class="note">주께서 십일조를 ‘마땅히 행할 것’으로 인정하셨으므로 신약에서도 의무이며, 안 하면 위선·불순종이라고 함.</p>
+  </div>
+</article>
+<article class="card">
+  <div class="card-header"><span class="card-num">06</span><span class="card-ref">Proverbs 3:9–10; 2 Chronicles 31:5–6<br><em>첫 열매와 십일조를 가져오면 창고가 가득함 · 4절</em></span></div>
+  <div class="card-body">
+    <div class="kjv"><p class="kjv-label">지지로 인용 · Claim cites · KJV</p><p>Honour the LORD with thy substance, and with the firstfruits of all thine increase: So shall thy barns be filled with plenty… the children of Israel brought in abundance the firstfruits… and the tithe of all things brought they in abundantly.</p></div>
+    <div class="ko"><p class="ko-label">흠정역</p><p>네 재물과 네 모든 소출의 첫 열매로 주를 공경하라. 그리하면 네 창고가 가득히 차고… 이스라엘 자손이 곡식과 포도즙과 기름과 꿀과 밭의 모든 소출의 첫 열매를 풍성히 가져왔고 또 그들이 모든 것의 십일조를 많이 가져왔더라.</p></div>
+    <p class="note">재물로 주를 공경하고 십일조를 가져오면 창고가 넘치는 복을 받으므로, 안 내면 저주·구원 상실로 연결함.</p>
+  </div>
+</article></main>
+<div class="section-label"><span>반박 구절 · Pauline grace / right division</span></div>
+<main class="grid"><article class="card">
+  <div class="card-header"><span class="card-num">01</span><span class="card-ref">Galatians 3:10; 5:3–4<br><em>율법 한 조목을 구원 조건으로 붙이면 전체의 의무 · 3절</em></span></div>
+  <div class="card-body">
+    <div class="kjv grace"><p class="kjv-label">반박 · Refute · KJV</p><p>For as many as are of the works of the law are under the curse… For I testify again to every man that is circumcised, that he is a debtor to do the whole law. Christ is become of no effect unto you, whosoever of you are justified by the law; ye are fallen from grace.</p></div>
+    <div class="ko"><p class="ko-label">흠정역</p><p>율법의 행위에 속한 자들은 다 저주 아래 있나니… 내가 할례를 받은 각 사람에게 다시 증언하노니 그는 율법 전체를 행할 의무를 가진 자니라. 너희 중에 누구든지 율법으로 의롭게 된 자에게는 그리스도께서 아무런 효력이 없으며 너희는 은혜에서 떨어져 나갔느니라.</p></div>
+    <p class="note">십일조를 구원 조건으로 세우면 율법 전체를 행할 의무자가 되며, 율법으로 의롭게 된 자에게는 그리스도가 무효가 됨.</p>
+  </div>
+</article>
+<article class="card">
+  <div class="card-header"><span class="card-num">02</span><span class="card-ref">2 Corinthians 9:7; 8:12<br><em>마음속에 정한 대로 / 즐거운 헌금 · 2절</em></span></div>
+  <div class="card-body">
+    <div class="kjv grace"><p class="kjv-label">반박 · Refute · KJV</p><p>Every man according as he purposeth in his heart, so let him give; not grudgingly, or of necessity: for God loveth a cheerful giver… For if there be first a willing mind, it is accepted according to that a man hath, and not according to that he hath not.</p></div>
+    <div class="ko"><p class="ko-label">흠정역</p><p>저마다 자기 마음속에 정한 대로 낼 것이요, 마지못해 하거나 억지로 하지 말지니 하나님은 즐거이 내는 자를 사랑하시느니라… 먼저 자원하는 마음이 있으면 사람이 가진 것에 따라 받으실 만하게 되고 가지지 않은 것에 따라 되지 아니하느니라.</p></div>
+    <p class="note">은혜 경륜의 헌금은 십일조 율법이 아니라, 마지못해 하지 말고 각자 마음에 정한 대로 즐거이 내는 것임.</p>
+  </div>
+</article>
+<article class="card">
+  <div class="card-header"><span class="card-num">03</span><span class="card-ref">Hebrews 7:5, 12<br><em>제사 직분이 변하면 율법도 변함 · 2절</em></span></div>
+  <div class="card-body">
+    <div class="kjv grace"><p class="kjv-label">반박 · Refute · KJV</p><p>And verily they that are of the sons of Levi, who receive the office of the priesthood, have a commandment to take tithes of the people according to the law… For the priesthood being changed, there is made of necessity a change also of the law.</p></div>
+    <div class="ko"><p class="ko-label">흠정역</p><p>진실로 레위의 아들들 중에서 제사장 직분을 받는 자들은 율법에 따라 백성에게서 십일조를 취하라는 명령을 가지고 있으나… 제사 직분이 변하였은즉 율법도 반드시 변하여야 하느니라.</p></div>
+    <p class="note">레위 제사장 직분에 묶인 십일조 법은, 제사 직분이 그리스도로 변한 뒤에는 그대로 구원 조건이 될 수 없음.</p>
+  </div>
+</article>
+<article class="card">
+  <div class="card-header"><span class="card-num">04</span><span class="card-ref">Ephesians 2:8–9; Titus 3:5; Romans 3:20, 24<br><em>구원은 행위가 아닌 선물 · 5절</em></span></div>
+  <div class="card-body">
+    <div class="kjv grace"><p class="kjv-label">반박 · Refute · KJV</p><p>For by grace are ye saved through faith… Not of works… Not by works of righteousness which we have done, but according to his mercy he saved us… Therefore by the deeds of the law there shall no flesh be justified in his sight… Being justified freely by his grace.</p></div>
+    <div class="ko"><p class="ko-label">흠정역</p><p>너희가 믿음을 통해 은혜로 구원을 받았나니… 행위에서 난 것이 아니니… 그분께서 우리를 구원하시되 우리가 행한 의로운 행위로 하지 아니하시고 오직 자신의 긍휼에 따라… 율법의 행위로는 아무 육체도 그분의 눈앞에서 의롭게 될 수 없나니… 그리스도 예수님 안에 있는 구속을 통해 하나님의 은혜로 값없이 의롭게 되었느니라.</p></div>
+    <p class="note">십일조를 포함한 어떤 의로운 행위로도 구원하지 않으시고, 긍휼과 은혜로 값없이 의롭게 하심.</p>
+  </div>
+</article>
+<article class="card">
+  <div class="card-header"><span class="card-num">05</span><span class="card-ref">Romans 6:14; Acts 15:24, 28<br><em>율법 아래 있지 않음 / 그런 명령을 준 적 없음 · 3절</em></span></div>
+  <div class="card-body">
+    <div class="kjv grace"><p class="kjv-label">반박 · Refute · KJV</p><p>For ye are not under the law, but under grace… we gave no such commandment… to lay upon you no greater burden than these necessary things.</p></div>
+    <div class="ko"><p class="ko-label">흠정역</p><p>너희가 율법 아래 있지 아니하고 은혜 아래 있으므로… 우리는 그들에게 그런 명령을 준 적이 없으므로… 이 필요한 것들 외에 다른 큰 짐을 너희에게 지우지 아니하는 것을 좋게 여겼나니</p></div>
+    <p class="note">몸의 성도는 율법 아래 있지 않으며, 사도들은 율법을 지켜야 구원받는다는 명령을 이방인에게 준 적이 없음.</p>
+  </div>
+</article>
+<article class="card">
+  <div class="card-header"><span class="card-num">06</span><span class="card-ref">1 Corinthians 9:13–14; Acts 20:33–35<br><em>복음 사역자 부양은 십일조 율법이 아님 · 5절</em></span></div>
+  <div class="card-body">
+    <div class="kjv grace"><p class="kjv-label">반박 · Refute · KJV</p><p>Do ye not know that they which minister about holy things live of the things of the temple?… Even so hath the Lord ordained that they which preach the gospel should live of the gospel… I have coveted no man&#x27;s silver, or gold, or apparel… I have shewed you all things, how that so labouring ye ought to support the weak.</p></div>
+    <div class="ko"><p class="ko-label">흠정역</p><p>거룩한 것들에 관하여 섬기는 자들이 성전에 속한 것들로 사는 줄을 너희가 알지 못하느냐?… 이와 같이 주께서도 복음을 선포하는 자들이 복음으로 살 것을 정하셨느니라… 내가 아무도의 은이나 금이나 의복을 탐하지 아니하였고… 너희가 마땅히 약한 자들을 지원하고 또, 주는 것이 받는 것보다 복되다, 하신 주 예수님의 말씀을 기억하여야 하리라.</p></div>
+    <p class="note">바울은 성전 십일조가 아니라 ‘복음으로 살라’는 원칙과, 스스로 손으로 일하며 탐하지 않은 본을 제시함. 구원 조건이 아님.</p>
+  </div>
+</article>
+<article class="card">
+  <div class="card-header"><span class="card-num">07</span><span class="card-ref">Galatians 3:13; Romans 11:6<br><em>저주에서 구속 / 은혜면 행위가 아님 · 2절</em></span></div>
+  <div class="card-body">
+    <div class="kjv grace"><p class="kjv-label">반박 · Refute · KJV</p><p>Christ hath redeemed us from the curse of the law, being made a curse for us… And if by grace, then is it no more of works: otherwise grace is no more grace.</p></div>
+    <div class="ko"><p class="ko-label">흠정역</p><p>그리스도께서 우리를 위해 저주가 되사 율법의 저주에서 우리를 구속하셨으니… 만일 은혜로 된 것이면 더 이상 행위에서 난 것이 아니니 그렇지 않으면 은혜가 더 이상 은혜가 아니니라.</p></div>
+    <p class="note">말라기의 저주는 율법 언약 아래 민족에게 임한 것이고, 그리스도께서 그 저주에서 구속하심. 은혜로 구원받으면 더 이상 행위로 되지 않음.</p>
+  </div>
+</article></main>
+<section class="judge">
+  <h2>Judgement</h2>
+  <p>십일조를 안 내면 구원받지 못한다는 주장은 레위 제사 제도와 말라기의 이스라엘 민족 저주를, 몸의 교회 구원 교리로 옮긴 것이다. 말라기 3장의 창고는 주의 집(성전)이고 대상은 ‘이 온 민족’이다. 히브리서 7:12는 제사 직분이 변하면 율법도 변한다고 하며, 바울은 헌금을 십일조 율법이 아니라 즐거운 마음으로 정한 액수(고후 9:7)로 가르친다. 구원은 은혜의 선물이지 창고에 넣은 비율이 아니다.</p>
+  <h2>Insight · 딤후 2:15</h2>
+  <p>바르게 나누면 아브라함의 자발적 십일조, 레위의 기업법, 말라기의 성전 창고, 예수님께서 율법 아래 이스라엘에게 하신 책망(마 23:23), 바울의 은혜 헌금이 각각 자기 자리에 놓인다. 마 23:23의 ‘마땅히 행할 것’은 율법 아래 있는 바리새인에게 하신 말씀이며, 그 십일조로도 그들은 의롭게 되지 못했다. 이 경륜의 성도는 인색하지 말고 풍성히 뿌릴 수 있으나(고후 9:6-8), 그것을 구원의 값으로 내면 은혜가 은혜가 아니게 된다(롬 11:6).</p>
+</section>
+<div class="section-label" id="alms"><span>Project 03 · 구제·봉사 · 지지 31절 · 반박 20절</span></div>
+<section class="intro project-claim"><p><strong>주장.</strong> 가난한 자를 구제하고 사회봉사를 지키지 않으면 구원받지 못한다</p></section>
+<div class="section-label"><span>지지로 인용되는 구절 · verses the claim cites</span></div>
+<main class="grid"><article class="card">
+  <div class="card-header"><span class="card-num">01</span><span class="card-ref">Matthew 25:34–40<br><em>지극히 작은 자에게 한 것이 왕에게 한 것 · 7절</em></span></div>
+  <div class="card-body">
+    <div class="kjv"><p class="kjv-label">지지로 인용 · Claim cites · KJV</p><p>Come, ye blessed of my Father, inherit the kingdom prepared for you from the foundation of the world: For I was an hungred, and ye gave me meat… Inasmuch as ye have done it unto one of the least of these my brethren, ye have done it unto me.</p></div>
+    <div class="ko"><p class="ko-label">흠정역</p><p>오라, 내 아버지께 복 받은 자들아, 너희는 창세로부터 너희를 위하여 예비된 왕국을 상속받으라. 내가 주릴 때에 너희가 내게 먹을 것을 주었고… 진실로 내가 너희에게 이르노니, 너희가 이들 내 형제들 중에서 가장 작은 자 하나에게 그것을 하였은즉 내게 하였느니라.</p></div>
+    <p class="note">주리고 헐벗고 옥에 갇힌 자를 돌보지 않으면 왼편 염소로 영존하는 불에 들어간다고 하여, 구제·봉사를 구원 조건으로 봄.</p>
+  </div>
+</article>
+<article class="card">
+  <div class="card-header"><span class="card-num">02</span><span class="card-ref">Matthew 25:41–46<br><em>돌보지 않은 자는 영존하는 형벌 · 6절</em></span></div>
+  <div class="card-body">
+    <div class="kjv"><p class="kjv-label">지지로 인용 · Claim cites · KJV</p><p>Depart from me, ye cursed, into everlasting fire… For I was an hungred, and ye gave me no meat… Inasmuch as ye did it not to one of the least of these, ye did it not to me. And these shall go away into everlasting punishment: but the righteous into life eternal.</p></div>
+    <div class="ko"><p class="ko-label">흠정역</p><p>저주를 받은 자들아, 너희는 내게서 떠나 마귀와 그의 천사들을 위하여 예비된 영존하는 불에 들어가라. 내가 주릴 때에 너희가 내게 먹을 것을 주지 아니하였고… 너희가 이들 중에서 가장 작은 자 하나에게 그것을 하지 아니하였은즉 내게 하지 아니하였느니라… 이들은 영존하는 형벌에 들어가되 의로운 자들은 영원한 생명에 들어가리라.</p></div>
+    <p class="note">구제하지 않은 것이 곧 주를 섬기지 않은 것이요, 의로운 자는 생명에, 이들은 형벌에 들어간다고 함.</p>
+  </div>
+</article>
+<article class="card">
+  <div class="card-header"><span class="card-num">03</span><span class="card-ref">James 2:14–17, 24, 26<br><em>행위 없는 믿음은 죽은 것 · 6절</em></span></div>
+  <div class="card-body">
+    <div class="kjv"><p class="kjv-label">지지로 인용 · Claim cites · KJV</p><p>What doth it profit, my brethren, though a man say he hath faith, and have not works? can faith save him?… Even so faith, if it hath not works, is dead, being alone… Ye see then how that by works a man is justified, and not by faith only… faith without works is dead.</p></div>
+    <div class="ko"><p class="ko-label">흠정역</p><p>사람이 자기가 믿음이 있다고 말하면서 행위가 없으면 그것이 무슨 유익을 주느냐? 믿음이 그를 구원할 수 있겠느냐?… 이와 같이 믿음도 행위가 없으면 그것만으로는 죽은 것이니라… 사람이 행위로 의롭게 되고 단지 믿음만으로 되지 아니하느니라… 행위 없는 믿음도 죽었느니라.</p></div>
+    <p class="note">헐벗고 굶주린 형제에게 말만 하고 주지 않으면 그 믿음이 구원할 수 없다고 하여, 구제가 구원의 필수라고 함.</p>
+  </div>
+</article>
+<article class="card">
+  <div class="card-header"><span class="card-num">04</span><span class="card-ref">1 John 3:17–18<br><em>재물을 보고도 불쌍히 여기지 않으면 사랑이 없음 · 2절</em></span></div>
+  <div class="card-body">
+    <div class="kjv"><p class="kjv-label">지지로 인용 · Claim cites · KJV</p><p>But whoso hath this world&#x27;s good, and seeth his brother have need, and shutteth up his bowels of compassion from him, how dwelleth the love of God in him? My little children, let us not love in word, neither in tongue; but in deed and in truth.</p></div>
+    <div class="ko"><p class="ko-label">흠정역</p><p>누가 이 세상의 좋은 것을 가지고 있으면서 자기 형제가 궁핍한 것을 보고도 동정하는 마음을 닫아 그를 피하면 어찌 하나님의 사랑이 그 속에 거하겠느냐? 나의 어린 자녀들아, 우리가 말과 혀로만 사랑하지 말고 오직 행위와 진실함으로 하자.</p></div>
+    <p class="note">형제의 궁핍을 보고 재물을 닫으면 하나님의 사랑이 그 안에 거하지 않으므로, 구제하지 않으면 구원받은 자가 아니라고 함.</p>
+  </div>
+</article>
+<article class="card">
+  <div class="card-header"><span class="card-num">05</span><span class="card-ref">Isaiah 58:6–7; Proverbs 19:17<br><em>주린 자에게 빵을 나누는 것이 주께서 기뻐하시는 금식 · 3절</em></span></div>
+  <div class="card-body">
+    <div class="kjv"><p class="kjv-label">지지로 인용 · Claim cites · KJV</p><p>Is not this the fast that I have chosen? to loose the bands of wickedness… Is it not to deal thy bread to the hungry, and that thou bring the poor that are cast out to thy house?… He that hath pity upon the poor lendeth unto the LORD.</p></div>
+    <div class="ko"><p class="ko-label">흠정역</p><p>내가 택한 금식이 이것이 아니겠느냐? 곧 사악함의 결박을 풀어 주고… 네 빵을 주린 자에게 나눠 주며 내쫓긴 가난한 자들을 네 집으로 데려오는 것이 아니겠느냐?… 가난한 자를 불쌍히 여기는 자는 주께 빌려 드리는 것이니</p></div>
+    <p class="note">사회정의·구제가 참된 금식이요, 가난한 자를 불쌍히 여기는 것은 주께 빌려 드리는 것이므로 구원의 열매이자 조건으로 읽음.</p>
+  </div>
+</article>
+<article class="card">
+  <div class="card-header"><span class="card-num">06</span><span class="card-ref">Acts 4:34–35; Galatians 2:10; Hebrews 13:16<br><em>초대 교회의 나눔 / 가난한 자를 기억하라 · 4절</em></span></div>
+  <div class="card-body">
+    <div class="kjv"><p class="kjv-label">지지로 인용 · Claim cites · KJV</p><p>Neither was there any among them that lacked… and distribution was made unto every man according as he had need… Only they would that we should remember the poor… But to do good and to communicate forget not: for with such sacrifices God is well pleased.</p></div>
+    <div class="ko"><p class="ko-label">흠정역</p><p>그들 가운데 부족한 자가 하나도 없었으니… 각 사람에게 필요한 대로 나눠 주었더라… 다만 우리가 가난한 자들을 기억할 것을 원하였으니… 선을 행하는 것과 나누어 주는 것을 잊지 말라. 하나님은 이 같은 희생을 매우 기뻐하시느니라.</p></div>
+    <p class="note">초기 성도들이 소유를 나눠 가난한 자가 없었고, 바울도 가난한 자를 기억하라고 했으므로 사회봉사가 구원의 표라고 함.</p>
+  </div>
+</article>
+<article class="card">
+  <div class="card-header"><span class="card-num">07</span><span class="card-ref">1 Timothy 6:17–19<br><em>선한 행위에 부요하여 영존하는 생명을 붙듦 · 3절</em></span></div>
+  <div class="card-body">
+    <div class="kjv"><p class="kjv-label">지지로 인용 · Claim cites · KJV</p><p>Charge them that are rich in this world… That they do good, that they be rich in good works, ready to distribute… Laying up in store for themselves a good foundation against the time to come, that they may lay hold on eternal life.</p></div>
+    <div class="ko"><p class="ko-label">흠정역</p><p>이 세상에서 부유한 자들에게 명하여… 그들이 선을 행하고 선한 행위로 부요하며 나눠 주기를 좋아하고… 다가올 때를 대비하여 좋은 기초를 자신을 위해 쌓아 영원한 생명을 붙들게 하라.</p></div>
+    <p class="note">나눠 주는 것이 오는 때를 대비한 기초요 영존하는 생명을 붙드는 일이라고 하여, 구제하지 않으면 생명을 놓친다고 읽음.</p>
+  </div>
+</article></main>
+<div class="section-label"><span>반박 구절 · Pauline grace / right division</span></div>
+<main class="grid"><article class="card">
+  <div class="card-header"><span class="card-num">01</span><span class="card-ref">Ephesians 2:8–10<br><em>구원은 선물, 선한 행위는 그 결과 · 3절</em></span></div>
+  <div class="card-body">
+    <div class="kjv grace"><p class="kjv-label">반박 · Refute · KJV</p><p>For by grace are ye saved through faith; and that not of yourselves: it is the gift of God: Not of works, lest any man should boast. For we are his workmanship, created in Christ Jesus unto good works, which God hath before ordained that we should walk in them.</p></div>
+    <div class="ko"><p class="ko-label">흠정역</p><p>너희가 믿음을 통해 은혜로 구원을 받았나니 그것은 너희 자신에게서 난 것이 아니요 하나님의 선물이니라. 행위에서 난 것이 아니니 이것은 아무도 자랑하지 못하게 하려 함이라. 우리는 그분의 작품이요 그리스도 예수님 안에서 선한 행위를 하도록 창조된 자들이니라. 하나님께서 그 선한 행위를 미리 정하신 것은 우리가 그 행위 가운데서 걷게 하려 하심이니라.</p></div>
+    <p class="note">구원은 행위에서 나지 않는다. 선한 행위는 구원의 값이 아니라, 이미 구원받은 자가 그 가운데 걷도록 미리 정하신 열매이다.</p>
+  </div>
+</article>
+<article class="card">
+  <div class="card-header"><span class="card-num">02</span><span class="card-ref">Titus 3:5, 8<br><em>의로운 행위로 구원하지 않으심 / 구원받은 뒤 선을 지속 · 2절</em></span></div>
+  <div class="card-body">
+    <div class="kjv grace"><p class="kjv-label">반박 · Refute · KJV</p><p>Not by works of righteousness which we have done, but according to his mercy he saved us, by the washing of regeneration, and renewing of the Holy Ghost… that they which have believed in God might be careful to maintain good works.</p></div>
+    <div class="ko"><p class="ko-label">흠정역</p><p>그분께서 우리를 구원하시되 우리가 행한 의로운 행위로 하지 아니하시고 오직 자신의 긍휼에 따라 다시 태어남의 씻음과 성령님의 새롭게 하심으로 하셨고… 그 목적은 하나님을 믿은 자들이 조심하여 선한 행위들을 지속하게 하려 함이니</p></div>
+    <p class="note">구원은 다시 태어남의 씻음으로 되었고, 선한 행위는 그 뒤에 ‘지속하라’고 명하신 유익이지 구원의 문이 아님.</p>
+  </div>
+</article>
+<article class="card">
+  <div class="card-header"><span class="card-num">03</span><span class="card-ref">Romans 4:4–5; 11:6<br><em>일하는 자에게는 은혜가 아님 · 3절</em></span></div>
+  <div class="card-body">
+    <div class="kjv grace"><p class="kjv-label">반박 · Refute · KJV</p><p>Now to him that worketh is the reward not reckoned of grace, but of debt. But to him that worketh not, but believeth on him that justifieth the ungodly, his faith is counted for righteousness… And if by grace, then is it no more of works: otherwise grace is no more grace.</p></div>
+    <div class="ko"><p class="ko-label">흠정역</p><p>일하는 자에게는 품삯을 은혜로 여기지 아니하고 빚으로 여기거니와 일을 하지 아니할지라도 경건치 아니한 자를 의롭다 하시는 이를 믿는 자에게는 그의 믿음을 의로 여기시느니라… 만일 은혜로 된 것이면 더 이상 행위에서 난 것이 아니니 그렇지 않으면 은혜가 더 이상 은혜가 아니니라.</p></div>
+    <p class="note">구제를 구원의 삯으로 계산하면 은혜가 은혜가 아니게 됨. 일하지 아니해도 믿는 자의 믿음이 의로 여겨짐.</p>
+  </div>
+</article>
+<article class="card">
+  <div class="card-header"><span class="card-num">04</span><span class="card-ref">Galatians 2:16; Romans 3:20, 24, 28<br><em>율법의 행위가 아닌 그리스도의 믿음 · 4절</em></span></div>
+  <div class="card-body">
+    <div class="kjv grace"><p class="kjv-label">반박 · Refute · KJV</p><p>Knowing that a man is not justified by the works of the law, but by the faith of Jesus Christ… Therefore by the deeds of the law there shall no flesh be justified in his sight… Being justified freely by his grace… a man is justified by faith without the deeds of the law.</p></div>
+    <div class="ko"><p class="ko-label">흠정역</p><p>사람이 율법의 행위로 의롭게 되지 아니하고 오직 예수 그리스도의 믿음으로 되는 줄 알므로… 율법의 행위로는 아무 육체도 그분의 눈앞에서 의롭게 될 수 없나니… 하나님의 은혜로 값없이 의롭게 되었느니라… 사람은 율법의 행위 없이 믿음으로 의롭게 되느니라.</p></div>
+    <p class="note">구제·봉사를 포함한 어떤 율법의 행위로도 육체가 의롭게 되지 못하며, 값없이 은혜로 의롭게 됨.</p>
+  </div>
+</article>
+<article class="card">
+  <div class="card-header"><span class="card-num">05</span><span class="card-ref">1 Corinthians 3:13–15; 13:3<br><em>행위는 보상 심판 / 사랑 없는 구제도 유익 없음 · 4절</em></span></div>
+  <div class="card-body">
+    <div class="kjv grace"><p class="kjv-label">반박 · Refute · KJV</p><p>Every man&#x27;s work shall be made manifest… If any man&#x27;s work shall be burned, he shall suffer loss: but he himself shall be saved; yet so as by fire… And though I bestow all my goods to feed the poor… and have not charity, it profiteth me nothing.</p></div>
+    <div class="ko"><p class="ko-label">흠정역</p><p>각 사람의 일이 드러나리니… 어떤 사람의 일이 불타면 그는 보상의 손실을 당하리라. 그러나 그 자신은 구원을 받되 불에 의해 받는 것 같이 받으리라… 내가 가난한 자들을 먹이기 위해 내 모든 소유를 나눠 주며… 사랑이 없으면 내게 아무 유익이 없느니라.</p></div>
+    <p class="note">이미 기초 되신 그리스도 위의 일은 불로 시험되어 보상 또는 손실이 있을 뿐, 그 사람 자신은 구원받는다. 구제 자체가 구원을 사지도 못한다.</p>
+  </div>
+</article>
+<article class="card">
+  <div class="card-header"><span class="card-num">06</span><span class="card-ref">2 Timothy 1:9; Philippians 3:9<br><em>부르심은 우리 행위대로가 아님 · 2절</em></span></div>
+  <div class="card-body">
+    <div class="kjv grace"><p class="kjv-label">반박 · Refute · KJV</p><p>Who hath saved us, and called us with an holy calling, not according to our works, but according to his own purpose and grace… And be found in him, not having mine own righteousness, which is of the law, but that which is through the faith of Christ.</p></div>
+    <div class="ko"><p class="ko-label">흠정역</p><p>그분께서 우리를 구원하시고 거룩한 부르심으로 부르신 것은 우리의 행위에 따른 것이 아니요 자신의 목적과 은혜에 따른 것이니라… 율법에서 난 내 자신의 의가 아니라 그리스도의 믿음을 통한 의 곧 믿음으로 말미암아 하나님에게서 난 의를 가진 채 그분 안에서 발견되려 함이라.</p></div>
+    <p class="note">거룩하신 부르심은 우리 행위대로가 아니요 자신의 목적과 은혜대로이며, 의는 율법에서 난 내 의가 아니요 그리스도의 믿음으로 난 의임.</p>
+  </div>
+</article>
+<article class="card">
+  <div class="card-header"><span class="card-num">07</span><span class="card-ref">James 1:1; Matthew 25:32<br><em>수신자와 심판의 대상이 몸의 교회가 아님 · 2절</em></span></div>
+  <div class="card-body">
+    <div class="kjv grace"><p class="kjv-label">반박 · Refute · KJV</p><p>James, a servant of God and of the Lord Jesus Christ, to the twelve tribes which are scattered abroad, greeting… and before him shall be gathered all nations: and he shall separate them one from another, as a shepherd divideth his sheep from the goats.</p></div>
+    <div class="ko"><p class="ko-label">흠정역</p><p>하나님과 주 예수 그리스도의 종 야고보는 널리 흩어져 있는 열두 지파에게 문안하노라… 모든 민족들을 자기 앞에 모으고 목자가 염소들로부터 자기 양들을 갈라내듯 그들을 일일이 분리하여</p></div>
+    <p class="note">야고보는 ‘열두 지파’에게 썼고, 마태복음 25장은 ‘모든 민족들’을 왕좌 앞에서 가르는 왕국 심판이다. 둘 다 에베소서의 은혜 구원 교리와 같은 편지가 아님.</p>
+  </div>
+</article></main>
+<section class="judge">
+  <h2>Judgement</h2>
+  <p>가난한 자를 구제하지 않으면 구원받지 못한다는 주장은, 왕국 심판(마 25)과 이스라엘 열두 지파에게 쓴 편지(약 1:1; 2:14-26)를 몸의 교회 구원 교리로 옮긴 것이다. 마 25:32의 대상은 개인 교인이 아니라 ‘모든 민족들’이며, 상속받는 것은 ‘창세로부터 예비된 왕국’이다. 바울은 구원이 행위에서 나지 않는다고 못 박고(엡 2:8-9), 동시에 구원받은 자가 선한 행위 가운데 걷도록 창조되었다고 한다(엡 2:10). 구제는 구원의 값이 아니라 이미 받은 은혜의 열매요, 그리스도의 심판석에서 보상과 손실이 가려지는 일이다(고전 3:13-15).</p>
+  <h2>Insight · 딤후 2:15</h2>
+  <p>바르게 나누면 ‘구원받지 못하면 구제하지 않는다’가 아니라, ‘구원받았으면 구제할 수 있고 마땅히 걷는다’가 된다. 야고보의 ‘믿음이 그를 구원할 수 있겠느냐’는 열매 없는 죽은 고백을 책망하는 것이지, 바울이 전한 복음(행 20:24; 고전 15:1-4)을 뒤집는 것이 아니다. 사회봉사를 구원의 문으로 세우면 십자가가 부족해지고, 구제를 버려도 된다고 하면 은혜가 방종으로 변한다. 둘 다 말씀을 나누지 못한 결과이다.</p>
+</section>
+<div class="section-label" id="programs"><span>Project 04 · 예배·프로그램 · 지지 15절 · 반박 26절</span></div>
+<section class="intro project-claim"><p><strong>주장.</strong> 모든 예배와 각종 프로그램을 지키지 않으면 구원받지 못한다</p></section>
+<div class="section-label"><span>지지로 인용되는 구절 · verses the claim cites</span></div>
+<main class="grid"><article class="card">
+  <div class="card-header"><span class="card-num">01</span><span class="card-ref">Hebrews 10:25<br><em>함께 모이는 일을 폐하지 말라 · 1절</em></span></div>
+  <div class="card-body">
+    <div class="kjv"><p class="kjv-label">지지로 인용 · Claim cites · KJV</p><p>Not forsaking the assembling of ourselves together, as the manner of some is; but exhorting one another: and so much the more, as ye see the day approaching.</p></div>
+    <div class="ko"><p class="ko-label">흠정역</p><p>어떤 사람들의 습관과 같이 우리의 함께 모이는 일을 폐하지 말고 서로 권면하여 그 날이 다가옴을 너희가 볼수록 더욱 그리하자.</p></div>
+    <p class="note">습관처럼 모임을 폐하는 것은 배교의 징조이므로, 교회의 모든 예배에 빠지면 구원을 잃거나 받지 못했다고 함.</p>
+  </div>
+</article>
+<article class="card">
+  <div class="card-header"><span class="card-num">02</span><span class="card-ref">Acts 2:42, 46<br><em>사도들의 교리와 날마다의 성전·집 모임 · 2절</em></span></div>
+  <div class="card-body">
+    <div class="kjv"><p class="kjv-label">지지로 인용 · Claim cites · KJV</p><p>And they continued stedfastly in the apostles&#x27; doctrine and fellowship, and in breaking of bread, and in prayers… And they, continuing daily with one accord in the temple, and breaking bread from house to house.</p></div>
+    <div class="ko"><p class="ko-label">흠정역</p><p>그들이 사도들의 교리와 교제 안에 굳게 머물고 빵을 떼며 기도하더라… 그들이 날마다 한마음이 되어 성전에 머물고 집에서 집으로 돌아가며 빵을 떼며</p></div>
+    <p class="note">초대 교회가 날마다 모였으므로, 주중 모든 예배와 프로그램을 지키는 것이 구원받은 교회의 필수 표라고 함.</p>
+  </div>
+</article>
+<article class="card">
+  <div class="card-header"><span class="card-num">03</span><span class="card-ref">Deuteronomy 16:16; Leviticus 23:2–4<br><em>정한 절기에 주 앞에 보일 의무 · 4절</em></span></div>
+  <div class="card-body">
+    <div class="kjv"><p class="kjv-label">지지로 인용 · Claim cites · KJV</p><p>Three times in a year shall all thy males appear before the LORD thy God… Speak unto the children of Israel, and say unto them, Concerning the feasts of the LORD, which ye shall proclaim to be holy convocations, even these are my feasts.</p></div>
+    <div class="ko"><p class="ko-label">흠정역</p><p>네 모든 남자는 일 년에 세 번 주 네 하나님께서 택하실 곳에서 그분 앞에 보일지니… 이스라엘 자손에게 말하여 이르라. 너희가 거룩한 모임으로 선포할 주의 명절들 곧 나의 명절들은 이러하니라.</p></div>
+    <p class="note">이스라엘 남자는 일 년에 세 번 주 앞에 보여야 했고 성회를 선포해야 했으므로, 교회의 모든 절기·예배도 구원의 의무라고 대응시킴.</p>
+  </div>
+</article>
+<article class="card">
+  <div class="card-header"><span class="card-num">04</span><span class="card-ref">1 Corinthians 11:17–20; 14:26, 40<br><em>함께 모일 때 질서 있게 · 5절</em></span></div>
+  <div class="card-body">
+    <div class="kjv"><p class="kjv-label">지지로 인용 · Claim cites · KJV</p><p>When ye come together in the church, I hear that there be divisions among you… When ye come together therefore into one place, this is not to eat the Lord&#x27;s supper… Let all things be done unto edifying… Let all things be done decently and in order.</p></div>
+    <div class="ko"><p class="ko-label">흠정역</p><p>너희가 교회에 함께 모일 때에 너희 가운데 분쟁이 있음을 내가 듣고… 그러므로 너희가 함께 모여 주의 만찬을 먹을 수 없으니… 모든 것을 덕을 세우기 위해 하라… 모든 것을 품위 있게 하고 질서 있게 하라.</p></div>
+    <p class="note">모일 때 주의 만찬과 은사 질서가 있으므로, 교회가 정한 예배·프로그램을 빠지는 것은 무질서이며 구원받지 못한 표라고 함.</p>
+  </div>
+</article>
+<article class="card">
+  <div class="card-header"><span class="card-num">05</span><span class="card-ref">Psalm 122:1; Colossians 3:16; Ephesians 5:19<br><em>주의 집에 가자 / 시와 찬송으로 모음 · 3절</em></span></div>
+  <div class="card-body">
+    <div class="kjv"><p class="kjv-label">지지로 인용 · Claim cites · KJV</p><p>I was glad when they said unto me, Let us go into the house of the LORD… teaching and admonishing one another in psalms and hymns and spiritual songs… Speaking to yourselves in psalms and hymns and spiritual songs.</p></div>
+    <div class="ko"><p class="ko-label">흠정역</p><p>그들이 내게 말하기를, 주의 집에 가자, 할 때에 내가 기뻐하였도다… 시와 찬송가와 영적 노래로 서로 가르치고 훈계하며 너희 마음속에서 은혜로 주께 노래하고… 시와 찬송가와 영적 노래로 서로 말하며</p></div>
+    <p class="note">주의 집에 가는 것을 기뻐하는 것이 구원받은 자의 마음이며, 찬송과 가르침의 모임에 빠지면 그 기쁨이 없다고 함.</p>
+  </div>
+</article></main>
+<div class="section-label"><span>반박 구절 · Pauline grace / right division</span></div>
+<main class="grid"><article class="card">
+  <div class="card-header"><span class="card-num">01</span><span class="card-ref">Colossians 2:16–17, 20–23<br><em>거룩한 날 판단 금지 / 의지대로 하는 경배 · 6절</em></span></div>
+  <div class="card-body">
+    <div class="kjv grace"><p class="kjv-label">반박 · Refute · KJV</p><p>Let no man therefore judge you… in respect of an holyday, or of the new moon, or of the sabbath days… Why, as though living in the world, are ye subject to ordinances… Which things have indeed a shew of wisdom in will worship, and humility, and neglecting of the body; not in any honour to the satisfying of the flesh.</p></div>
+    <div class="ko"><p class="ko-label">흠정역</p><p>그러므로 아무도… 거룩한 날이나 월삭이나 안식일에 관하여 너희를 판단하지 못하게 하라… 어찌하여 세상에 살고 있는 것 같이 규례들에 복종하느냐?… 참으로 이런 것들은 의지대로 경배하고 자기를 낮추며 몸을 경시하는 데는 지혜가 있는 것 같이 보이나 육체를 만족시키는 데는 아무 가치가 없느니라.</p></div>
+    <p class="note">거룩한 날로 판단하지 말며, 사람들이 만든 규례·자기 낮춤·의지대로 하는 경배는 지혜 같아 보여도 육체를 만족시킬 뿐 구원의 값이 아님.</p>
+  </div>
+</article>
+<article class="card">
+  <div class="card-header"><span class="card-num">02</span><span class="card-ref">Galatians 4:9–11; Romans 14:5–6<br><em>날과 절기를 다시 지키는 종노릇 · 5절</em></span></div>
+  <div class="card-body">
+    <div class="kjv grace"><p class="kjv-label">반박 · Refute · KJV</p><p>How turn ye again to the weak and beggarly elements… Ye observe days, and months, and times, and years… One man esteemeth one day above another: another esteemeth every day alike.</p></div>
+    <div class="ko"><p class="ko-label">흠정역</p><p>어찌하여 다시 약하고 천한 초등 원리로 돌아가 다시 그것에 종노릇 하려 하느냐? 너희가 날과 달과 때와 해를 지키니… 어떤 사람은 한 날을 다른 날보다 귀히 여기고 다른 사람은 모든 날을 같게 여기나니</p></div>
+    <p class="note">프로그램·절기 출석을 구원 조건으로 되돌리는 것은 초등 원리로 돌아가는 일이다. 날을 중히 여기든 아니 여기든 주를 위함이며 구원의 시금석이 아님.</p>
+  </div>
+</article>
+<article class="card">
+  <div class="card-header"><span class="card-num">03</span><span class="card-ref">John 4:21–24<br><em>이 산도 예루살렘도 아닌 영과 진리 · 4절</em></span></div>
+  <div class="card-body">
+    <div class="kjv grace"><p class="kjv-label">반박 · Refute · KJV</p><p>Woman, believe me, the hour cometh, when ye shall neither in this mountain, nor yet at Jerusalem, worship the Father… But the hour cometh, and now is, when the true worshippers shall worship the Father in spirit and in truth: for the Father seeketh such to worship him. God is a Spirit: and they that worship him must worship him in spirit and in truth.</p></div>
+    <div class="ko"><p class="ko-label">흠정역</p><p>여자여, 내 말을 믿으라. 이 산도 아니요 예루살렘도 아닌 곳에서 너희가 아버지께 경배할 때가 이르리라… 그러나 참되게 경배하는 자들이 영과 진리로 아버지께 경배할 때가 오나니 곧 지금이라. 아버지께서는 자기에게 그렇게 경배하는 자들을 찾으시느니라. 하나님은 영이시니 그분께 경배하는 자들이 반드시 영과 진리로 경배할지니라.</p></div>
+    <p class="note">예배의 장소·스케줄이 구원을 결정하지 않는다. 아버지께서 찾으시는 것은 영과 진리로 예배하는 자들임.</p>
+  </div>
+</article>
+<article class="card">
+  <div class="card-header"><span class="card-num">04</span><span class="card-ref">Matthew 15:8–9; Mark 7:7–9<br><em>사람들의 계명으로 헛되이 경배함 · 5절</em></span></div>
+  <div class="card-body">
+    <div class="kjv grace"><p class="kjv-label">반박 · Refute · KJV</p><p>This people draweth nigh unto me with their mouth, and honoureth me with their lips; but their heart is far from me. But in vain they do worship me, teaching for doctrines the commandments of men… Full well ye reject the commandment of God, that ye may keep your own tradition.</p></div>
+    <div class="ko"><p class="ko-label">흠정역</p><p>이 백성이 입으로는 내게 가까이 오며 입술로는 나를 공경하되 그들의 마음은 내게서 멀도다. 그러나 그들이 사람들의 명령들을 교리로 가르치니 나를 헛되이 경배하는도다… 너희가 너희 전통을 지키려고 하나님의 명령을 잘도 저버리는도다.</p></div>
+    <p class="note">입술의 예배와 사람의 전통으로 만든 프로그램은 하나님을 헛되이 경배하는 것이 될 수 있으며, 그것을 구원 조건으로 올리면 하나님의 계명을 폐하는 일이 됨.</p>
+  </div>
+</article>
+<article class="card">
+  <div class="card-header"><span class="card-num">05</span><span class="card-ref">Ephesians 2:8–9; Titus 3:5; Romans 10:9–10; Galatians 5:1<br><em>구원은 예배 출석이 아니라 믿음으로 시인함 · 6절</em></span></div>
+  <div class="card-body">
+    <div class="kjv grace"><p class="kjv-label">반박 · Refute · KJV</p><p>For by grace are ye saved through faith… Not by works of righteousness which we have done… If thou shalt confess with thy mouth the Lord Jesus, and shalt believe in thine heart that God hath raised him from the dead, thou shalt be saved… Stand fast therefore in the liberty wherewith Christ hath made us free.</p></div>
+    <div class="ko"><p class="ko-label">흠정역</p><p>너희가 믿음을 통해 은혜로 구원을 받았나니… 우리가 행한 의로운 행위로 하지 아니하시고… 네가 만일 네 입으로 주 예수님을 시인하고 하나님께서 그분을 죽은 자들로부터 살리신 것을 네 마음속으로 믿으면 구원을 받으리니… 그 안에 굳게 서고 다시는 속박의 멍에를 메지 말라.</p></div>
+    <p class="note">입으로 주를 시인하고 마음으로 부활을 믿으면 구원받는다. 예배 출석 목록을 멍에로 메면 자유를 다시 속박으로 바꾸는 것임.</p>
+  </div>
+</article></main>
+<section class="judge">
+  <h2>Judgement</h2>
+  <p>모든 예배와 프로그램을 지켜야 구원받는다는 주장은, 히브리서의 ‘함께 모이라’는 권면을 사람 회의가 만든 스케줄의 구원 조건으로 확장한 것이다. 히 10:25은 모임을 폐하지 말라는 권면이지, 교회의 모든 프로그램 출석이 칭의의 조건이라고 하지 않는다. 골로새서 2장은 거룩한 날로 판단하지 말 것과, 의지대로 하는 경배가 육체를 만족시킬 뿐이라고 한다. 구원은 영과 진리로 아버지를 예배하게 된 새 생명의 결과이지, 빈칸을 채운 출석부의 삯이 아니다.</p>
+  <h2>Insight · 딤후 2:15</h2>
+  <p>바르게 나누면 이스라엘의 성회(레 23), 예루살렘 성전 예배, 사도행전 초기의 성전·집 모임, 바울 서신의 지역 교회 모임이 한 제도가 아니다. 성도를 모이게 하고 권면하는 것은 은혜의 건물이요(엡 4:11-16), 모임을 구원의 문으로 만드는 것은 사람들의 명령으로 교리를 삼는 일이다(마 15:9). 예배에 힘쓰는 것은 합당하나, ‘빠지면 지옥’은 복음이 아니라 멍에이다.</p>
+</section>
+<div class="section-label" id="membership"><span>Project 05 · 등록·출석 · 지지 17절 · 반박 20절</span></div>
+<section class="intro project-claim"><p><strong>주장.</strong> 교회에 등록하고 출석하지 않으면 구원받지 못한다</p></section>
+<div class="section-label"><span>지지로 인용되는 구절 · verses the claim cites</span></div>
+<main class="grid"><article class="card">
+  <div class="card-header"><span class="card-num">01</span><span class="card-ref">Hebrews 10:25<br><em>모임을 폐하지 말라 · 1절</em></span></div>
+  <div class="card-body">
+    <div class="kjv"><p class="kjv-label">지지로 인용 · Claim cites · KJV</p><p>Not forsaking the assembling of ourselves together, as the manner of some is; but exhorting one another: and so much the more, as ye see the day approaching.</p></div>
+    <div class="ko"><p class="ko-label">흠정역</p><p>어떤 사람들의 습관과 같이 우리의 함께 모이는 일을 폐하지 말고 서로 권면하여 그 날이 다가옴을 너희가 볼수록 더욱 그리하자.</p></div>
+    <p class="note">출석하지 않는 것은 모임을 폐하는 습관이므로 구원받지 못했거나 구원을 잃어버린 증거라고 함.</p>
+  </div>
+</article>
+<article class="card">
+  <div class="card-header"><span class="card-num">02</span><span class="card-ref">Acts 2:41–42, 47<br><em>침례 받고 더하여짐 · 3절</em></span></div>
+  <div class="card-body">
+    <div class="kjv"><p class="kjv-label">지지로 인용 · Claim cites · KJV</p><p>Then they that gladly received his word were baptized: and the same day there were added unto them about three thousand souls. And they continued stedfastly in the apostles&#x27; doctrine and fellowship… And the Lord added to the church daily such as should be saved.</p></div>
+    <div class="ko"><p class="ko-label">흠정역</p><p>그때에 그의 말을 기쁘게 받아들인 자들은 침례를 받고 그 날에 삼천 혼가량이 그들에게 더해지니라. 그들이 사도들의 교리와 교제 안에 굳게 머물고… 주께서 구원받아야 할 사람들을 날마다 교회에 더하시니라.</p></div>
+    <p class="note">구원받은 자는 침례를 받고 그 날 교회에 더하여졌으므로, 등록하지 않으면 그 더하여짐이 없고 구원도 없다고 함.</p>
+  </div>
+</article>
+<article class="card">
+  <div class="card-header"><span class="card-num">03</span><span class="card-ref">1 Corinthians 12:27; Ephesians 4:11–16<br><em>너희는 그리스도의 몸 / 몸을 세워 감 · 7절</em></span></div>
+  <div class="card-body">
+    <div class="kjv"><p class="kjv-label">지지로 인용 · Claim cites · KJV</p><p>Now ye are the body of Christ, and members in particular… And he gave some, apostles… and some, pastors and teachers; For the perfecting of the saints, for the work of the ministry, for the edifying of the body of Christ… From whom the whole body fitly joined together… maketh increase of the body.</p></div>
+    <div class="ko"><p class="ko-label">흠정역</p><p>이제 너희는 그리스도의 몸이요 개별적으로 지체니라… 그분께서 더러는 사도로, 더러는 대언자로, 더러는 복음 전도자로, 더러는 목사 겸 교사로 주셨으니 이것은 성도들을 완전하게 하고 섬기는 일을 하게 하며 그리스도의 몸을 세우게 하려 하심이라… 온 몸이 꼭 맞게 함께 결합되어… 몸을 성장하게 하느니라.</p></div>
+    <p class="note">몸이 되려면 지체로 연결되어 목사·교사의 사역 아래 있어야 하므로, 등록·출석하지 않으면 몸에 속하지 않아 구원받지 못했다고 함.</p>
+  </div>
+</article>
+<article class="card">
+  <div class="card-header"><span class="card-num">04</span><span class="card-ref">Matthew 18:17; 1 Corinthians 5:12–13; 1 Timothy 3:15<br><em>교회에 말하고 / 안에 있는 자를 판단 / 진리의 기둥 · 4절</em></span></div>
+  <div class="card-body">
+    <div class="kjv"><p class="kjv-label">지지로 인용 · Claim cites · KJV</p><p>If he neglect to hear the church, let him be unto thee as an heathen man and a publican… For what have I to do to judge them also that are without?… Therefore put away from among yourselves that wicked person… the house of God, which is the church of the living God, the pillar and ground of the truth.</p></div>
+    <div class="ko"><p class="ko-label">흠정역</p><p>그가 교회의 말도 무시하여 듣지 않거든 너는 그를 이교도나 세리같이 여기라… 또한 밖에 있는 자들을 판단하는 일이 나와 무슨 상관이 있으리요?… 그 사악한 자를 너희 가운데서 내쫓으라… 살아 계신 하나님의 교회요 진리의 기둥과 터니라.</p></div>
+    <p class="note">출교와 판단은 ‘안에 있는 자’에게 해당하므로, 등록 명부에 있어야 구원의 울타리 안에 있다고 봄.</p>
+  </div>
+</article>
+<article class="card">
+  <div class="card-header"><span class="card-num">05</span><span class="card-ref">Acts 20:7; Hebrews 13:17<br><em>첫째 날 모임 / 다스리는 자들에게 복종 · 2절</em></span></div>
+  <div class="card-body">
+    <div class="kjv"><p class="kjv-label">지지로 인용 · Claim cites · KJV</p><p>And upon the first day of the week, when the disciples came together to break bread, Paul preached unto them… Obey them that have the rule over you, and submit yourselves: for they watch for your souls.</p></div>
+    <div class="ko"><p class="ko-label">흠정역</p><p>주의 첫째 날에 제자들이 빵을 떼려고 함께 모였을 때에 바울이 그들에게 선포하려고 준비하였으니… 너희를 다스리는 자들에게 순종하고 복종하라. 그들은 너희 혼을 위해 깨어 있나니</p></div>
+    <p class="note">제자들이 함께 모였고 다스리는 자들에게 복종해야 하므로, 출석·등록하지 않으면 불복종이며 구원이 없다고 함.</p>
+  </div>
+</article></main>
+<div class="section-label"><span>반박 구절 · Pauline grace / right division</span></div>
+<main class="grid"><article class="card">
+  <div class="card-header"><span class="card-num">01</span><span class="card-ref">Ephesians 2:8–9; 1:13–14<br><em>믿을 때 성령으로 봉인됨 · 4절</em></span></div>
+  <div class="card-body">
+    <div class="kjv grace"><p class="kjv-label">반박 · Refute · KJV</p><p>For by grace are ye saved through faith… after that ye heard the word of truth, the gospel of your salvation: in whom also after that ye believed, ye were sealed with that holy Spirit of promise, Which is the earnest of our inheritance.</p></div>
+    <div class="ko"><p class="ko-label">흠정역</p><p>너희가 믿음을 통해 은혜로 구원을 받았나니… 너희도 진리의 말씀 곧 너희의 구원의 복음을 들은 뒤에 그분을 신뢰하였고 너희가 믿은 뒤에 또한 그분 안에서 약속의 저 거룩하신 영으로 봉인되었느니라. 이 영께서는 값 주고 사신 그 소유물이 구속을 받기까지 우리의 상속 유업의 보증이 되사</p></div>
+    <p class="note">구원은 등록 절차가 아니라 복음을 듣고 믿은 뒤에 약속의 거룩하신 영으로 봉인되는 것이다. 그 봉인이 상속 유업의 보증임.</p>
+  </div>
+</article>
+<article class="card">
+  <div class="card-header"><span class="card-num">02</span><span class="card-ref">1 Corinthians 12:13; Colossians 2:10<br><em>한 성령으로 한 몸 안으로 침례 · 2절</em></span></div>
+  <div class="card-body">
+    <div class="kjv grace"><p class="kjv-label">반박 · Refute · KJV</p><p>For by one Spirit are we all baptized into one body, whether we be Jews or Gentiles, whether we be bond or free; and have been all made to drink into one Spirit… And ye are complete in him, which is the head of all principality and power.</p></div>
+    <div class="ko"><p class="ko-label">흠정역</p><p>우리가 유대인이나 이방인이나 매인 자나 자유로운 자나 다 한 성령에 의해 침례를 받아 한 몸 안으로 들어갔고 다 한 성령을 마시게 하셨느니라… 또 너희는 모든 정사와 권능의 머리이신 그분 안에서 완벽하며</p></div>
+    <p class="note">그리스도의 몸에 들어가는 침례는 교회 명부가 아니라 성령께서 행하시는 일이다. 성도는 이미 그분 안에서 완전함.</p>
+  </div>
+</article>
+<article class="card">
+  <div class="card-header"><span class="card-num">03</span><span class="card-ref">Acts 16:30–31; Romans 10:9–13; John 3:16<br><em>주 예수를 믿으면 구원 / 누구든지 주의 이름을 부르면 · 8절</em></span></div>
+  <div class="card-body">
+    <div class="kjv grace"><p class="kjv-label">반박 · Refute · KJV</p><p>Sirs, what must I do to be saved? And they said, Believe on the Lord Jesus Christ, and thou shalt be saved, and thy house… If thou shalt confess with thy mouth the Lord Jesus, and shalt believe in thine heart… thou shalt be saved… For whosoever shall call upon the name of the Lord shall be saved… that whosoever believeth in him should not perish, but have everlasting life.</p></div>
+    <div class="ko"><p class="ko-label">흠정역</p><p>선생님들이여, 내가 무엇을 하여야 구원을 받으리이까? 하거늘 그들이 이르되, 주 예수 그리스도를 믿으라. 그리하면 네가 구원을 받고 네 집이 받으리라… 네 입으로 주 예수님을 시인하고… 믿으면 구원을 받으리니… 누구든지 주의 이름을 부르는 자는 구원을 받으리라… 이것은 누구든지 그를 믿으면 멸망하지 않고 영존하는 생명을 얻게 하려 하심이라.</p></div>
+    <p class="note">간수가 물은 것은 어느 교회에 등록하리이까가 아니라 ‘무엇을 하여야 구원을 받으리이까’였고, 대답은 ‘주 예수 그리스도를 믿으라’였다.</p>
+  </div>
+</article>
+<article class="card">
+  <div class="card-header"><span class="card-num">04</span><span class="card-ref">Luke 23:42–43; Titus 3:5<br><em>등록할 겨를 없는 강도 / 의로운 행위로 아니하심 · 3절</em></span></div>
+  <div class="card-body">
+    <div class="kjv grace"><p class="kjv-label">반박 · Refute · KJV</p><p>And he said unto Jesus, Lord, remember me when thou comest into thy kingdom. And Jesus said unto him, Verily I say unto thee, To day shalt thou be with me in paradise… Not by works of righteousness which we have done, but according to his mercy he saved us.</p></div>
+    <div class="ko"><p class="ko-label">흠정역</p><p>그가 예수님께 이르되, 주여, 주께서 주의 왕국으로 들어오실 때에 나를 기억하소서, 하매 예수님께서 그에게 이르시되, 진실로 내가 네게 이르노니, 오늘 네가 나와 함께 낙원에 있으리라… 그분께서 우리를 구원하시되 우리가 행한 의로운 행위로 하지 아니하시고 오직 자신의 긍휼에 따라</p></div>
+    <p class="note">십자가의 강도는 교회 명부에 오르지 못했으나 그 날 낙원에 있었다. 구원은 우리가 행한 의로운 행위로 되지 않음.</p>
+  </div>
+</article>
+<article class="card">
+  <div class="card-header"><span class="card-num">05</span><span class="card-ref">1 Corinthians 1:12–13; Galatians 1:10<br><em>바울에게·아볼로에게 속한 것이 아님 · 3절</em></span></div>
+  <div class="card-body">
+    <div class="kjv grace"><p class="kjv-label">반박 · Refute · KJV</p><p>Every one of you saith, I am of Paul; and I of Apollos; and I of Cephas; and I of Christ. Is Christ divided? was Paul crucified for you?… For do I now persuade men, or God? or do I seek to please men? for if I yet pleased men, I should not be the servant of Christ.</p></div>
+    <div class="ko"><p class="ko-label">흠정역</p><p>너희가 저마다 이르기를, 나는 바울에게, 나는 아볼로에게, 나는 게바에게, 나는 그리스도께 속하였다, 하는도다. 그리스도께서 나뉘셨느냐? 바울이 너희를 위해 십자가에 못 박혔느냐?… 내가 이제 사람들을 설득하느냐, 하나님을 설득하느냐? 혹은 사람들이 기뻐하도록 내가 구하느냐? 내가 아직도 사람들을 기쁘게 하면 그리스도의 종이 아니니라.</p></div>
+    <p class="note">그리스도께서 나뉘셨느냐. 특정 교회의 등록명부에 속한 것이 구원이 아니며, 사람을 기쁘게 하려 하면 그리스도의 종이 아님.</p>
+  </div>
+</article></main>
+<section class="judge">
+  <h2>Judgement</h2>
+  <p>교회에 등록하고 출석하지 않으면 구원받지 못한다는 주장은, 지역 교회의 건전한 모임·권면을 칭의의 조건으로 바꾼 것이다. 행 2:47의 ‘더하여짐’의 주어는 주님이시며, 그 더하여짐의 근거는 구원받아야 할 사람들이 복음을 받은 것이다. 몸에 들어가는 침례는 성령께서 행하시고(고전 12:13), 봉인은 믿을 때 이미 주어진다(엡 1:13). 명부와 출석부는 양 떼를 돌보는 질서일 수 있으나, 낙원에 들어간 강도(눅 23:43)와 빌립보 간수(행 16:31)가 보여 주듯 구원의 문은 등록 창구가 아니다.</p>
+  <h2>Insight · 딤후 2:15</h2>
+  <p>바르게 나누면 ‘그리스도의 몸’(성령이 연합시키신 한 몸)과 ‘지역 교회’(모이고 권면하고 징계하는 회중)가 혼동되지 않는다. 출석하지 않는 것을 가볍게 여기는 것은 히 10:25에 어긋나고, 출석·등록을 구원의 값으로 요구하는 것은 엡 2:8-9에 어긋난다. 성도는 몸과 연결되도록 모이고 권면받아야 하나, 그 연결의 생명선은 교적부가 아니라 그리스도의 십자가와 성령의 침례이다.</p>
+</section>
+<footer class="footer-banner">
+  <p>다섯 주장은 형식은 달라도 같은 오류입니다. 이스라엘에게 주신 율법, 왕국 백성에게 하신 심판, 지역 교회를 세우는 권면을 몸의 칭의 조건으로 한 덩어리로 묶습니다. 구원은 주 예수 그리스도를 믿음이요, 안식일·십일조·구제·예배·출석은 그 믿음이 낳는 열매이거나 다른 경륜의 규례이지, 구원을 사는 값이 아닙니다.</p>
+  <blockquote>"Study to shew thyself approved unto God, a workman that needeth not to be ashamed, rightly dividing the word of truth."<cite>2 Timothy 2:15 KJV</cite></blockquote>
+</footer>
+<div class="page-footer"><p>Rightly Dividing the Word of Truth · 5 Projects · KJV + 흠정역</p></div>
+</body>
+</html>
