@@ -17,11 +17,13 @@
         .stat-label { color: #888; font-size: 0.9rem; }
         .activity-feed { grid-column: 1 / -1; background: #151515; border: 1px solid #333; border-radius: 12px; padding: 25px; }
         .activity-feed h2 { color: #d4af37; text-align: center; margin-bottom: 20px; }
-        .feed-item { display: flex; justify-content: space-between; padding: 15px 0; border-bottom: 1px solid #222; }
+        .feed-item { display: flex; justify-content: space-between; padding: 20px 0; border-bottom: 1px solid #222; }
         .feed-item:last-child { border-bottom: none; }
-        .feed-detail { text-align: left; }
-        .feed-detail b { color: #fff; }
-        .status-tag { background: #d4af37; color: #000; padding: 2px 8px; border-radius: 4px; font-size: 0.7rem; font-weight: bold; text-transform: uppercase; }
+        .feed-detail { text-align: left; max-width: 80%; }
+        .feed-detail b { color: #fff; font-size: 1rem; }
+        .verse-text { display: block; color: #d4af37; font-style: italic; font-size: 1.1rem; margin: 5px 0; }
+        .verse-ref { color: #aaa; font-size: 0.9rem; font-weight: bold; }
+        .status-tag { background: #d4af37; color: #000; padding: 2px 8px; border-radius: 4px; font-size: 0.7rem; font-weight: bold; text-transform: uppercase; height: fit-content; }
         footer { margin-top: auto; padding: 20px; color: #555; font-size: 0.8rem; }
     </style>
 </head>
@@ -36,9 +38,32 @@
         <div class="card"><h2>Growth Stage</h2><div class="stat">Baby &rarr; Adult</div><div class="stat-label">Current Focus: The Foundation</div></div>
         <div class="activity-feed">
             <h2>Live Activity Log</h2>
-            <div class="feed-item"><div class="feed-detail"><b>Confusion:</b> "I feel forgotten by God"<br><b>Answer:</b> Isaiah 49:15</div><div class="status-tag">Deployed</div></div>
-            <div class="feed-item"><div class="feed-detail"><b>Confusion:</b> "Fear of the future"<br><b>Answer:</b> John 14:27</div><div class="status-tag">Deployed</div></div>
-            <div class="feed-item"><div class="feed-detail"><b>Confusion:</b> "Am I too broken?"<br><b>Answer:</b> Romans 5:8</div><div class="status-tag">Deployed</div></div>
+            <div id="feed-container">
+                <div class="feed-item">
+                    <div class="feed-detail">
+                        <b>Confusion:</b> "I feel forgotten by God"<br/>
+                        <span class="verse-text">"Can a woman forget her sucking child, that she should not have compassion on the son of her womb? yea, though she forget, yet will I not forget thee."</span>
+                        <span class="verse-ref">Isaiah 49:15</span>
+                    </div>
+                    <div class="status-tag">Deployed</div>
+                </div>
+                <div class="feed-item">
+                    <div class="feed-detail">
+                        <b>Confusion:</b> "Fear of the future"<br/>
+                        <span class="verse-text">"Peace I leave with you, my peace I give unto you... Let not your heart be troubled, neither let it be afraid."</span>
+                        <span class="verse-ref">John 14:27</span>
+                    </div>
+                    <div class="status-tag">Deployed</div>
+                </div>
+                <div class="feed-item">
+                    <div class="feed-detail">
+                        <b>Confusion:</b> "Am I too broken?"<br/>
+                        <span class="verse-text">"But God commendeth his love toward us, that while we were yet sinners, Christ died for us."</span>
+                        <span class="verse-ref">Romans 5:8</span>
+                    </div>
+                    <div class="status-tag">Deployed</div>
+                </div>
+            </div>
         </div>
     </div>
     <footer>&copy; 2026 Rightly Dividing KJV | Automated by the Truth Engine</footer>
