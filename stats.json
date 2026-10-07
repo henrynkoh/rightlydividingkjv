@@ -1,0 +1,28 @@
+{
+  "updated": "2026-10-07T21:05:00Z",
+  "youtube": {
+    "channel": "https://www.youtube.com/@rightlydividingkjv",
+    "subscribers": 16,
+    "subscribers_gained_28d": 7,
+    "videos": "3.9K",
+    "views_28d": 7853,
+    "watch_hours_28d": 227.7,
+    "views_48h": 727,
+    "range": "Sep 9 – Oct 6, 2026"
+  },
+  "blogger": {
+    "blog": "https://rightlydividingkjv.blogspot.com",
+    "posts": 527,
+    "views_all_time": 1936,
+    "views_today": 8,
+    "views_yesterday": 23,
+    "views_this_month": 101,
+    "views_last_month": 1469,
+    "views_7d": [["Sep 30",18],["Oct 1",17],["Oct 2",10],["Oct 3",6],["Oct 4",19],["Oct 5",23],["Oct 6",8]]
+  },
+  "church_life": {
+    "questions": 48,
+    "verses": 251,
+    "page": "https://henrynkoh.github.io/rightlydividingkjv/church-life-kjv.html"
+  }
+}
