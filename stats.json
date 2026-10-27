@@ -1,24 +1,53 @@
 {
-  "updated": "2026-10-07T21:05:00Z",
+  "updated": "2026-10-27T12:52:48Z",
   "youtube": {
     "channel": "https://www.youtube.com/@rightlydividingkjv",
-    "subscribers": 16,
-    "subscribers_gained_28d": 7,
-    "videos": "3.9K",
-    "views_28d": 7853,
-    "watch_hours_28d": 227.7,
-    "views_48h": 727,
-    "range": "Sep 9 – Oct 6, 2026"
+    "subscribers": 18,
+    "subscribers_gained_28d": 4,
+    "videos": "5.2K",
+    "views_28d": 6790,
+    "watch_hours_28d": 191.2,
+    "views_48h": 367,
+    "range": "Sep 29 – Oct 26, 2026"
   },
   "blogger": {
     "blog": "https://rightlydividingkjv.blogspot.com",
-    "posts": 527,
-    "views_all_time": 1936,
-    "views_today": 8,
-    "views_yesterday": 23,
-    "views_this_month": 101,
+    "posts": 621,
+    "views_all_time": 2163,
+    "views_today": 3,
+    "views_yesterday": 22,
+    "views_this_month": 328,
     "views_last_month": 1469,
-    "views_7d": [["Sep 30",18],["Oct 1",17],["Oct 2",10],["Oct 3",6],["Oct 4",19],["Oct 5",23],["Oct 6",8]]
+    "views_7d": [
+      [
+        "Oct 20",
+        4
+      ],
+      [
+        "Oct 21",
+        38
+      ],
+      [
+        "Oct 22",
+        1
+      ],
+      [
+        "Oct 23",
+        4
+      ],
+      [
+        "Oct 24",
+        19
+      ],
+      [
+        "Oct 25",
+        22
+      ],
+      [
+        "Oct 26",
+        3
+      ]
+    ]
   },
   "church_life": {
     "questions": 48,
