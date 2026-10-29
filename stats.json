@@ -1,32 +1,24 @@
 {
-  "updated": "2026-10-27T12:52:48Z",
+  "updated": "2026-10-29T13:06:07Z",
   "youtube": {
     "channel": "https://www.youtube.com/@rightlydividingkjv",
-    "subscribers": 18,
+    "subscribers": 19,
     "subscribers_gained_28d": 4,
     "videos": "5.2K",
-    "views_28d": 6790,
-    "watch_hours_28d": 191.2,
-    "views_48h": 367,
-    "range": "Sep 29 – Oct 26, 2026"
+    "views_28d": 6822,
+    "watch_hours_28d": 249,
+    "views_48h": 505,
+    "range": "Oct 1 – 28, 2026"
   },
   "blogger": {
     "blog": "https://rightlydividingkjv.blogspot.com",
     "posts": 621,
-    "views_all_time": 2163,
-    "views_today": 3,
-    "views_yesterday": 22,
-    "views_this_month": 328,
+    "views_all_time": 2167,
+    "views_today": 0,
+    "views_yesterday": 1,
+    "views_this_month": 332,
     "views_last_month": 1469,
     "views_7d": [
-      [
-        "Oct 20",
-        4
-      ],
-      [
-        "Oct 21",
-        38
-      ],
       [
         "Oct 22",
         1
@@ -45,7 +37,15 @@
       ],
       [
         "Oct 26",
-        3
+        6
+      ],
+      [
+        "Oct 27",
+        1
+      ],
+      [
+        "Oct 28",
+        0
       ]
     ]
   },
